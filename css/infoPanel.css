@@ -20,8 +20,11 @@
     width:50%;
     float: left;
     height:100%;
-    background-color: rgb(1, 103, 255);
+    /* background-color: rgb(1, 103, 255); */
     text-align: center;
+}
+#monsterCountAndName{
+    line-height: 88px;
 }
 #infoRight{
     width:25%;
@@ -30,14 +33,23 @@
     height:100%;
     /* background-color: rgb(199, 27, 133); */
 }
-.infoImage{
+.infoImageRight{
+    width:20px;
+    height:20px;
+    float: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-left: 5px;
+}
+.infoImageLeft{
     width:20px;
     height:20px;
     float: left;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    margin-right: 3px;
+    margin-right: 5px;
 }
 .infoRow{
     padding-left: 50%;

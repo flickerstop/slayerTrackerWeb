@@ -75,13 +75,13 @@ body {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
+    bottom: 0px;
     visibility: hidden;
     width: 100px;
     background-color: black;
     color: #fff;
     text-align: center;
     padding: 5px 0;
-    border-radius: 6px;
     opacity: 0.8;
     font-size: 8pt;
  

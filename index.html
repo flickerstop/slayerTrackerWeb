@@ -6,51 +6,66 @@
         <link rel="stylesheet" href="./css/infoPanel.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
-        <script src="./js/settings.js"></script>
-        <script src="./js/main.js"></script>
         <script src="./js/monsterSelect.js"></script>
+        <script src="./js/stateManager.js"></script>
+        <script src="./js/main.js"></script>
     </head>
     <body>
         <div id="mainPanel">
             <div id="topBar">
                 <p id="versionNum"></p>
             </div>
-            <div id="infoPanel">
-                <div id="infoLeft">
-                    <div class="infoRow">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/waterRune.png")'></div>
-                        <div>test</div>
+            <div id="monsterSelect">
+                <div id="infoPanel">
+                    <div id="infoLeft">
+                        <div class="infoRow">
+                            <div class="infoImageRight" style='background-image:url("./images/itemImages/waterRune.png")'></div>
+                            <div id="waterRunesLeft" style="text-align:right;">test</div>
+                        </div>
+                        <div class="infoRow">
+                            <div class="infoImageRight" style='background-image:url("./images/itemImages/bloodRune.png")'></div>
+                            <div id="bloodRunesLeft" style="text-align:right;">test</div>
+                        </div>
+                        <div class="infoRow">
+                            <div class="infoImageRight" style='background-image:url("./images/itemImages/deathRune.png")'></div>
+                            <div id="deathRunesLeft" style="text-align:right;">test</div>
+                        </div>
                     </div>
-                    <div class="infoRow">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/bloodRune.png")'></div>
-                        <div>test</div>
+                    <div id="infoCenter">
+                        <h2 style="padding-bottom:5px;">Number of monsters</h1>
+                        <input id="monsterCountSpinner" value="0" style="font-size:18pt" type="number" name="quantity" min="1" max="300">
                     </div>
-                    <div class="infoRow">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/deathRune.png")'></div>
-                        <div>test</div>
+                    <div id="infoRight">
+                        <div class="infoRow" style="padding-left:0px">
+                            <div class="infoImageLeft" style='background-image:url("./images/itemImages/chaosRune.png")'></div>
+                            <div id="chaosRunesLeft">test</div>
+                        </div>
+                        <div class="infoRow" style="padding-left:0px">
+                            <div class="infoImageLeft" style='background-image:url("./images/itemImages/cannonBall.png")'></div>
+                            <div id="cannonballsLeft">test</div>
+                        </div>
+                        <div class="infoRow" style="padding-left:0px">
+                            <div class="infoImageLeft" style='background-image:url("./images/itemImages/trident.png")'></div>
+                            <div id="tridentChargesleft">test</div>
+                        </div>
                     </div>
                 </div>
-                <div id="infoCenter">
-                    <h3>Number of monsters</h1>
-                    <input type="number" name="quantity" min="1" max="300">
-                </div>
-                <div id="infoRight">
-                    <div class="infoRow" style="padding-left:0px">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/chaosRune.png")'></div>
-                        <div>test</div>
-                    </div>
-                    <div class="infoRow" style="padding-left:0px">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/cannonBall.png")'></div>
-                        <div>test</div>
-                    </div>
-                    <div class="infoRow" style="padding-left:0px">
-                        <div class="infoImage" style='background-image:url("./images/itemImages/trident.png")'></div>
-                        <div>test</div>
-                    </div>
+                <div id="monsterSelectPanel">
+                    
                 </div>
             </div>
-            <div id="monsterSelectPanel">
-                
+            <div id="onTask" style="display:none">
+                <div id="infoPanel">
+                    <div id="infoLeft">
+
+                    </div>
+                    <div id="infoCenter">
+                        <h2 id="monsterCountAndName">### Black Dragons</h1>
+                    </div>
+                    <div id="infoRight">
+
+                    </div>
+                </div>
             </div>
         </div>
     </body>
