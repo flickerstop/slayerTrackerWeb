@@ -20,12 +20,14 @@ function changeState(){
 }
 
 function returnHome(){
+    $('#monsterCountSpinner').val(0);
     currentState = 0;
     changeState();
 }
 
 function goOnTask(monsterName){
     var monsterCount = $('#monsterCountSpinner').val();
+    switchTaskType(0);
     if(monsterCount == 0){
         d3.select("#monsterCountSpinner")
         .transition().duration(0)
@@ -36,6 +38,7 @@ function goOnTask(monsterName){
     }
     d3.select("#monsterCountSpinner").style("background-color",null);
     d3.select("#monsterCountAndName").text(monsterCount + " " + monsterName)
+    resetTrips();
     currentState = 1;
     changeState();
 }

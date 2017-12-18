@@ -4,8 +4,10 @@
         <script src="./js/externalLibs/d3.js"></script>
         <link rel="stylesheet" href="./css/main.css">
         <link rel="stylesheet" href="./css/infoPanel.css">
+        <link rel="stylesheet" href="./css/onTask.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
+        <script src="./js/onTask.js"></script>
         <script src="./js/monsterSelect.js"></script>
         <script src="./js/stateManager.js"></script>
         <script src="./js/main.js"></script>
@@ -56,14 +58,69 @@
             </div>
             <div id="onTask" style="display:none">
                 <div id="infoPanel">
-                    <div id="infoLeft">
-
-                    </div>
+                    <div id="infoLeft"></div>
                     <div id="infoCenter">
                         <h2 id="monsterCountAndName">### Black Dragons</h1>
                     </div>
-                    <div id="infoRight">
-
+                    <div id="infoRight"></div>
+                </div>
+                <div id="onTaskInputs">
+                    <div id="tripInputs">
+                        <h3 style="text-align:center;padding-bottom:5px;">Trip Profit</h3>
+                        <button id="addTripButton" onclick="addTrip()">Add Trip</button>
+                        <div id="tripFields">
+                            
+                        </div>
+                    </div>
+                    <div id="otherInfo">
+                        <h3 style="text-align:center;padding-bottom:5px;">Task Type</h3>
+                        <form id="taskType" style="padding-left:30%">
+                            <input onclick="switchTaskType(0)" type="radio" name="taskType" value="Normal" checked> Normal<br>
+                            <input onclick="switchTaskType(1)" type="radio" name="taskType" value="Cannon"> Cannon<br>
+                            <input onclick="switchTaskType(2)" type="radio" name="taskType" value="Trident"> Trident<br>                            
+                            <input onclick="switchTaskType(3)" type="radio" name="taskType" value="Burst"> Ice Burst<br>
+                            <input onclick="switchTaskType(4)" type="radio" name="taskType" value="BurstCannon"> Ice Burst and Cannon<br>
+                            <input onclick="switchTaskType(5)" type="radio" name="taskType" value="Barrage"> Ice Barrage<br>
+                            <input onclick="switchTaskType(6)" type="radio" name="taskType" value="BarrageCannon"> Ice Barrage and Cannon
+                        </form>
+                        <div id="itemsLeftInputs">
+                            <div id="cannonballsLeftRow" class="tripRow">
+                                <p class="tripText">Cannonballs Left:</p>   
+                                <input class="tripInput" id="cannonballsLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                            <div id="chargesLeftRow" class="tripRow">
+                                <p class="tripText">Charges Left:</p>   
+                                <input class="tripInput" id="chargesLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                            <div id="waterRunesLeftRow" class="tripRow">
+                                <p class="tripText">Water Runes Left:</p>   
+                                <input class="tripInput" id="waterRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                            <div id="bloodRunesLeftRow" class="tripRow">
+                                <p class="tripText">Blood Runes Left:</p>   
+                                <input class="tripInput" id="bloodRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                            <div id="deathRunesLeftRow" class="tripRow">
+                                <p class="tripText">Death Runes Left:</p>   
+                                <input class="tripInput" id="deathRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                            <div id="chaosRunesLeftRow" class="tripRow">
+                                <p class="tripText">Chaos Runes Left:</p>   
+                                <input class="tripInput" id="chaosRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div id="endTaskPanel">
+                        <div id="taskTimer">
+                            <div id="taskTimerTime">00:00:00</div>
+                            <div id="taskTimerButtons">
+                                <button onclick="startTimer()" id="startTaskTimer">Start Timer</button>
+                                <button onclick="stopTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
+                            </div>
+                        </div>
+                        <button id="endTaskButton">
+                            End Task
+                        </button>
                     </div>
                 </div>
             </div>

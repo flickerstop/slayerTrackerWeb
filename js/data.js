@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.2";   // Version Number
+var versionNum = "0.0.3";   // Version Number
 
 
 /////////////////////////
