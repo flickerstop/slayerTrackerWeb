@@ -27,6 +27,8 @@ function returnHome(){
 
 function goOnTask(monsterName){
     var monsterCount = $('#monsterCountSpinner').val();
+    taskCount = monsterCount;
+    taskMonster = monsterName;
     switchTaskType(0);
     if(monsterCount == 0){
         d3.select("#monsterCountSpinner")

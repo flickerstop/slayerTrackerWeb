@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.3";   // Version Number
+var versionNum = "0.0.5";   // Version Number
 
 
 /////////////////////////
@@ -17,7 +17,8 @@ var player = {
         blood:0
     },
     tridentCharges:0,
-    monsters:{}
+    monsters:{},
+    tasks:{}
 };
 
 
@@ -79,5 +80,13 @@ function save(){
         localStorage.setItem("playerData", JSON.stringify(player));
     } else {
         window.alert("Web Storage is not supported!");
+    }
+}
+
+function findMonster(monsterName){
+    for(i = 0; i < monsters.length; i++){
+        if(monsters[i].name == monsterName){
+            return monsters[i];
+        }
     }
 }
