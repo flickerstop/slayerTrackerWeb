@@ -8,7 +8,7 @@ function addMonsterCard(monster){
         .attr('id',"monsterCard")
         .attr('class',"tooltip")
         .on("click",onMonsterClick(monster.name))
-        .attr("style","background-image: url(\"https://github.com/flickerstop/slayerTrackerWeb/blob/master/images/monsters/"+monster.imgUrl+"\")")
+        .attr("style","background-image: url(\"https://raw.githubusercontent.com/flickerstop/slayerTrackerWeb/master/images/monsters/"+monster.imgUrl+"\")")
         .append('span')
         .attr("class","tooltiptext")
         .html(monster.name);
