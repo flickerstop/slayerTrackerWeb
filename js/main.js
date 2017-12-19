@@ -4,11 +4,9 @@ $( document ).ready(function() {
     getGEPrices();
     d3.select("#versionNum").text(versionNum);
     load();
+    loadMonsters();
+        
     
-
-    for(i = 0; i<monsters.length; i++){
-        addMonsterCard(monsters[i]);
-    }
     setResources();
     changeState(0);
 

@@ -71,9 +71,15 @@ function setPrices(){
 // monsters
 var monsters;
 
-$.getJSON("./js/json/monsters.json", function(json) {
-    monsters = json;
-});
+function loadMonsters(){
+    $.getJSON("./js/json/monsters.json", function(json) {
+        monsters = json;
+
+        for(i = 0; i<monsters.length; i++){
+            addMonsterCard(monsters[i]);
+        }
+    });
+}
 
 ////////////////////////
 // Set runes left
