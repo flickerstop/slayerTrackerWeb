@@ -35,28 +35,16 @@ var prices = {
 
 var gePrices;
 function getGEPrices(){
-    // jQuery.ajaxPrefilter(function(options) {
-    //     if (options.crossDomain && jQuery.support.cors) {
-    //         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-    //     }
-    // });
-    // $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
-    //     gePrices = json;
-    //     setPrices();
-    // });
-    $(document).ready(function() {
-        $.ajax({
-            url: 'https://rsbuddy.com/exchange/summary.json',
-            type: 'GET',
-            dataType: 'json',
-            success: function() { alert('hello!'); },
-            error: function() { alert('boo!'); },
-            beforeSend: setHeader
-        });
+    jQuery.ajaxPrefilter(function(options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+        }
     });
-    function setHeader(xhr) {
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-      }
+    $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
+        gePrices = json;
+        setPrices();
+    });
+
     
 }
 
