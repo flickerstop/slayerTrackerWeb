@@ -4,10 +4,9 @@
 // 0 - Slayer monster select 
 // 1 - On task
 // 2 - settings
-var currentState = 0;
 
 
-function changeState(){
+function changeState(currentState){
     switch(currentState){
         case 0:
             d3.select("#monsterSelect").style('display', null);
@@ -29,8 +28,7 @@ function changeState(){
 
 function returnHome(){
     $('#monsterCountSpinner').val(0);
-    currentState = 0;
-    changeState();
+    changeState(0);
 }
 
 function goOnTask(monsterName){
@@ -48,10 +46,9 @@ function goOnTask(monsterName){
     }
     d3.select("#monsterCountSpinner").style("background-color",null);
     d3.select("#monsterCountAndName").text(monsterCount + " " + monsterName)
-    currentState = 1;
-    changeState();
+    changeState(1);
 }
 
 function switchToSettings(){
-
+    changeState(2);
 }

@@ -9,5 +9,7 @@ $( document ).ready(function() {
     }
     setResources();
     changeState();
+
+    changeState(2);
 });
 

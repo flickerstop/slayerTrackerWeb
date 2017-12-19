@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.6";   // Version Number
+var versionNum = "0.0.7";   // Version Number
 
 
 /////////////////////////
@@ -33,11 +33,19 @@ var prices = {
     tridentCharge: -1,
 }
 
+var gePrices;
+function getGEPrices(){
+    $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
+        gePrices = json;
+    });
+}
+
 ////////////////////////
 // monsters
 var monsters;
+
 $.getJSON("./js/json/monsters.json", function(json) {
-    monsters = json; // this will show the info it in firebug console
+    monsters = json;
 });
 
 ////////////////////////

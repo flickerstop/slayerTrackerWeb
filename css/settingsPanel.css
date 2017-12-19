@@ -1,0 +1,31 @@
+#settingsPanel h2{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#settingsContainer{
+    width: 100%;
+    background-color: pink;
+    height: 100%;
+}
+
+#settingsRow{
+    height: 40px;
+    width: 100%;
+    background-color: gold;
+    float: left;
+}
+
+#settingsText{
+    background-color: blue;
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+#settingsInput{
+    background-color: red;
+    width: 50%;
+    height: 100%;
+}
