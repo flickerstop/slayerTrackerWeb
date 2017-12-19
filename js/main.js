@@ -10,9 +10,7 @@ $( document ).ready(function() {
         addMonsterCard(monsters[i]);
     }
     setResources();
-    changeState();
-
-    changeState(2);
+    changeState(0);
 
 });
 

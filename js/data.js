@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.8";   // Version Number
+var versionNum = "0.0.9";   // Version Number
 
 
 /////////////////////////
@@ -35,15 +35,28 @@ var prices = {
 
 var gePrices;
 function getGEPrices(){
-    jQuery.ajaxPrefilter(function(options) {
-        if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-        }
+    // jQuery.ajaxPrefilter(function(options) {
+    //     if (options.crossDomain && jQuery.support.cors) {
+    //         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+    //     }
+    // });
+    // $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
+    //     gePrices = json;
+    //     setPrices();
+    // });
+    $(document).ready(function() {
+        $.ajax({
+            url: 'https://rsbuddy.com/exchange/summary.json',
+            type: 'GET',
+            dataType: 'json',
+            success: function() { alert('hello!'); },
+            error: function() { alert('boo!'); },
+            beforeSend: setHeader
+        });
     });
-    $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
-        gePrices = json;
-        setPrices();
-    });
+    function setHeader(xhr) {
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+      }
     
 }
 
