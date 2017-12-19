@@ -22,11 +22,6 @@ function addTrip(){
     .attr("value","0");
 }
 
-function resetTrips(){
-    numberOfTrips = 0;
-    d3.select("#tripFields").html("");
-}
-
 function startTimer(){
     d3.select("#startTaskTimer").attr("disabled", "disabled");
     d3.select("#stopTaskTimer").attr("disabled", null);
@@ -44,6 +39,9 @@ function stopTimer(){
     
 function runClock() {
     var today = new Date();
+    if(!isClockRunning){
+        return;
+    }
 
     d3.select("#taskTimerTime").text(
         msToTime(
@@ -158,32 +156,32 @@ function saveTask(){
     switch(taskType){
         case 1: // Cannon
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
-            return;
+            break;
         case 2: // Trident
             chargesUsed = player.tridentCharges - parseInt($("#chargesLeftInput").val());
-            return;
+            break;
         case 3: // Burst
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
-            return;
+            break;
         case 4: // Burst Cannon
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
-            return;
+            break;
         case 5: // Barrage
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
-            return;
+            break;
         case 6: // Barrage Cannon
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
-            return;
+            break;
     }
     ///////////////////
     // Resource Cost
@@ -238,4 +236,30 @@ function saveTask(){
     }
 
     console.log(task);
+}
+
+function resetOnTask(){
+    if(isClockRunning){
+        stopTimer();
+    }
+
+    numberOfTrips = 0;
+    d3.select("#tripFields").html("");
+
+    $("#waterRunesLeftInput").val(0);
+    $("#deathRunesLeftInput").val(0);
+    $("#bloodRunesLeftInput").val(0);
+    $("#cannonballsLeftInput").val(0);
+    $("#chaosRunesLeftInput").val(0);
+    $("#chargesLeftInput").val(0);
+
+    switchTaskType(0);
+    document.getElementById('defaultTaskType').checked = true;
+
+    d3.select("#taskTimerTime").text("00:00:00");
+    endTime = null;
+    startTime = null;
+    isClockRunning = false;
+    taskCount = 0;
+    taskMonster = "null";
 }

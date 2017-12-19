@@ -75,7 +75,7 @@
                     <div id="otherInfo">
                         <h3 style="text-align:center;padding-bottom:5px;">Task Type</h3>
                         <form id="taskType" style="padding-left:30%">
-                            <input onclick="switchTaskType(0)" type="radio" name="taskType" value="Normal" checked> Normal<br>
+                            <input id="defaultTaskType" onclick="switchTaskType(0)" type="radio" name="taskType" value="Normal" checked> Normal<br>
                             <input onclick="switchTaskType(1)" type="radio" name="taskType" value="Cannon"> Cannon<br>
                             <input onclick="switchTaskType(2)" type="radio" name="taskType" value="Trident"> Trident<br>                            
                             <input onclick="switchTaskType(3)" type="radio" name="taskType" value="Burst"> Ice Burst<br>
@@ -123,6 +123,9 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            <div id="settingsPanel" style="display:none">
+
             </div>
         </div>
     </body>
