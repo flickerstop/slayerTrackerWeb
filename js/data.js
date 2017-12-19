@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.7";   // Version Number
+var versionNum = "0.0.8";   // Version Number
 
 
 /////////////////////////
@@ -35,9 +35,35 @@ var prices = {
 
 var gePrices;
 function getGEPrices(){
+    jQuery.ajaxPrefilter(function(options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+        }
+    });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
         gePrices = json;
+        setPrices();
     });
+    
+}
+
+function findItem(name){
+    for(i = 0; i < 20000; i++){
+        if(gePrices[i] != null){
+            if(name.toUpperCase() == gePrices[i].name.toUpperCase()){
+                return gePrices[i];
+            }
+        }
+    }
+}
+
+function setPrices(){
+    prices.cannonball = findItem("cannonball").buy_average;
+    prices.waterRune = findItem("water rune").buy_average;
+    prices.chaosRune = findItem("chaos rune").buy_average;
+    prices.deathRune = findItem("death rune").buy_average;
+    prices.bloodRune = findItem("blood rune").buy_average;
+    //prices.bloodRune = findItem("blood rune");
 }
 
 ////////////////////////

@@ -1,8 +1,10 @@
 ////////////////
 // set version number
 $( document ).ready(function() {
+    getGEPrices();
     d3.select("#versionNum").text(versionNum);
     load();
+    
 
     for(i = 0; i<monsters.length; i++){
         addMonsterCard(monsters[i]);
@@ -11,5 +13,6 @@ $( document ).ready(function() {
     changeState();
 
     changeState(2);
+
 });
 
