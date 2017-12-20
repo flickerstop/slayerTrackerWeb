@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.9";   // Version Number
+var versionNum = "0.0.11";   // Version Number
 
 
 /////////////////////////
@@ -17,8 +17,11 @@ var player = {
         blood:0
     },
     tridentCharges:0,
-    monsters:{},
-    tasks:{}
+    monsters:[],
+    tasks:[],
+    farmRun:{
+        
+    }
 };
 
 
@@ -72,12 +75,14 @@ function setPrices(){
 var monsters;
 
 function loadMonsters(){
+    d3.select("#monsterSelectPanel").html("");
     $.getJSON("./js/json/monsters.json", function(json) {
         monsters = json;
 
-        for(i = 0; i<monsters.length; i++){
-            addMonsterCard(monsters[i]);
+        for(i = 0; i<player.monsters.length; i++){
+            addMonsterCard(player.monsters[i]);
         }
+        populateSettings();
     });
 }
 

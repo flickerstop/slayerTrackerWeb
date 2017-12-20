@@ -10,6 +10,7 @@
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
         <script src="./js/monsterSelect.js"></script>
+        <script src="./js/settings.js"></script>
         <script src="./js/stateManager.js"></script>
         <script src="./js/main.js"></script>
     </head>
@@ -17,6 +18,9 @@
         <div id="mainPanel">
             <div id="topBar">
                 <p id="versionNum"></p>
+                <div id="iconTray">
+                    <div id="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>
+                </div>
             </div>
             <div id="monsterSelect">
                 <div id="infoPanel">
@@ -129,16 +133,81 @@
                 <div id="osbuddyPrices"></div>
                 <h2>Settings</h2>
                 <div id="settingsContainer">
-                    <div id="settingsRow">
-                        <div id="settingsText">
+                    <!-- <div class="settingsRow">
+                        <div class="settingsText">
 
                         </div>
-                        <div id="settingsInput">
+                        <div class="settingsInput">
 
+                        </div>
+                    </div> -->
+                    <div class="settingsRow" style="text-align:center">
+                        These numbers are used for price calculations on tasks.<br>
+                        Input the number of items you have of that type.
+                    </div>
+                    <!-- RUNE OPTIONS -->
+                    <div id="runesOptions" style="float:left">
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Water Runes: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputWaterRunes" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Blood Runes: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputBloodRunes" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Death Runes: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputDeathRunes" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Chaos Runes: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputChaosRunes" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Trident Charges: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputTridentCharges" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
+                        </div>
+                        <div class="settingsRow">
+                            <div class="settingsText">
+                                Cannonballs: 
+                            </div>
+                            <div class="settingsInput">
+                                    <input id="settingsInputCannonballs" min="0" max="2147483647" type="number" value="0"> 
+                            </div>
                         </div>
                     </div>
-                    
+                    <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
+                    <!-- Monster Options -->
+                    <div class="settingsRow">
+                        <button id="addMonster" onclick="addBlankMonsterCard()" style="width:50%;margin-left:25%;height:100%"> CLICK ME<br>To add another Monster</button>
+                    </div> 
+                    <div id="monsterSelectOptions" style="width:100%;"><!-- filled in with javascript --></div>
+                    <div class="settingsRow"><!-- blank space to leave room --></div>
+                    <div class="settingsRow">
+                        <button onclick="saveSettings()" id="saveButton"> CLICK ME<br> To save your settings</button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </body>

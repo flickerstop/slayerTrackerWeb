@@ -9,6 +9,5 @@ $( document ).ready(function() {
     
     setResources();
     changeState(0);
-
 });
 

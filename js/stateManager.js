@@ -27,6 +27,8 @@ function changeState(currentState){
 }
 
 function returnHome(){
+    setResources();
+    loadMonsters();
     $('#monsterCountSpinner').val(0);
     changeState(0);
 }
