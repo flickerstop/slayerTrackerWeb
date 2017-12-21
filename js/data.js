@@ -1,7 +1,7 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.11";   // Version Number
-
+var versionNum = "0.0.12";   // Version Number
+var isOldVersion = false;
 
 /////////////////////////
 // Player Object
@@ -20,9 +20,14 @@ var player = {
     monsters:[],
     tasks:[],
     farmRun:{
-        
+        nextRunAt: 0,
+        lastRunAt: 0,
+        remind: true,
+        runs: []
     }
 };
+
+var defaultPlayer = player;
 
 
 ////////////////////////
@@ -112,8 +117,11 @@ function load(){
                 player = loadFile;
                 console.log("Loaded save file!")
             }else{
-                console.error("Old version number, save dropped!")
-                save();
+                // console.error("Old version number, save dropped!")
+                // save();
+                console.error("You are currently running an older save. Errors might happen!")
+                isOldVersion = true;
+                player = loadFile;
             }
         }
     } else {
@@ -134,5 +142,28 @@ function findMonster(monsterName){
         if(monsters[i].name == monsterName){
             return monsters[i];
         }
+    }
+}
+
+function wipeSave(num){
+    // player = defaultPlayer;
+    // save();
+    switch(num){
+        case 0:
+            console.error("Wiping player, not save!")
+            player = defaultPlayer;
+            returnHome();
+            break;
+        case 1:
+            console.error("Wiping player AND save!")
+            player = defaultPlayer;
+            returnHome();
+            save();
+            break;
+        default:
+            console.log("Use this function to wipe a save/player");
+            console.log("with argument \"0\" just player will be wiped.");
+            console.log("with argument \"1\" both player and save will be wiped.");
+            break;
     }
 }

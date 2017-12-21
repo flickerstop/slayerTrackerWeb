@@ -1,5 +1,7 @@
 <html>
     <head>
+        <title>Jr2254's Slayer Tracker</title>
+        <link rel="shortcut icon" type="image/png" href="./images/icons/favicon.ico"/>
         <script src="./js/externalLibs/jquery-3.2.1.min.js"></script>
         <script src="./js/externalLibs/d3.js"></script>
         <link rel="stylesheet" href="./css/main.css">
@@ -123,7 +125,7 @@
                                 <button onclick="stopTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
                             </div>
                         </div>
-                        <button id="endTaskButton">
+                        <button onclick="saveTask()" id="endTaskButton">
                             End Task
                         </button>
                     </div>

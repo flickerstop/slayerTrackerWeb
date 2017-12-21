@@ -138,7 +138,10 @@ function saveTask(){
     }
     /////////////////////
     // Time Taken
-    if(endTime == null){
+    if(endTime == null && startTime != null){
+        endTime = new Date();
+    }else if(endTime == null && startTime == null){
+        startTime = new Date();
         endTime = new Date();
     }
     var timeTaken = msToTime(endTime.getTime() - startTime.getTime());
@@ -156,31 +159,47 @@ function saveTask(){
     switch(taskType){
         case 1: // Cannon
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
+            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
             break;
         case 2: // Trident
             chargesUsed = player.tridentCharges - parseInt($("#chargesLeftInput").val());
+            player.tridentCharges = parseInt($("#chargesLeftInput").val());
             break;
         case 3: // Burst
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
+            player.runes.water = parseInt($("#waterRunesLeftInput").val());
+            player.runes.death = parseInt($("#deathRunesLeftInput").val());
+            player.runes.chaos = parseInt($("#chaosRunesLeftInput").val());
             break;
         case 4: // Burst Cannon
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
+            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
+            player.runes.water = parseInt($("#waterRunesLeftInput").val());
+            player.runes.death = parseInt($("#deathRunesLeftInput").val());
+            player.runes.chaos = parseInt($("#chaosRunesLeftInput").val());
             break;
         case 5: // Barrage
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
+            player.runes.water = parseInt($("#waterRunesLeftInput").val());
+            player.runes.death = parseInt($("#deathRunesLeftInput").val());
+            player.runes.blood = parseInt($("#bloodRunesLeftInput").val());
             break;
         case 6: // Barrage Cannon
             waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
             deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
             bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
+            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
+            player.runes.water = parseInt($("#waterRunesLeftInput").val());
+            player.runes.death = parseInt($("#deathRunesLeftInput").val());
+            player.runes.blood = parseInt($("#bloodRunesLeftInput").val());
             break;
     }
     ///////////////////
@@ -193,6 +212,13 @@ function saveTask(){
         deathRunes : deathUsed * prices.deathRune,
         chaosRunes : chaosUsed * prices.chaosRune
     }
+    var totalResourcePrice = 
+        cballsUsed * prices.cannonball+
+        chargesUsed * prices.tridentCharge+
+        waterUsed * prices.waterRune+
+        bloodUsed * prices.bloodRune+
+        deathUsed * prices.deathRune+
+        chaosUsed * prices.chaosRune;
     /////////////////
     // exp
     var exp = findMonster(taskMonster).slayerExp * taskCount;
@@ -227,15 +253,18 @@ function saveTask(){
             deathRunes : deathUsed,
             chaosRunes : chaosUsed
         },
-        resourcesPrice: resourcesPrice,
+        resourcesPrices: resourcesPrice,
+        resourcesPriceTotal : totalResourcePrice,
         timeTaken : timeTaken,
         timeTakenMS : timeTakenMS,
         gpMin: gpMin,
         xpMin: xpMin,
         dateCompleted: dateCompleted
     }
-
-    console.log(task);
+    player.tasks.push(task);
+    save();
+    returnHome();
+    //console.log(task);
 }
 
 function resetOnTask(){
