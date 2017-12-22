@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.12";   // Version Number
+var versionNum = "0.0.13";   // Version Number
 var isOldVersion = false;
 
 /////////////////////////
@@ -87,6 +87,14 @@ function loadMonsters(){
         for(i = 0; i<player.monsters.length; i++){
             addMonsterCard(player.monsters[i]);
         }
+
+        if(player.monsters.length == 0){
+            d3.select("#monsterSelectPanel").append("h2")
+            .text("Click the Settings button in the top right to add Monsters!")
+            .style("text-align","center")
+            .style("color","cyan");
+        }
+
         populateSettings();
     });
 }

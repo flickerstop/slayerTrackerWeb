@@ -37,6 +37,13 @@ body {
     float: left;
 }
 
+#homeButton{
+    margin-left: 10px;
+    color:rgb(103, 103, 103);
+    float: left;
+}
+
+
 #iconTray{
     float: right;
     /* background-color:red; */
@@ -44,7 +51,7 @@ body {
     margin-right: 5px;
 }
 
-#iconTray #icon{
+.icon{
     /* background-color: green; */
     background-size:     cover;
     background-repeat:   no-repeat;
@@ -52,9 +59,11 @@ body {
     width: 20px;
     height: 20px;
     opacity: 0.3; 
+    float: right;
+    margin-left: 5px;
 }
 
-#iconTray #icon:hover{
+.icon:hover{
     cursor: pointer;
     opacity: 1;
 }

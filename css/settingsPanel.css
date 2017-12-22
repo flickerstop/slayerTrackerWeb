@@ -79,3 +79,8 @@
     background-color: #3d1212;
     cursor: pointer;
 }
+
+#settingsContainer{
+    height: calc(100% - 120px);
+    overflow: auto;
+}

@@ -3,6 +3,7 @@ var numberOfMonsterCards = 0;
 ////////////////////////////////
 // Populate settings with the current values
 function populateSettings(){
+    resetSettings();
     for(i = 0; i < player.monsters.length; i++){
         addMonsterCardOption(player.monsters[i].name);
     }

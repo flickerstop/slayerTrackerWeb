@@ -4,10 +4,12 @@
         <link rel="shortcut icon" type="image/png" href="./images/icons/favicon.ico"/>
         <script src="./js/externalLibs/jquery-3.2.1.min.js"></script>
         <script src="./js/externalLibs/d3.js"></script>
+        <script src="./js/externalLibs/sorttable.js"></script>
         <link rel="stylesheet" href="./css/main.css">
         <link rel="stylesheet" href="./css/infoPanel.css">
         <link rel="stylesheet" href="./css/onTask.css">
         <link rel="stylesheet" href="./css/settingsPanel.css">
+        <link rel="stylesheet" href="./css/slayerTables.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
@@ -15,13 +17,17 @@
         <script src="./js/settings.js"></script>
         <script src="./js/stateManager.js"></script>
         <script src="./js/main.js"></script>
+        <script src="./js/slayerTable.js"></script>
     </head>
     <body>
         <div id="mainPanel">
             <div id="topBar">
                 <p id="versionNum"></p>
                 <div id="iconTray">
-                    <div id="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>
+                    <div class="icon" onclick="returnHome()" style='background-image:url("./images/icons/home.png")'></div>
+                    <div class="icon" onclick="showSlayerLogs()" style='background-image:url("./images/icons/logs_icon.png")'></div>
+                    
+                    <div class="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>  
                 </div>
             </div>
             <div id="monsterSelect">
@@ -200,8 +206,12 @@
                     </div>
                     <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
                     <!-- Monster Options -->
+                    <div class="settingsRow" style="text-align:center">
+                        Click the button below to add a Slot on the homepage<br>
+                        Select the monster for that card from the dropdown list.
+                    </div>
                     <div class="settingsRow">
-                        <button id="addMonster" onclick="addBlankMonsterCard()" style="width:50%;margin-left:25%;height:100%"> CLICK ME<br>To add another Monster</button>
+                        <button id="addMonster" onclick="addBlankMonsterCard()" style="width:50%;margin-left:25%;height:100%"> CLICK ME<br>To Add Another Slot</button>
                     </div> 
                     <div id="monsterSelectOptions" style="width:100%;"><!-- filled in with javascript --></div>
                     <div class="settingsRow"><!-- blank space to leave room --></div>
@@ -210,6 +220,27 @@
                     </div>
                 </div>
                 
+            </div>
+            <div id="slayerTables" style="display:none">
+                <h2>Slayer Tasks</h2> 
+                <table class="sortable">
+                    <thead>
+                        <tr>
+                            <th>Monster</th>
+                            <th>Count</th>
+                            <th>Net Profit</th>
+                            <th>Resource Cost</th>
+                            <th>Profit</th>
+                            <th>Time</th>
+                            <th>Slayer Xp/hr</th>
+                        </tr>
+                    </thead>
+                    <tbody id="slayerTableBody">
+                        
+                    </tbody>
+                    <tfoot id="slayerTableFooter">
+                    </tfoot>
+               </table>
             </div>
         </div>
     </body>
