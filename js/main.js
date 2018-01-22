@@ -8,7 +8,7 @@ $( document ).ready(function() {
     
     
     setResources();
-    changeState(4);
+    changeState(0);
 
     if(player.cookieWarning == true){
         d3.select("#fullScreenWarning").style('display', 'none');
