@@ -210,6 +210,12 @@
         "background":"rgb(165, 9, 9)",
         "foreground":"rgb(255,255,255)"
     },{
+        "name":"Greater Nechryaels",
+        "slayerExp":210,
+        "imgUrl":"Nechryael.png",
+        "background":"rgb(252, 174, 148)",
+        "foreground":"rgb(255,255,255)"
+    },{
         "name":"Hellhound",
         "slayerExp":116,
         "imgUrl":"Hellhound.png",
@@ -313,9 +319,9 @@
         "foreground":"rgb(255,255,255)"
     },{
         "name":"Nechryaels",
-        "slayerExp":210,
+        "slayerExp":105,
         "imgUrl":"Nechryael.png",
-        "background":"rgb(252, 174, 148)",
+        "background":"rgb(232, 154, 128)",
         "foreground":"rgb(255,255,255)"
     },{
         "name":"Red Dragon",

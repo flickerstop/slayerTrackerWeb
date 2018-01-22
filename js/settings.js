@@ -15,6 +15,8 @@ function populateSettings(){
     $("#settingsInputChaosRunes").val(player.runes.chaos);
     $("#settingsInputTridentCharges").val(player.tridentCharges);
     $("#settingsInputCannonballs").val(player.cannonballs);
+    $("#settingsInputNumberOfPatches").val(player.farmRun.settings.numberOfPatches);
+    $("#settingsInputHerbType").val(player.farmRun.settings.herbType);
 }
 
 ///////////////////////////////
@@ -71,6 +73,9 @@ function saveSettings(){
     player.runes.chaos = $("#settingsInputChaosRunes").val();
     player.tridentCharges = $("#settingsInputTridentCharges").val();
     player.cannonballs = $("#settingsInputCannonballs").val();
+
+    player.farmRun.settings.numberOfPatches = $("#settingsInputNumberOfPatches").val();
+    player.farmRun.settings.herbType = $("#settingsInputHerbType").val();
 
     save();
     returnHome();

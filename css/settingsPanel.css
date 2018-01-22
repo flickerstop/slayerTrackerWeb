@@ -81,6 +81,6 @@
 }
 
 #settingsContainer{
-    height: calc(100% - 120px);
+    height: calc(100% - 135px);
     overflow: auto;
 }

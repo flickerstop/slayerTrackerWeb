@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./css/onTask.css">
         <link rel="stylesheet" href="./css/settingsPanel.css">
         <link rel="stylesheet" href="./css/slayerTables.css">
+        <link rel="stylesheet" href="./css/farmRun.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
@@ -18,6 +19,7 @@
         <script src="./js/stateManager.js"></script>
         <script src="./js/main.js"></script>
         <script src="./js/slayerTable.js"></script>
+        <script src="./js/farmRun.js"></script>
     </head>
     <body>
         <div id="mainPanel">
@@ -26,7 +28,7 @@
                 <div id="iconTray">
                     <div class="icon" onclick="returnHome()" style='background-image:url("./images/icons/home.png")'></div>
                     <div class="icon" onclick="showSlayerLogs()" style='background-image:url("./images/icons/logs_icon.png")'></div>
-                    
+                    <div class="icon" onclick="showFarmRun()" style='background-image:url("./images/icons/Farming_icon.png")'></div>
                     <div class="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>  
                 </div>
             </div>
@@ -141,14 +143,6 @@
                 <div id="osbuddyPrices"></div>
                 <h2>Settings</h2>
                 <div id="settingsContainer">
-                    <!-- <div class="settingsRow">
-                        <div class="settingsText">
-
-                        </div>
-                        <div class="settingsInput">
-
-                        </div>
-                    </div> -->
                     <div class="settingsRow" style="text-align:center">
                         These numbers are used for price calculations on tasks.<br>
                         Input the number of items you have of that type.
@@ -205,6 +199,31 @@
                         </div>
                     </div>
                     <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
+                    <!-- FARM OPTIONS -->
+                    <div class="settingsRow" style="text-align:center">
+                        These are used for farm runs.
+                    </div>
+                    <div class="settingsRow">
+                        <div class="settingsText">
+                            Number of Patches: 
+                        </div>
+                        <div class="settingsInput">
+                                <input id="settingsInputNumberOfPatches" min="0" max="7" type="number" value="0"> 
+                        </div>
+                    </div>
+                    <div class="settingsRow">
+                            <div class="settingsText">
+                                Herb Type: 
+                            </div>
+                            <div class="settingsInput">
+                                <select id="settingsInputHerbType" value="0" style="width:50%;font-size:15px"> 
+                                    <option value="Torstol">Torstol</option>
+                                    <option value="Snapdragon">Snapdragon</option>
+                                    <option value="Ranarr Weed">Ranarr Weed</option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
                     <!-- Monster Options -->
                     <div class="settingsRow" style="text-align:center">
                         Click the button below to add a Slot on the homepage<br>
@@ -241,6 +260,52 @@
                     <tfoot id="slayerTableFooter">
                     </tfoot>
                </table>
+            </div>
+            <div id="farmRun" style="display:none">
+                <h1 id="farmTimer">00:00:00</h1>
+                <p id="stopFarmTimer" onclick="stopTimer()">Click me to stop the farm timer</p>
+                <p id="farmInfo">Currently doing Torstols with 7 patches</p>
+                <div id="farmRunInputContainer">
+                    <div class="farmRowLeft">Number of Herbs:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunInputNumOfHerbs" type="number">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Dead Patches:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunInputNumOfDead" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Resurrected Successfully:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunInputNumOfSuccessRes" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Failed Resurrection:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunInputNumOfFailRes" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Cured Patches:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunInputNumOfCured" type="number" value="0">
+                    </div>
+                    <button id="saveFarmRunButton" onclick="saveFarmRun()">
+                        Save Run
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="fullScreenWarning" onclick="closeWarning()">
+            <div id="grayOut"></div>
+            <div id="textBox">
+                <p>To save your data this website uses cookies. By continuing to use this website you are giving consent to cookies being used.
+                    To find out about the cookies we use check out the cookie policy. 
+                </p>
+                <p style="text-align:center"> 
+                    Click anywhere to close this warning.
+                </p>
             </div>
         </div>
     </body>

@@ -5,6 +5,7 @@
 // 1 - On task
 // 2 - settings
 // 3 - slayer tables
+// 4 - Farm Run
 
 
 function changeState(currentState){
@@ -14,25 +15,37 @@ function changeState(currentState){
             d3.select("#monsterSelect").style('display', null);
             d3.select("#settingsPanel").style('display','none');
             d3.select("#slayerTables").style('display','none');
+            d3.select("#farmRun").style('display','none');
             break;
         case 1:
             d3.select("#onTask").style('display', null);
             d3.select("#monsterSelect").style('display', 'none');
             d3.select("#settingsPanel").style('display','none');
             d3.select("#slayerTables").style('display','none');
+            d3.select("#farmRun").style('display','none');
             break;
         case 2:
             d3.select("#onTask").style('display', 'none');
             d3.select("#monsterSelect").style('display', 'none');
             d3.select("#settingsPanel").style('display',null);
             d3.select("#slayerTables").style('display','none');
+            d3.select("#farmRun").style('display','none');
             break;
         case 3:
             d3.select("#onTask").style('display', 'none');
             d3.select("#monsterSelect").style('display', 'none');
             d3.select("#settingsPanel").style('display','none');
             d3.select("#slayerTables").style('display',null);
+            d3.select("#farmRun").style('display','none');
             break;
+        case 4:
+            d3.select("#onTask").style('display', 'none');
+            d3.select("#monsterSelect").style('display', 'none');
+            d3.select("#settingsPanel").style('display','none');
+            d3.select("#slayerTables").style('display','none');
+            d3.select("#farmRun").style('display',null);
+            break;
+
     }
 }
 
@@ -68,4 +81,9 @@ function switchToSettings(){
 function showSlayerLogs(){
     initTable();
     changeState(3);
+}
+
+function showFarmRun(){
+    changeState(4);
+    setFarmRunFlavourText();
 }

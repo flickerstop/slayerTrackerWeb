@@ -1,13 +1,17 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.13";   // Version Number
+var versionNum = "0.0.15";   // Version Number
 var isOldVersion = false;
+var playerVersion = "0.0.15";
+var audio; // Variable for playing the farm run timer alarm
 
 /////////////////////////
 // Player Object
 // Holds everything to save/load
-var player = {
-    versionNum: versionNum,
+// If anything is added, make sure to change the function below that
+// updates the save file!
+var defaultPlayer = {
+    versionNum: playerVersion,
     playerName: "",
     cannonballs:0,
     runes:{
@@ -23,12 +27,18 @@ var player = {
         nextRunAt: 0,
         lastRunAt: 0,
         remind: true,
+        onRun:false,
+        settings:{
+            numberOfPatches:0,
+            herbType:"",
+            compostType:""
+        },
         runs: []
-    }
+    },
+    cookieWarning: false
 };
 
-var defaultPlayer = player;
-
+var player;
 
 ////////////////////////
 // Prices
@@ -113,24 +123,24 @@ function setResources(){
 //////////////////////
 // save & load
 function load(){
+    // If you can use web storage
     if (typeof(Storage) !== "undefined") {
+        // get the save file from webstorage
         var loadFile = JSON.parse(localStorage.getItem("playerData"));
+        // if there is a save file
         if(loadFile != null){
-            // TODO
-            // add something to check the version number
-            // of the loaded player vs the current version number
-            // and only load the values that need to be so then
-            // the new variables dont get deleted
-            if(loadFile.versionNum == versionNum){
+            // check the version of the save file
+            if(loadFile.versionNum == playerVersion){ // If it's the correct version
                 player = loadFile;
                 console.log("Loaded save file!")
-            }else{
-                // console.error("Old version number, save dropped!")
-                // save();
-                console.error("You are currently running an older save. Errors might happen!")
-                isOldVersion = true;
-                player = loadFile;
+            }else{ // If it's an old version
+                console.error("You are currently running an older save. Attempted to update save file!")
+                checkLoadFile(loadFile);
             }
+        }else{
+            player = defaultPlayer;
+            save();
+            Console.log("No save file found, adding default");
         }
     } else {
         window.alert("Web Storage is not supported!");
@@ -174,4 +184,63 @@ function wipeSave(num){
             console.log("with argument \"1\" both player and save will be wiped.");
             break;
     }
+}
+
+function checkLoadFile(playerLoaded){
+    var updatedPlayerSave = playerLoaded;
+
+    // check for cookie warning
+    if(updatedPlayerSave.cookieWarning == null){
+        console.error("No cookie warning, added default");
+        updatedPlayerSave.cookieWarning = false;
+    }
+
+    // check for farm run settings
+    if(updatedPlayerSave.farmRun.settings == null){
+        console.error("No farm run settings, added default");
+        updatedPlayerSave.farmRun.settings = {
+            numberOfPatches:0,
+            herbType:"",
+            compostType:""
+        };
+    }
+
+    // check for onRun
+    if(updatedPlayerSave.farmRun.onRun == null){
+        console.error("No farm run onRun, added default");
+        updatedPlayerSave.farmRun.onRun = false;
+    }
+
+    // change version number
+    updatedPlayerSave.versionNum = playerVersion;
+    console.error("Updated version number");
+
+    player = updatedPlayerSave;
+    save();
+}
+
+
+function setOldSaveForTest(){
+    wipeSave(1);
+    player = {
+        versionNum: "0.0.13",
+        playerName: "",
+        cannonballs:0,
+        runes:{
+            water:0,
+            chaos:0,
+            death:0,
+            blood:0
+        },
+        tridentCharges:0,
+        monsters:[],
+        tasks:[],
+        farmRun:{
+            nextRunAt: 0,
+            lastRunAt: 0,
+            remind: true,
+            runs: []
+        }
+    };
+    save();
 }

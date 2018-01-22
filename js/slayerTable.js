@@ -48,7 +48,7 @@ function drawRow(task){
     row.append("td").text(task.profit).style("text-align","right");
     totalProfit += task.profit;
     row.append("td").text(task.timeTaken);
-    row.append("td").text(Math.round(task.xpMin * 100) / 100).style("text-align","right");
+    row.append("td").text(Math.round((task.xpMin*60) * 100) / 100).style("text-align","right");
     row.style("background-color",findMonster(task.monster).background);
     row.style("color",findMonster(task.monster).foreground);
 }
