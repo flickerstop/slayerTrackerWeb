@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.17";   // Version Number
+var versionNum = "0.0.18";   // Version Number
 var isOldVersion = false;
 var playerVersion = "0.0.15";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm

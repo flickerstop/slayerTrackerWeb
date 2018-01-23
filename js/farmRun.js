@@ -190,12 +190,15 @@ function farmRunClock(){
         if(endTime < date && audio.duration > 0){
             audio.play();
             d3.select("#farmTimer").text("00:00:00");
+            d3.select("#topBarFarmTimer").text("00:00:00");
         }else{
             d3.select("#farmTimer").text(msToTime(endTime-date));
+            d3.select("#topBarFarmTimer").text(msToTime(endTime-date));
         }
         
     }else{
         d3.select("#farmTimer").text("00:00:00");
+        d3.select("#topBarFarmTimer").text("00:00:00");
     }
 }
 

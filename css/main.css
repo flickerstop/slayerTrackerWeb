@@ -36,6 +36,18 @@ body {
     color:rgb(103, 103, 103);
     float: left;
     line-height: 35px;
+    width: 10%;
+}
+
+#topBarFarmTimer{
+    color:rgb(103, 103, 103);
+    line-height: 35px;
+    position: absolute;
+    text-align: center;
+    width: 10%;
+    margin-left: 32.5%;
+    margin-right: 32.5%;
+    cursor: pointer;
 }
 
 #homeButton{
