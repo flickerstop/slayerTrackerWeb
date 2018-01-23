@@ -165,3 +165,23 @@ body {
 #fullScreenWarning #textBox p{
     margin: 50px;
 }
+/****************************************************/
+/*                  Scrollbar                       */
+/****************************************************/
+.scrollBarStyle::-webkit-scrollbar-track
+{
+	border: 1px solid rgb(103, 103, 103);
+	background-color: rgb(27, 27, 27);
+}
+
+.scrollBarStyle::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.scrollBarStyle::-webkit-scrollbar-thumb
+{
+    border: 1px solid #F5F5F5;
+	background-color: rgb(39, 39, 39);
+}

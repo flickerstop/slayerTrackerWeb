@@ -1,3 +1,8 @@
+#farmRun{
+    overflow-y: scroll;
+    height: calc(100% - 35px)
+}
+
 #farmTimer{
     margin-top: 50px;
     text-align: center;
@@ -59,4 +64,29 @@
     text-align: center;
     font-size: 10pt;
     color: rgb(103, 103, 103);
+}
+
+#farmInfoTable{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#farmInfoTable tr{
+    height: 25px;
+}
+
+#farmInfoTable td{
+    width: 50%;
+    padding-left: 10px;
+}
+
+#farmRunTable{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#farmRunTable th{
+    text-align: right;
 }

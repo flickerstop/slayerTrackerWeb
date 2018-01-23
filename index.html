@@ -142,7 +142,7 @@
             <div id="settingsPanel" style="display:none">
                 <div id="osbuddyPrices"></div>
                 <h2>Settings</h2>
-                <div id="settingsContainer">
+                <div id="settingsContainer" class="scrollBarStyle">
                     <div class="settingsRow" style="text-align:center">
                         These numbers are used for price calculations on tasks.<br>
                         Input the number of items you have of that type.
@@ -261,7 +261,7 @@
                     </tfoot>
                </table>
             </div>
-            <div id="farmRun" style="display:none">
+            <div id="farmRun" class="scrollBarStyle" style="display:none">
                 <h1 id="farmTimer">00:00:00</h1>
                 <p id="stopFarmTimer" onclick="stopTimer()">Click me to stop the farm timer</p>
                 <p id="farmInfo">Currently doing Torstols with 7 patches</p>
@@ -294,6 +294,28 @@
                         Save Run
                     </button>
                 </div>
+                <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
+                <table id="farmInfoTable">
+                    
+                </table>
+                <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
+                <table class="sortable" id="farmRunTable">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Number of Herbs</th>
+                            <th>Profit</th>
+                            <th>Time</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="farmRunTableBody">
+                        
+                    </tbody>
+                    <tfoot id="FarmRunTableFooter">
+                    </tfoot>
+                </table>
+                <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
         </div>
 

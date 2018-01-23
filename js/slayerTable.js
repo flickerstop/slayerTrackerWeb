@@ -41,14 +41,14 @@ function drawRow(task){
     row.append("td").text(task.monster);
     row.append("td").text(task.count).style("text-align","right");
     totalCount += parseInt(task.count);
-    row.append("td").text(task.netProfit).style("text-align","right");
+    row.append("td").text(task.netProfit.toLocaleString()).style("text-align","right");
     totalNetProfit += task.netProfit;
-    row.append("td").text(task.resourcesPriceTotal).style("text-align","right");
+    row.append("td").text(task.resourcesPriceTotal.toLocaleString()).style("text-align","right");
     totalResourceCost += task.resourcesPriceTotal;
-    row.append("td").text(task.profit).style("text-align","right");
+    row.append("td").text(task.profit.toLocaleString()).style("text-align","right");
     totalProfit += task.profit;
-    row.append("td").text(task.timeTaken);
-    row.append("td").text(Math.round((task.xpMin*60) * 100) / 100).style("text-align","right");
+    row.append("td").text(task.timeTaken).style("text-align","right");
+    row.append("td").text((Math.round((task.xpMin*60) * 100) / 100).toLocaleString()).style("text-align","right");
     row.style("background-color",findMonster(task.monster).background);
     row.style("color",findMonster(task.monster).foreground);
 }

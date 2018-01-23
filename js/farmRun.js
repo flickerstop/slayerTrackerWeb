@@ -18,10 +18,16 @@ function saveFarmRun(){
 
     var netProfit = findItem(player.farmRun.settings.herbType).overall_average * numberOfHerbs;
     var resCost = (numberOfRes + numberOfFailed) * resurrectPrice();
-    var costs = player.farmRun.settings.numberOfPatches * getSeedprice() + resCost;
+    var costs = (player.farmRun.settings.numberOfPatches - numberOfCured - numberOfRes) * getSeedprice() + resCost;
     var profit = netProfit - costs;
 
     var endTime = new Date().getTime();
+
+    // if you forgot to put in number of dead patches, it fills it for you
+    if(numberOfDead == 0 && (numberOfRes > 0 || numberOfFailed > 0)){
+        numberOfDead = numberOfRes + numberOfFailed;
+    }
+
     var farmRun = {
         herbType: player.farmRun.settings.herbType,
         numberOfPatches:player.farmRun.settings.numberOfPatches,
@@ -54,6 +60,7 @@ function saveFarmRun(){
 
     player.farmRun.onRun = true;
     save();
+    setFarmRunFlavourText();
 }
 
 function resetFarmRunInputs(){
@@ -70,6 +77,85 @@ function setFarmRunFlavourText(){
         d3.select("#farmInfo").text("WARNING: FARM RUN SETTINGS NOT SET! PLEASE GO TO SETTINGS!");
     }else{
         d3.select("#farmInfo").text("Currently running "+player.farmRun.settings.herbType+"s with " + player.farmRun.settings.numberOfPatches +" patches");
+    }
+
+    if(player.farmRun.runs.length == 0){
+        return;
+    }
+
+    // RESET THINGS
+    d3.select("#farmRunTableBody").html("");
+    d3.select("#farmInfoTable").html("");
+
+    var tableInfo = [
+        "Number of Runs",
+        "Number of Herbs",
+        "Highest Collected",
+        "Lowest Collected",
+        "Average Collected",
+        "Number of Dead Patches",
+        "Chance of Death",
+        "Number of Successful Resurrections",
+        "Number of Failed Resurrections",
+        "Number of Cured",
+        "Net Profit",
+        "Profit"
+    ];
+
+    var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0];
+    for(i = 0; i < player.farmRun.runs.length; i++){
+        // Number of runs
+        tableValues[0]++;
+        // Number of Herbs
+        tableValues[1] += player.farmRun.runs[i].numberOfHerbs;
+        // Highest Collected
+        if(player.farmRun.runs[i].numberOfHerbs > tableValues[2]){
+            tableValues[2] = player.farmRun.runs[i].numberOfHerbs;
+        }
+        // Lowest Collected
+        if(player.farmRun.runs[i].numberOfHerbs < tableValues[3]){
+            tableValues[3] = player.farmRun.runs[i].numberOfHerbs;
+        }
+        // average collected
+
+        // Number of dead
+        tableValues[5] += player.farmRun.runs[i].numberOfDead;
+        // chance of death
+        
+        // Number of successful res
+        tableValues[7] += player.farmRun.runs[i].numberOfRes;
+        // Number of failed Res
+        tableValues[8] += player.farmRun.runs[i].numberOfFailRes;
+        // Number of Cured
+        tableValues[9] += player.farmRun.runs[i].numberOfCured;
+        // Net Profit
+        tableValues[10] += player.farmRun.runs[i].money.netProfit;
+        // Profit
+        tableValues[11] += player.farmRun.runs[i].money.profit;
+        //////////////////////////////////////////////////////////////
+        var row = d3.select("#farmRunTableBody").append("tr");
+        var time = new Date(player.farmRun.runs[i].timeCompleted);
+        row.append("td").text(player.farmRun.runs[i].herbType).style("text-align","right");
+        row.append("td").text(player.farmRun.runs[i].numberOfHerbs).style("text-align","right");
+        row.append("td").text(player.farmRun.runs[i].money.profit.toLocaleString()).style("text-align","right");
+        row.append("td").text(time.toLocaleTimeString()).style("text-align","right");
+        row.append("td").text(time.toDateString()).style("text-align","right");
+    }
+
+    // Average Collected
+    tableValues[4] = (tableValues[1]/tableValues[0]);
+    tableValues[4] = (Math.round(tableValues[4]*10))/10;
+    // Chance of Death
+    tableValues[6] = (tableValues[5]/(tableValues[0]*player.farmRun.settings.numberOfPatches))*100;
+    tableValues[6] = (Math.round(tableValues[6]*1000))/1000;
+    tableValues[6] = tableValues[6] + "%";
+
+    var table = d3.select("#farmInfoTable");
+
+    for(i = 0; i < tableValues.length; i++){
+        var row = table.append("tr");
+        row.append("td").text(tableInfo[i]+":").style("text-align","right");
+        row.append("td").text(tableValues[i].toLocaleString());
     }
 }
 
