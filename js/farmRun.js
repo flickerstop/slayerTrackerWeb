@@ -183,8 +183,8 @@ function getSeedprice(){
 
 function farmRunClock(){
     if(player.farmRun.onRun == true){
-        //var endTime = player.farmRun.lastRunAt+5400000;
-        var endTime = player.farmRun.lastRunAt+3000;
+        var endTime = player.farmRun.lastRunAt+5400000;
+        //var endTime = player.farmRun.lastRunAt+3000;
         var date = new Date().getTime();
 
         if(endTime < date && audio.duration > 0){
