@@ -1,9 +1,10 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.18";   // Version Number
+var versionNum = "0.0.19";   // Version Number
 var isOldVersion = false;
-var playerVersion = "0.0.15";
+var playerVersion = "0.0.19";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
+var isAbleToSave = true;
 
 /////////////////////////
 // Player Object
@@ -35,7 +36,11 @@ var defaultPlayer = {
         },
         runs: []
     },
-    cookieWarning: false
+    cookieWarning: false,
+    bosses:{
+        corpRuns:[],
+        raidRuns:[]
+    }
 };
 
 var player;
@@ -148,10 +153,12 @@ function load(){
 }
 
 function save(){
-    if (typeof(Storage) !== "undefined") {
-        localStorage.setItem("playerData", JSON.stringify(player));
-    } else {
-        window.alert("Web Storage is not supported!");
+    if(isAbleToSave){
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("playerData", JSON.stringify(player));
+        } else {
+            window.alert("Web Storage is not supported!");
+        }
     }
 }
 
@@ -211,6 +218,15 @@ function checkLoadFile(playerLoaded){
         updatedPlayerSave.farmRun.onRun = false;
     }
 
+    // Check for bosses
+    if(updatedPlayerSave.bosses == null){
+        console.error("No bosses, added default");
+        updatedPlayerSave.bosses = {
+            corpRuns:[],
+            raidRuns:[]
+        };
+    }
+
     // change version number
     updatedPlayerSave.versionNum = playerVersion;
     console.error("Updated version number");
@@ -243,4 +259,12 @@ function setOldSaveForTest(){
         }
     };
     save();
+}
+
+function loadTestPlayer(){
+    isAbleToSave = false;
+    $.getJSON("./js/json/testPlayer.json", function(json) {
+        player = json;
+        returnHome();
+    });
 }

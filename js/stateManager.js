@@ -6,44 +6,33 @@
 // 2 - settings
 // 3 - slayer tables
 // 4 - Farm Run
-
+// 5 - corp tracker 
 
 function changeState(currentState){
+    d3.select("#onTask").style('display', 'none');
+    d3.select("#monsterSelect").style('display', 'none');
+    d3.select("#settingsPanel").style('display','none');
+    d3.select("#slayerTables").style('display','none');
+    d3.select("#farmRun").style('display','none');
+    d3.select("#corpTracker").style('display','none');
     switch(currentState){
         case 0:
-            d3.select("#onTask").style('display', 'none');
             d3.select("#monsterSelect").style('display', null);
-            d3.select("#settingsPanel").style('display','none');
-            d3.select("#slayerTables").style('display','none');
-            d3.select("#farmRun").style('display','none');
             break;
         case 1:
             d3.select("#onTask").style('display', null);
-            d3.select("#monsterSelect").style('display', 'none');
-            d3.select("#settingsPanel").style('display','none');
-            d3.select("#slayerTables").style('display','none');
-            d3.select("#farmRun").style('display','none');
             break;
         case 2:
-            d3.select("#onTask").style('display', 'none');
-            d3.select("#monsterSelect").style('display', 'none');
             d3.select("#settingsPanel").style('display',null);
-            d3.select("#slayerTables").style('display','none');
-            d3.select("#farmRun").style('display','none');
             break;
         case 3:
-            d3.select("#onTask").style('display', 'none');
-            d3.select("#monsterSelect").style('display', 'none');
-            d3.select("#settingsPanel").style('display','none');
             d3.select("#slayerTables").style('display',null);
-            d3.select("#farmRun").style('display','none');
             break;
         case 4:
-            d3.select("#onTask").style('display', 'none');
-            d3.select("#monsterSelect").style('display', 'none');
-            d3.select("#settingsPanel").style('display','none');
-            d3.select("#slayerTables").style('display','none');
             d3.select("#farmRun").style('display',null);
+            break;
+        case 5:
+            d3.select("#corpTracker").style('display',null);
             break;
 
     }
@@ -86,4 +75,10 @@ function showSlayerLogs(){
 function showFarmRun(){
     changeState(4);
     setFarmRunFlavourText();
+}
+
+function showCorpTracker(){
+    resetCorpPage();
+    addCorpDrops()
+    changeState(5);
 }
