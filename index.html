@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="./css/slayerTables.css">
         <link rel="stylesheet" href="./css/farmRun.css">
         <link rel="stylesheet" href="./css/corp.css">
+        <link rel="stylesheet" href="./css/homePage.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
@@ -30,12 +31,12 @@
                 <p id="topBarFarmTimer" onclick="stopTimer()">00:00:00</p>
                 <div id="iconTray">
                     <div class="icon" onclick="returnHome()" style='background-image:url("./images/icons/home.png")'></div>
-                    <div class="icon" onclick="showSlayerLogs()" style='background-image:url("./images/icons/logs_icon.png")'></div>
+                    <div class="icon" onclick="showSlayerLogs()" style='background-image:url("./images/icons/logs_icon.png");display:none'></div>
                     <div class="icon" onclick="showFarmRun()" style='background-image:url("./images/icons/Farming_icon.png")'></div>
                     <div class="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>  
                 </div>
             </div>
-            <div id="monsterSelect">
+            <div id="monsterSelect" style="display:none">
                 <div id="infoPanel">
                     <div id="infoLeft">
                         <div class="infoRow">
@@ -132,8 +133,8 @@
                         <div id="taskTimer">
                             <div id="taskTimerTime">00:00:00</div>
                             <div id="taskTimerButtons">
-                                <button onclick="startTimer()" id="startTaskTimer">Start Timer</button>
-                                <button onclick="stopTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
+                                <button onclick="startSlayerTimer()" id="startTaskTimer">Start Timer</button>
+                                <button onclick="stopSlayerTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
                             </div>
                         </div>
                         <button onclick="saveTask()" id="endTaskButton">
@@ -320,10 +321,73 @@
                 </table>
                 <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
-            <div id="corpTracker" style="display: none">
-                <div id="corpRunInfo"></div>
+            <div id="corpTracker" class="scrollBarStyle" style="display: none">
+                <h1 id="corpClock">00:00:00</h1>
+                <div id="corpRunInfo">
+                    <div style="height:40px">
+                        <div class="leftSide" style="text-align:right">
+                            <div id="startCorpClockButton" onclick="startCorpClock()">Start Timer</div>
+                        </div>
+                        <div class="rightSide">
+                            <div id="endCorpClockButton" onclick="endCorpClock()">End Timer</div>
+                        </div>
+                    </div>
+                    <label for="corpNumberOfPlayers">Number of Players: </label>
+                    <input id="corpNumberOfPlayers" min="1" max="20" type="number" value="1"> 
+                </div>
                 <div id="corpDropButtons"></div>
+                <div id="corpRunGpInfo">
+                    <table>
+                        <tr>
+                            <td>Total Gp</td>
+                            <td>Per Person Gp</td>
+                            <td>Total Gp/Hr</td>
+                            <td>Per Person Gp/Hr</td>
+                        </tr>
+                        <tr id="corpRunGpInfoRow"></tr>
+                    </table>
+                </div>
                 <div id="corpDrops"></div>
+                <div class="settingsRow"><!-- blank space to leave room --></div>
+                <div id="finishCorpRunButton" onclick="saveCorpRun()">Finish Corp Run</div>
+                <div class="settingsRow"><!-- blank space to leave room --></div>
+            </div>
+            <div id="homePage" class="scrollBarStyle">
+                <div class="settingsRow"><!-- blank space to leave room --></div>
+                <div class="settingsRow"><!-- blank space to leave room --></div>
+                <table id="homePageTable">
+                    <tr>
+                        <td>
+                            <h2>Slayer</h2>
+                            <div class="homePageButton" onclick="goToMonsterPage()">Start a Slayer Task</div>
+                            <div class="homePageButton" onclick="showSlayerLogs()">View Your Slayer Logs</div>
+                        </td>
+                        <td>
+                            <h2>Farming</h2>
+                            <div class="homePageButton" onclick="showFarmRun()">Track a Herb Run</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h2>Bosses</h2>
+                            <div class="homePageButton" onclick="showCorpTracker()">Corp Tracker</div>
+                        </td>
+                        <td>
+                            <h2>Other</h2>
+                            <div class="homePageButton" onclick="switchToSettings()">Settings</div>
+                        </td>
+                    </tr>
+                    <tr id="tableRowForTesting" style="display:none">
+                        <td>
+                            <h2>Testing</h2>
+                            <div class="homePageButton" onclick="wipeSave(1)">Wipe Player (turns off save)</div>
+                            <div class="homePageButton" onclick="wipeSave(2)">Wipe Save</div>
+                            <div class="homePageButton" onclick="setOldSaveForTest()">Set Old Save</div>
+                            <div class="homePageButton" onclick="loadTestPlayer()">Load Test Save (turns off save)</div>
+                            <div class="homePageButton" onclick="turnOnSaving()">Turn ON Save</div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 

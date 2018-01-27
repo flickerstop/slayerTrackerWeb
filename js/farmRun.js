@@ -1,5 +1,4 @@
 
-
 function saveFarmRun(){
 
     if($("#farmRunInputNumOfHerbs").val() == ""){
@@ -178,27 +177,6 @@ function getSeedprice(){
     }
     if(player.farmRun.settings.herbType == "Ranarr Weed"){
         return findItem("Ranarr seed").overall_average;
-    }
-}
-
-function farmRunClock(){
-    if(player.farmRun.onRun == true){
-        var endTime = player.farmRun.lastRunAt+5400000;
-        //var endTime = player.farmRun.lastRunAt+3000;
-        var date = new Date().getTime();
-
-        if(endTime < date && audio.duration > 0){
-            audio.play();
-            d3.select("#farmTimer").text("00:00:00");
-            d3.select("#topBarFarmTimer").text("00:00:00");
-        }else{
-            d3.select("#farmTimer").text(msToTime(endTime-date));
-            d3.select("#topBarFarmTimer").text(msToTime(endTime-date));
-        }
-        
-    }else{
-        d3.select("#farmTimer").text("00:00:00");
-        d3.select("#topBarFarmTimer").text("00:00:00");
     }
 }
 

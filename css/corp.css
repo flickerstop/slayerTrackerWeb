@@ -1,16 +1,192 @@
+/****************************************************/
+/*                    Main Panels                   */
+/****************************************************/
+
+#corpTracker{
+    height: calc(100% - 35px);
+    overflow-y: auto;
+}
+
 #corpDropButtons{
-    width: 100%;
+    width: 75%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
 }
 
 #corpRunInfo{
     width: 100%;
-    height: 20%;
+    height: 100px;
+    text-align: center;
+}
+
+#corpClock{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
 }
 
 #corpDrops{
     width: 25%;
-    background-color: white;
+    background-color: rgb(39, 39, 39);;
     margin-left: 37.5%;
     margin-right: 37.5%;
     min-height: 100px;
+    padding: 15px;
+    color: white;
+    border: 1px solid darkgray;
+    border-top: 0px;
+}
+
+/****************************************************/
+/*            Cards for drops                       */
+/****************************************************/
+
+.dropCard{
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height:75px;
+    width: 75px;
+    background-color: rgb(39, 39, 39);
+    background-image: url("../images/question_mark.png");
+    background-size:     cover; 
+    background-repeat:   no-repeat;
+    background-position: center center;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(103, 103, 103);
+}
+.dropCard:hover{
+    background-color: rgb(39, 39, 39);
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(30, 200, 243);
+    cursor: pointer	;
+}
+
+.dropTooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.dropTooltip .dropTooltiptext {
+    bottom: 0px;
+    visibility: hidden;
+    width: 75px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    opacity: 0.8;
+    font-size: 7pt;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.dropTooltip:hover .dropTooltiptext {
+    visibility: visible;
+}
+
+/****************************************************/
+/*            Input Fields                          */
+/****************************************************/
+
+#corpRunInfo input{
+    width: 50px;;
+    height: 25px;
+    background-color: rgb(39, 39, 39);
+    color: white;
+    border: 1px;
+    border-style: solid;
+    border-color: white;
+    font-size: 15px;
+    padding-left: 5px;
+    text-align: center;
+}
+
+/****************************************************/
+/*               Corp Clock                         */
+/****************************************************/
+
+#startCorpClockButton{
+    background-color: #008a1e;
+    color: white;
+    width: 25%;
+    margin-left: 75%;
+    text-align: center;
+    padding: 5px 0px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+#endCorpClockButton{
+    background-color: #8a0000;
+    color: white;
+    width: 25%;
+    margin-right: 75%;
+    text-align: center;
+    padding: 5px 0px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#startCorpClockButton:hover{
+    background-color: #00db30;
+    color: black;
+    border: 1px solid black;
+}
+
+#endCorpClockButton:hover{
+    background-color: #ff0505;
+    color: black;
+    border: 1px solid black;
+}
+
+
+/***************************************************
+*            Finish run button                    
+****************************************************/
+
+#finishCorpRunButton{
+    background-color: #006280;
+    border: 1px solid white;
+    color: white;
+    width: 60%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 0px 20%;
+    cursor: pointer;
+}
+
+#finishCorpRunButton:hover{
+    background-color: #009ccc;
+    border: 1px solid black;
+    color: black;
+}
+
+/***************************************************
+*            Gp Info
+****************************************************/
+
+#corpRunGpInfo{
+    width: 70%;
+    height: 75px;
+    margin: 0px 15%;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: darkgray
+}
+
+#corpRunGpInfo table{
+    width: 100%;
+}
+
+#corpRunGpInfo table td{
+    width: 25%;
+    text-align: center;
 }

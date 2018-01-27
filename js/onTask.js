@@ -1,129 +1,84 @@
-var numberOfTrips = 0;
-var startTime;
-var endTime;
-var isClockRunning = false;
-var taskCount;
-var taskMonster;
-var taskType;
+var slayerTask = {
+    numberOfTrips: 0,
+    startTime: null,
+    endTime: null,
+    isClockRunning: false,
+    taskCount: null,
+    taskMonster: null,
+    taskType: null
+}
+
+
+
 
 function addTrip(){
-    numberOfTrips++;
+    slayerTask.numberOfTrips++;
     var row = d3.select("#tripFields").append("div");
     row.attr("class","tripRow");
 
-    row.append("p").attr("class","tripText").text("trip "+numberOfTrips+":");
+    row.append("p").attr("class","tripText").text("trip "+slayerTask.numberOfTrips+":");
 
     row.append("input")
     .attr("class","tripInput")
-    .attr("id","tripInput"+numberOfTrips)
+    .attr("id","tripInput"+slayerTask.numberOfTrips)
     .attr("min","0")
     .attr("max","2147483647")
     .attr("type","number")
     .attr("value","0");
 }
 
-function startTimer(){
+function startSlayerTimer(){
     d3.select("#startTaskTimer").attr("disabled", "disabled");
     d3.select("#stopTaskTimer").attr("disabled", null);
-    startTime = new Date();
-    isClockRunning = true;
-    runClock();
+    slayerTask.startTime = new Date();
+    slayerTask.isClockRunning = true;
 }
 
-function stopTimer(){
-    isClockRunning = false;
-    endTime = new Date();
+function stopSlayerTimer(){
+    slayerTask.isClockRunning = false;
+    slayerTask.endTime = new Date();
     d3.select("#startTaskTimer").attr("disabled", null);
     d3.select("#stopTaskTimer").attr("disabled", "disabled");
 }
     
-function runClock() {
-    var today = new Date();
-    if(!isClockRunning){
-        return;
-    }
 
-    d3.select("#taskTimerTime").text(
-        msToTime(
-            today.getTime() - startTime.getTime()
-        )
-    );
-    if(isClockRunning){
-        var t = setTimeout(runClock, 500);
-    }
-}
-
-function msToTime(duration) {
-    var milliseconds = parseInt((duration%1000)/100)
-        , seconds = parseInt((duration/1000)%60)
-        , minutes = parseInt((duration/(1000*60))%60)
-        , hours = parseInt((duration/(1000*60*60))%24);
-
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-    return hours + ":" + minutes + ":" + seconds;
-}
 
 function switchTaskType(type){
-    taskType = type;
+    slayerTask.taskType = type;
+    d3.select("#cannonballsLeftRow").style("display","none");
+    d3.select("#chargesLeftRow").style("display","none");
+    d3.select("#waterRunesLeftRow").style("display","none");
+    d3.select("#bloodRunesLeftRow").style("display","none");
+    d3.select("#deathRunesLeftRow").style("display","none");
+    d3.select("#chaosRunesLeftRow").style("display","none");
     switch(type){
-        case 0: // Normal
-            d3.select("#cannonballsLeftRow").style("display","none");
-            d3.select("#chargesLeftRow").style("display","none");
-            d3.select("#waterRunesLeftRow").style("display","none");
-            d3.select("#bloodRunesLeftRow").style("display","none");
-            d3.select("#deathRunesLeftRow").style("display","none");
-            d3.select("#chaosRunesLeftRow").style("display","none");
-            return;
         case 1: // Cannon
             d3.select("#cannonballsLeftRow").style("display",null);
-            d3.select("#chargesLeftRow").style("display","none");
-            d3.select("#waterRunesLeftRow").style("display","none");
-            d3.select("#bloodRunesLeftRow").style("display","none");
-            d3.select("#deathRunesLeftRow").style("display","none");
-            d3.select("#chaosRunesLeftRow").style("display","none");
             return;
         case 2: // Trident
-            d3.select("#cannonballsLeftRow").style("display","none");
             d3.select("#chargesLeftRow").style("display",null);
-            d3.select("#waterRunesLeftRow").style("display","none");
-            d3.select("#bloodRunesLeftRow").style("display","none");
-            d3.select("#deathRunesLeftRow").style("display","none");
-            d3.select("#chaosRunesLeftRow").style("display","none");
             return;
         case 3: // Burst
-            d3.select("#cannonballsLeftRow").style("display","none");
-            d3.select("#chargesLeftRow").style("display","none");
             d3.select("#waterRunesLeftRow").style("display",null);
-            d3.select("#bloodRunesLeftRow").style("display","none");
             d3.select("#deathRunesLeftRow").style("display",null);
             d3.select("#chaosRunesLeftRow").style("display",null);
             return;
         case 4: // Burst Cannon
             d3.select("#cannonballsLeftRow").style("display",null);
-            d3.select("#chargesLeftRow").style("display","none");
             d3.select("#waterRunesLeftRow").style("display",null);
-            d3.select("#bloodRunesLeftRow").style("display","none");
             d3.select("#deathRunesLeftRow").style("display",null);
             d3.select("#chaosRunesLeftRow").style("display",null);
             return;
         case 5: // Barrage
-            d3.select("#cannonballsLeftRow").style("display","none");
-            d3.select("#chargesLeftRow").style("display","none");
             d3.select("#waterRunesLeftRow").style("display",null);
             d3.select("#bloodRunesLeftRow").style("display",null);
             d3.select("#deathRunesLeftRow").style("display",null);
-            d3.select("#chaosRunesLeftRow").style("display","none");
             return;
         case 6: // Barrage Cannon
             d3.select("#cannonballsLeftRow").style("display",null);
-            d3.select("#chargesLeftRow").style("display","none");
             d3.select("#waterRunesLeftRow").style("display",null);
             d3.select("#bloodRunesLeftRow").style("display",null);
             d3.select("#deathRunesLeftRow").style("display",null);
-            d3.select("#chaosRunesLeftRow").style("display","none");
             return;
     }
 }
@@ -133,20 +88,20 @@ function saveTask(){
     /////////////////////
     // Net Profit
     var totalProfit = 0;
-    for(i = 1; i <= numberOfTrips; i++){
+    for(i = 1; i <= slayerTask.numberOfTrips; i++){
         totalProfit += parseInt($("#tripInput"+i).val());
     }
     /////////////////////
     // Time Taken
-    if(endTime == null && startTime != null){
-        endTime = new Date();
-    }else if(endTime == null && startTime == null){
-        startTime = new Date();
-        endTime = new Date();
+    if(slayerTask.endTime == null && slayerTask.startTime != null){
+        slayerTask.endTime = new Date();
+    }else if(slayerTask.endTime == null && slayerTask.startTime == null){
+        slayerTask.startTime = new Date();
+        slayerTask.endTime = new Date();
     }
-    var timeTaken = msToTime(endTime.getTime() - startTime.getTime());
-    var timeTakenMS = endTime.getTime() - startTime.getTime();
-    var dateCompleted = endTime.getDate() + "/" + (endTime.getMonth()+1) + "/" + endTime.getFullYear();
+    var timeTaken = msToTime(slayerTask.endTime.getTime() - slayerTask.startTime.getTime());
+    var timeTakenMS = slayerTask.endTime.getTime() - slayerTask.startTime.getTime();
+    var dateCompleted = slayerTask.endTime.getDate() + "/" + (slayerTask.endTime.getMonth()+1) + "/" + slayerTask.endTime.getFullYear();
     ////////////////////
     // Resource Amounts
     var cballsUsed = 0;
@@ -156,7 +111,7 @@ function saveTask(){
     var deathUsed = 0;
     var chaosUsed = 0;
 
-    switch(taskType){
+    switch(slayerTask.taskType){
         case 1: // Cannon
             cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
             player.cannonballs = parseInt($("#cannonballsLeftInput").val());
@@ -221,7 +176,7 @@ function saveTask(){
         chaosUsed * prices.chaosRune;
     /////////////////
     // exp
-    var exp = findMonster(taskMonster).slayerExp * taskCount;
+    var exp = findMonster(slayerTask.taskMonster).slayerExp * slayerTask.taskCount;
     /////////////////
     // profit
     var profit = totalProfit - (
@@ -239,12 +194,12 @@ function saveTask(){
     var xpMin = exp/minsTaken;
 
     var task = {
-        count : taskCount,
-        monster : taskMonster,
+        count : slayerTask.taskCount,
+        monster : slayerTask.taskMonster,
         netProfit : totalProfit,
         profit : profit,
         expGained : exp,
-        type : taskType,
+        type : slayerTask.taskType,
         resourcesUsed : {
             cballs: cballsUsed,
             charges : chargesUsed,
@@ -268,11 +223,6 @@ function saveTask(){
 }
 
 function resetOnTask(){
-    if(isClockRunning){
-        stopTimer();
-    }
-
-    numberOfTrips = 0;
     d3.select("#tripFields").html("");
 
     $("#waterRunesLeftInput").val(0);
@@ -286,9 +236,13 @@ function resetOnTask(){
     document.getElementById('defaultTaskType').checked = true;
 
     d3.select("#taskTimerTime").text("00:00:00");
-    endTime = null;
-    startTime = null;
-    isClockRunning = false;
-    taskCount = 0;
-    taskMonster = "null";
+    var slayerTask = {
+        numberOfTrips: 0,
+        startTime: null,
+        endTime: null,
+        isClockRunning: false,
+        taskCount: null,
+        taskMonster: null,
+        taskType: null
+    }
 }

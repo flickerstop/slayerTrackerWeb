@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "0.0.19";   // Version Number
+var versionNum = "1.0.0";   // Version Number
 var isOldVersion = false;
 var playerVersion = "0.0.19";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -69,16 +69,6 @@ function getGEPrices(){
     });
 
     
-}
-
-function findItem(name){
-    for(i = 0; i < 20000; i++){
-        if(gePrices[i] != null){
-            if(name.toUpperCase() == gePrices[i].name.toUpperCase()){
-                return gePrices[i];
-            }
-        }
-    }
 }
 
 function setPrices(){
@@ -162,13 +152,7 @@ function save(){
     }
 }
 
-function findMonster(monsterName){
-    for(i = 0; i < monsters.length; i++){
-        if(monsters[i].name == monsterName){
-            return monsters[i];
-        }
-    }
-}
+
 
 function wipeSave(num){
     // player = defaultPlayer;
@@ -176,6 +160,7 @@ function wipeSave(num){
     switch(num){
         case 0:
             console.error("Wiping player, not save!")
+            isAbleToSave = false;
             player = defaultPlayer;
             returnHome();
             break;
@@ -267,4 +252,52 @@ function loadTestPlayer(){
         player = json;
         returnHome();
     });
+}
+
+function turnOnSaving(){
+    console.error("THIS MIGHT DELETE YOUR SAVE!");
+    isAbleToSave = true;
+}
+
+/***************************************************
+*            Useful functions
+****************************************************/
+
+function findMonster(monsterName){
+    for(i = 0; i < monsters.length; i++){
+        if(monsters[i].name == monsterName){
+            return monsters[i];
+        }
+    }
+}
+
+function findItem(name){
+    for(i = 0; i < 20000; i++){
+        if(gePrices[i] != null){
+            if(name.toUpperCase() == gePrices[i].name.toUpperCase()){
+                return gePrices[i];
+            }
+        }
+    }
+}
+
+function msToTime(duration) {
+    var milliseconds = parseInt((duration%1000)/100)
+        , seconds = parseInt((duration/1000)%60)
+        , minutes = parseInt((duration/(1000*60))%60)
+        , hours = parseInt((duration/(1000*60*60))%24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+}
+
+function roundToTwoDecimal(number){
+    return (Math.round(number*100))/100;
+}
+
+function roundToOneDecimal(number){
+    return (Math.round(number*10))/10;
 }

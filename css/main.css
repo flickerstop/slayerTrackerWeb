@@ -197,3 +197,39 @@ body {
     border: 1px solid #F5F5F5;
 	background-color: rgb(39, 39, 39);
 }
+
+/****************************************************/
+/*            Split things to sides                 */
+/****************************************************/
+
+.leftSide{
+    width: calc(50% - 10px);
+    padding-right: 10px;
+    float: left;
+    height: 100%;
+}
+.rightSide{
+    width: calc(50% - 10px);
+    padding-left: 10px;
+    float: left;
+    height: 100%;
+}
+
+/****************************************************
+*            Set the background colour for testing
+****************************************************/
+
+.red{
+    background-color: red;
+    color: white;
+}
+
+.blue{
+    background-color: blue;
+    color: white;
+}
+
+.green{
+    background-color: green;
+    color: white;
+}

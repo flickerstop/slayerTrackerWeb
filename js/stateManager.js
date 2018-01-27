@@ -7,6 +7,7 @@
 // 3 - slayer tables
 // 4 - Farm Run
 // 5 - corp tracker 
+// 6 - home Page
 
 function changeState(currentState){
     d3.select("#onTask").style('display', 'none');
@@ -15,6 +16,7 @@ function changeState(currentState){
     d3.select("#slayerTables").style('display','none');
     d3.select("#farmRun").style('display','none');
     d3.select("#corpTracker").style('display','none');
+    d3.select("#homePage").style('display','none');
     switch(currentState){
         case 0:
             d3.select("#monsterSelect").style('display', null);
@@ -34,11 +36,18 @@ function changeState(currentState){
         case 5:
             d3.select("#corpTracker").style('display',null);
             break;
+        case 6:
+            d3.select("#homePage").style('display',null);
+            break;
 
     }
 }
 
 function returnHome(){
+    changeState(6);
+}
+
+function goToMonsterPage(){
     setResources();
     loadMonsters();
     $('#monsterCountSpinner').val(0);
@@ -48,8 +57,8 @@ function returnHome(){
 function goOnTask(monsterName){
     resetOnTask();
     var monsterCount = $('#monsterCountSpinner').val();
-    taskCount = monsterCount;
-    taskMonster = monsterName;
+    slayerTask.taskCount = monsterCount;
+    slayerTask.taskMonster = monsterName;
     if(monsterCount == 0){
         d3.select("#monsterCountSpinner")
         .transition().duration(0)
