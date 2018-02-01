@@ -60,6 +60,13 @@
     color: white;
 }
 
+#saveFarmRunButton:hover{
+    background-color: #ff6666;
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
 #farmInfo{
     text-align: center;
     font-size: 10pt;

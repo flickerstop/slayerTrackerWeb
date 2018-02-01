@@ -1,6 +1,6 @@
 /////////////////////////
 // Global variables
-var versionNum = "1.0.0";   // Version Number
+var versionNum = "1.0.1";   // Version Number
 var isOldVersion = false;
 var playerVersion = "0.0.19";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -66,6 +66,13 @@ function getGEPrices(){
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
         gePrices = json;
         setPrices();
+    }).always(function(d) {
+        if(gePrices == null){
+            $.getJSON("./js/json/ge.json", function(newJson) {
+                gePrices = newJson;
+                setPrices();
+            });
+        }
     });
 
     
