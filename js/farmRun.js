@@ -1,4 +1,6 @@
-
+/***************************************************
+*            Save Farm Run
+****************************************************/
 function saveFarmRun(){
 
     if($("#farmRunInputNumOfHerbs").val() == ""){
@@ -62,6 +64,10 @@ function saveFarmRun(){
     setFarmRunFlavourText();
 }
 
+/***************************************************
+*            Reset input fields
+****************************************************/
+
 function resetFarmRunInputs(){
     $("#farmRunInputNumOfHerbs").val(null);
     $("#farmRunInputNumOfDead").val(0);
@@ -71,11 +77,18 @@ function resetFarmRunInputs(){
 
 }
 
+/***************************************************
+*            Set text for farm run data
+****************************************************/
 function setFarmRunFlavourText(){
     if(player.farmRun.settings.numberOfPatches == 0 || player.farmRun.settings.herbType == ""){
-        d3.select("#farmInfo").text("WARNING: FARM RUN SETTINGS NOT SET! PLEASE GO TO SETTINGS!");
+        d3.select("#farmInfo").text("WARNING: FARM RUN SETTINGS NOT SET! PLEASE GO TO SETTINGS!")
+            .style("color","red");
+        d3.select("#farmRunInputContainer").style('display','none');
     }else{
-        d3.select("#farmInfo").text("Currently running "+player.farmRun.settings.herbType+"s with " + player.farmRun.settings.numberOfPatches +" patches");
+        d3.select("#farmInfo").text("Currently running "+player.farmRun.settings.herbType+"s with " + player.farmRun.settings.numberOfPatches +" patches")
+            .style("color",null);
+        d3.select("#farmRunInputContainer").style('display',null);
     }
 
     if(player.farmRun.runs.length == 0){
@@ -158,6 +171,10 @@ function setFarmRunFlavourText(){
     }
 }
 
+/***************************************************
+*            Get price for Resurrect
+****************************************************/
+
 function resurrectPrice(){
     var price =
     findItem("Soul rune").overall_average * 8 +
@@ -167,6 +184,10 @@ function resurrectPrice(){
 
     return price;
 }
+
+/***************************************************
+*            Get Price for seeds
+****************************************************/
 
 function getSeedprice(){
     if(player.farmRun.settings.herbType == "Torstol"){
@@ -180,6 +201,10 @@ function getSeedprice(){
     }
 }
 
+/***************************************************
+*            Stop the farm timer
+****************************************************/
+
 function stopTimer(){
     try{
         audio.pause();
@@ -189,4 +214,114 @@ function stopTimer(){
     }
     player.farmRun.onRun = false;
     save();
+}
+
+/***************************************************
+*            Draw the graph for data
+****************************************************/
+
+function drawFarmDataGraph(){
+    d3.select("#farmDataGraph").html("");
+
+    /***************************************************
+    *            Get data for graph
+    ****************************************************/
+    var lowestRun = 99999999;
+    var highestRun = 0;
+    var numOfHerbs = 0;
+    var dataset = [];
+    var dataset2 = [];
+    var i = 0;
+    for(var run of player.farmRun.runs){
+        i++;
+        // Highest Collected
+        if(run.numberOfHerbs > highestRun){
+            highestRun = run.numberOfHerbs;
+        }
+        // Lowest Collected
+        if(run.numberOfHerbs < lowestRun){
+            lowestRun = run.numberOfHerbs;
+        }
+        // add current run
+        dataset.push({y:run.numberOfHerbs});
+
+        numOfHerbs += run.numberOfHerbs;
+
+        dataset2.push({y:(numOfHerbs/i)});
+    }
+
+    // 2. Use the margin convention practice 
+    var margin = {top: 50, right: 50, bottom: 50, left: 50}, 
+    width = parseInt(d3.select("#mainPanel").style("width")) - margin.left - margin.right, 
+    height = 400 - margin.top - margin.bottom;
+
+    // The number of datapoints
+    var n = player.farmRun.runs.length;
+
+    /***************************************************
+    *            Axies
+    ****************************************************/
+    var xScale = d3.scaleLinear()
+        .domain([0, n-1]) // input
+        .range([0, width]); // output
+
+    var yScale = d3.scaleLinear()
+        .domain([lowestRun, highestRun]) // input 
+        .range([height, 0]); // output 
+
+    /***************************************************
+    *            Draw the line
+    ****************************************************/
+    var line = d3.line()
+        .x(function(d, i) { return xScale(i); }) // set the x values for the line generator
+        .y(function(d) { return yScale(d.y); }) // set the y values for the line generator 
+        .curve(d3.curveMonotoneX); // apply smoothing to the line
+
+
+    /***************************************************
+    *            Draw the graph for data
+    ****************************************************/
+    var svg = d3.select("#farmDataGraph").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    /***************************************************
+    *            Draw the axies
+    ****************************************************/
+    svg.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+
+    svg.append("g")
+        .attr("class", "yaxis")
+        .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
+
+    /***************************************************
+    *            Draw the line
+    ****************************************************/
+    svg.append("path")
+        .datum(dataset2) // 10. Binds data to the line 
+        .attr("class", "line2") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
+
+    svg.append("path")
+        .datum(dataset) // 10. Binds data to the line 
+        .attr("class", "line") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
+
+    
+
+    /***************************************************
+    *            Draw the dots
+    ****************************************************/
+    svg.selectAll(".dot")
+        .data(dataset)
+    .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot") // Assign a class for styling
+        .attr("cx", function(d, i) { return xScale(i) })
+        .attr("cy", function(d) { return yScale(d.y) })
+        .attr("r", 5);
 }

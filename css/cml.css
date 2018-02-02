@@ -1,0 +1,27 @@
+#CML{
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#CMLTable{
+    width: 100%;
+}
+
+.CMLIcon{
+    width:20px;
+    height:20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    float: right;
+}
+
+#CMLTableBody{
+    font-size: 8pt;
+    text-align: right;
+}
+#CMLTableBody tr{
+    border-top: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(103, 103, 103);
+}

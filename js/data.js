@@ -1,13 +1,26 @@
-/////////////////////////
-// Global variables
-var versionNum = "1.0.1";   // Version Number
+/***************************************************
+*            Global Variabes
+****************************************************/
+var versionNum = "1.1.0";   // Version Number
 var isOldVersion = false;
 var playerVersion = "0.0.19";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
 var isAbleToSave = true;
+var timeGePricesUpdated = 0;
 
-/////////////////////////
-// Player Object
+var CMLData = {
+    playerData : [],
+    players: [
+        "Jr2254",
+        "fblthp792",
+        "Metalspike0",
+        "Flowerpower9"
+    ]
+};
+
+/***************************************************
+*            Player Object
+****************************************************/
 // Holds everything to save/load
 // If anything is added, make sure to change the function below that
 // updates the save file!
@@ -45,8 +58,9 @@ var defaultPlayer = {
 
 var player;
 
-////////////////////////
-// Prices
+/***************************************************
+*            GE Prices
+****************************************************/
 var prices = {
     cannonball:-1,
     waterRune: -1,
@@ -60,22 +74,23 @@ var gePrices;
 function getGEPrices(){
     jQuery.ajaxPrefilter(function(options) {
         if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+            options.url = 'https://proxy-sauce.glitch.me/' + options.url;
         }
     });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
         gePrices = json;
         setPrices();
-    }).always(function(d) {
+        timeGePricesUpdated = new Date().getTime();
+        console.log("GE Prices grabbed!");
+    }).always(function() {
         if(gePrices == null){
+            console.error("GE PRICES NOT DOWNLOADED. FALLBACK TO SAVED JSON");
             $.getJSON("./js/json/ge.json", function(newJson) {
                 gePrices = newJson;
                 setPrices();
             });
         }
-    });
-
-    
+    }); 
 }
 
 function setPrices(){
@@ -87,8 +102,9 @@ function setPrices(){
     //prices.bloodRune = findItem("blood rune");
 }
 
-////////////////////////
-// monsters
+/***************************************************
+*            Monsters
+****************************************************/
 var monsters;
 
 function loadMonsters(){
@@ -111,8 +127,9 @@ function loadMonsters(){
     });
 }
 
-////////////////////////
-// Set runes left
+/***************************************************
+*            Player Object Resources
+****************************************************/
 function setResources(){
     d3.select("#waterRunesLeft").text(player.runes.water);
     d3.select("#bloodRunesLeft").text(player.runes.blood);
@@ -122,8 +139,9 @@ function setResources(){
     d3.select("#tridentChargesLeft").text(player.tridentCharges);
 }
 
-//////////////////////
-// save & load
+/***************************************************
+*            Loading player
+****************************************************/
 function load(){
     // If you can use web storage
     if (typeof(Storage) !== "undefined") {
@@ -149,6 +167,9 @@ function load(){
     }
 }
 
+/***************************************************
+*            Saving Player
+****************************************************/
 function save(){
     if(isAbleToSave){
         if (typeof(Storage) !== "undefined") {
@@ -160,7 +181,9 @@ function save(){
 }
 
 
-
+/***************************************************
+*            Wipe Save
+****************************************************/
 function wipeSave(num){
     // player = defaultPlayer;
     // save();
@@ -185,6 +208,9 @@ function wipeSave(num){
     }
 }
 
+/***************************************************
+*            Validate Load
+****************************************************/
 function checkLoadFile(playerLoaded){
     var updatedPlayerSave = playerLoaded;
 
@@ -227,7 +253,9 @@ function checkLoadFile(playerLoaded){
     save();
 }
 
-
+/***************************************************
+*            Set Old Save for testing
+****************************************************/
 function setOldSaveForTest(){
     wipeSave(1);
     player = {
@@ -253,6 +281,9 @@ function setOldSaveForTest(){
     save();
 }
 
+/***************************************************
+*            Load Test Player
+****************************************************/
 function loadTestPlayer(){
     isAbleToSave = false;
     $.getJSON("./js/json/testPlayer.json", function(json) {
@@ -261,6 +292,9 @@ function loadTestPlayer(){
     });
 }
 
+/***************************************************
+*            Turn on Saving
+****************************************************/
 function turnOnSaving(){
     console.error("THIS MIGHT DELETE YOUR SAVE!");
     isAbleToSave = true;

@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="./css/farmRun.css">
         <link rel="stylesheet" href="./css/corp.css">
         <link rel="stylesheet" href="./css/homePage.css">
+        <link rel="stylesheet" href="./css/cml.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
@@ -23,6 +24,7 @@
         <script src="./js/slayerTable.js"></script>
         <script src="./js/farmRun.js"></script>
         <script src="./js/corp.js"></script>
+        <script src="./js/cml.js"></script>
     </head>
     <body>
         <div id="mainPanel">
@@ -298,6 +300,14 @@
                         Save Run
                     </button>
                 </div>
+            </div>
+            <div id="farmData" class="scrollBarStyle" style="display:none">
+
+                <div id="farmDataGraph"></div>
+                <p style="text-align:center">
+                    <span style="color:#ffab00">Number of herbs from run</span><br/>
+                    <span style="color:#e100ff">Average herbs up to that run</span>
+                </p>
                 <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
                 <table id="farmInfoTable">
                     
@@ -360,11 +370,12 @@
                         <td>
                             <h2>Slayer</h2>
                             <div class="homePageButton" onclick="goToMonsterPage()">Start a Slayer Task</div>
-                            <div class="homePageButton" onclick="showSlayerLogs()">View Your Slayer Logs</div>
+                            <div id="slayerLogHomeButton" class="homePageButton" onclick="showSlayerLogs()">View Your Slayer Logs</div>
                         </td>
                         <td>
                             <h2>Farming</h2>
                             <div class="homePageButton" onclick="showFarmRun()">Track a Herb Run</div>
+                            <div id="farmDataHomeButton" class="homePageButton" onclick="showFarmData()">Show Herb Run Data</div>
                         </td>
                     </tr>
                     <tr>
@@ -375,19 +386,59 @@
                         <td>
                             <h2>Other</h2>
                             <div class="homePageButton" onclick="switchToSettings()">Settings</div>
+                            <div class="homePageButton" onclick="showCML()">Player Tracker</div>
                         </td>
                     </tr>
                     <tr id="tableRowForTesting" style="display:none">
                         <td>
                             <h2>Testing</h2>
-                            <div class="homePageButton" onclick="wipeSave(1)">Wipe Player (turns off save)</div>
-                            <div class="homePageButton" onclick="wipeSave(2)">Wipe Save</div>
+                            <div class="homePageButton" onclick="wipeSave(0)">Wipe Player (turns off save)</div>
+                            <div class="homePageButton" onclick="wipeSave(1)">Wipe Save</div>
                             <div class="homePageButton" onclick="setOldSaveForTest()">Set Old Save</div>
                             <div class="homePageButton" onclick="loadTestPlayer()">Load Test Save (turns off save)</div>
                             <div class="homePageButton" onclick="turnOnSaving()">Turn ON Save</div>
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div id="CML">
+                <div class="settingsRow"><!-- blank space to leave room --></div>
+                <table id="CMLTable">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/overall.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/attack.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/defence.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/strength.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/hitpoints.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/ranged.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/prayer.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/magic.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/cooking.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/woodcutting.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/fletching.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/fishing.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/firemaking.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/crafting.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/smithing.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/mining.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/herblore.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/agility.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/thieving.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/slayer.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/farming.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/runecrafting.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/hunter.gif")'></div></th>
+                            <th><div class="CMLIcon" style='background-image:url("./images/skills/construction.gif")'></div></th>
+                        </tr>
+                    </thead>
+                    <tbody id="CMLTableBody">
+                        
+                    </tbody>
+                    <tfoot id="CMLTableFooter">
+                    </tfoot>
+                    </table>
             </div>
         </div>
 

@@ -4,18 +4,27 @@ $( document ).ready(function() {
     getGEPrices();
     d3.select("#versionNum").text("v"+versionNum);
     load();
-    loadMonsters();
-    returnHome();
     
+    
+    // Check if running on my computer to show testing buttons
     if(window.location.href == "http://192.168.2.168:8080/"){
         d3.select("#tableRowForTesting").style('display', null);
     }
+    // check if url is for temp data
+    if(window.location.href == "http://192.168.2.168:8080/?tempData" || window.location.href == "https://flickerstop.github.io/slayerTrackerWeb/?tempData"){
+        loadTestPlayer();
+    }
+
+    
 
     if(player.cookieWarning == true){
         d3.select("#fullScreenWarning").style('display', 'none');
     }
 
     var globalClock = setInterval(clock, 500);
+
+    loadMonsters();
+    returnHome();
 });
 
 function closeWarning(){
@@ -65,6 +74,15 @@ function clock(){
                 rightNow - slayerTask.startTime.getTime()
             )
         );
+    }
+
+    /****************************************************/
+    /*            Update GE Prices                      */
+    /****************************************************/
+    if(rightNow > timeGePricesUpdated+18000000 && timeGePricesUpdated != 0){
+        console.log("5 hour timer: Updating GE Prices!");
+        timeGePricesUpdated = 0;
+        getGEPrices();
     }
     
 }
