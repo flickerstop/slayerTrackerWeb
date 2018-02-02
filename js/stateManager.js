@@ -12,8 +12,6 @@
 // 8 - CML
 
 function changeState(currentState){
-    d3.select("#mainPanel").style("min-width","640px");
-
 
     d3.select("#onTask").style('display', 'none');
     d3.select("#monsterSelect").style('display', 'none');
@@ -126,5 +124,4 @@ function showFarmData(){
 
 function showCML(){
     changeState(8);
-    d3.select("#mainPanel").style("min-width","1200px");
 }

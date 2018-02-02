@@ -4,7 +4,8 @@
 }
 
 #CMLTable{
-    width: 100%;
+    width: 1200px;
+    border-spacing: 0px;
 }
 
 .CMLIcon{
@@ -20,8 +21,16 @@
     font-size: 8pt;
     text-align: right;
 }
-#CMLTableBody tr{
-    border-top: 1px;
-    border-top-style: solid;
-    border-top-color: rgb(103, 103, 103);
+#CMLTableBody th, #CMLTableBody td{
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0px;
+}
+
+#CMLTableBody tr:nth-child(even) {
+    background-color: rgb(70, 70, 70);
+}
+
+#CMLTableBody tr:hover {
+    background-color: #ffab00;
+    color: black;
 }

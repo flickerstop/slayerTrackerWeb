@@ -1,21 +1,15 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.1.0";   // Version Number
+var versionNum = "1.1.1";   // Version Number
 var isOldVersion = false;
-var playerVersion = "0.0.19";
+var playerVersion = "1.1.1";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
 var isAbleToSave = true;
 var timeGePricesUpdated = 0;
 
 var CMLData = {
-    playerData : [],
-    players: [
-        "Jr2254",
-        "fblthp792",
-        "Metalspike0",
-        "Flowerpower9"
-    ]
+    playerData : []
 };
 
 /***************************************************
@@ -27,6 +21,7 @@ var CMLData = {
 var defaultPlayer = {
     versionNum: playerVersion,
     playerName: "",
+    playersToTrack: [],
     cannonballs:0,
     runes:{
         water:0,
@@ -243,6 +238,12 @@ function checkLoadFile(playerLoaded){
             corpRuns:[],
             raidRuns:[]
         };
+    }
+
+    // Check for players to track
+    if(updatedPlayerSave.playersToTrack == null){
+        console.error("No Players to track, added default");
+        updatedPlayerSave.playersToTrack = [];
     }
 
     // change version number

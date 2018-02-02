@@ -233,3 +233,7 @@ body {
     background-color: green;
     color: white;
 }
+
+.cyanText{
+    color: rgb(80, 200, 255);
+}

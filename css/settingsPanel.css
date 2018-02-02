@@ -1,16 +1,16 @@
-#settingsPanel h2{
+/***************************************************
+*            Main Panels
+****************************************************/
+#settingsPanel{
+    height: calc(100% - 35px);
     width: 100%;
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow: auto;
 }
 
-#settingsContainer{
-    width: 100%;
-    /* background-color: pink; */
-    height: 100%;
-}
-
+/***************************************************
+*            Settings Row
+****************************************************/
 .settingsRow{
     height: 40px;
     width: 100%;
@@ -30,7 +30,9 @@
     cursor: pointer;
 }
 
-
+/***************************************************
+*            Text
+****************************************************/
 .settingsText{
     /* background-color: blue; */
     width: calc(50% - 5px);
@@ -40,6 +42,18 @@
     text-align: right;
     padding-right: 5px;
 }
+
+#settingsPanel h2{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+
+/***************************************************
+*            Input
+****************************************************/
 .settingsInput{
     /* background-color: red; */
     width: 50%;
@@ -68,6 +82,9 @@
     line-height: 38px;
 }
 
+/***************************************************
+*            Save Button
+****************************************************/
 #saveButton{
     background-color: #902929;
     border-color: rgb(27, 27, 27);
@@ -80,7 +97,20 @@
     cursor: pointer;
 }
 
-#settingsContainer{
-    height: calc(100% - 135px);
-    overflow: auto;
+/***************************************************
+*            Player Name Inputs
+****************************************************/
+
+.playerNameSettingsInput{
+    margin: 5px 10px;
+    width: calc(100% - 20px);
+    height: 35px;
+    background-color: rgb(39, 39, 39);
+    color: white;
+    border: 1px;
+    border-style: solid;
+    border-color: white;
+    font-size: 15px;
+    padding-left: 5px;
+    line-height: 100%;
 }

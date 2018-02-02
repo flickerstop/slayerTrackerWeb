@@ -167,7 +167,7 @@ function setFarmRunFlavourText(){
     for(i = 0; i < tableValues.length; i++){
         var row = table.append("tr");
         row.append("td").text(tableInfo[i]+":").style("text-align","right");
-        row.append("td").text(tableValues[i].toLocaleString());
+        row.append("td").text(tableValues[i].toLocaleString()).attr("class","cyanText");
     }
 }
 

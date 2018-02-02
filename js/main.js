@@ -9,6 +9,9 @@ $( document ).ready(function() {
     // Check if running on my computer to show testing buttons
     if(window.location.href == "http://192.168.2.168:8080/"){
         d3.select("#tableRowForTesting").style('display', null);
+        console.error("Local host, not grabbing CML data");
+    }else{
+        getCMLData();
     }
     // check if url is for temp data
     if(window.location.href == "http://192.168.2.168:8080/?tempData" || window.location.href == "https://flickerstop.github.io/slayerTrackerWeb/?tempData"){
@@ -80,9 +83,10 @@ function clock(){
     /*            Update GE Prices                      */
     /****************************************************/
     if(rightNow > timeGePricesUpdated+18000000 && timeGePricesUpdated != 0){
-        console.log("5 hour timer: Updating GE Prices!");
+        console.log("5 hour timer: Updating GE Prices and CML!");
         timeGePricesUpdated = 0;
         getGEPrices();
+        getCMLData();
     }
     
 }

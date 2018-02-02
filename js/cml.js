@@ -15,11 +15,11 @@ var CMLData = {
 function getCMLData(){
 
     var sendString = [];
-    for(var player of CMLData.players){
-        sendString.push({type:"update",player:player});
+    for(var account of player.playersToTrack){
+        sendString.push({type:"update",player:account});
     }
-    for(var player of CMLData.players){
-        sendString.push({type:"track",player:player});
+    for(var account of player.playersToTrack){
+        sendString.push({type:"track",player:account});
     }
     sendString = JSON.stringify(sendString);
     $.get('https://crystalmathlabs.com/tracker/api.php?multiquery='+sendString, function(data) {
@@ -30,6 +30,9 @@ function getCMLData(){
     }); 
 }
 
+/***************************************************
+*            Parse the data recieved
+***************************************************/
 function parseCMLText(data){
     var requests = data.split("~~"); // split the return string by requests
 
@@ -50,16 +53,36 @@ function parseCMLText(data){
     }
 }
 
+/***************************************************
+*            Fill in the table with data
+***************************************************/
 function fillCMLTable(){
+    d3.select("#CMLTableBody").html("");
     var table = d3.select("#CMLTableBody");
 
     var i = 0;
-    for(var player of CMLData.playerData){
+    for(var account of CMLData.playerData){
         var tableRow = table.append("tr");
-        tableRow.append("td").text(CMLData.players[i]);
-        for(var skill of player){
-            tableRow.append("td").text(skill.toLocaleString());
+        tableRow.append("td").text(player.playersToTrack[i]);
+        var p = 0;
+        for(var skill of account){
+            var text = tableRow.append("td").text(skill.toLocaleString());
+            if(isHighestXpForSkill(p,skill)){
+                text.style("color","red");
+            }
+            p++;
         }
         i++;
     }
+}
+
+// Check if the given player exp is the highest for that skill 
+// by looking at all other players exp
+function isHighestXpForSkill(skillNumber,currentExp){
+    for(var player of CMLData.playerData){
+        if(player[skillNumber] > currentExp){
+            return false;
+        }
+    }
+    return true;
 }
