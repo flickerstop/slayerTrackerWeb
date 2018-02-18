@@ -44,7 +44,7 @@ function clock(){
     /*            Farm Run Clock                        */
     /****************************************************/
     if(player.farmRun.onRun == true){
-        var endTime = player.farmRun.lastRunAt+5400000;
+        var endTime = player.farmRun.lastRunAt+4800000;
         //var endTime = player.farmRun.lastRunAt+3000;
 
         if(endTime < rightNow && audio.duration > 0){
