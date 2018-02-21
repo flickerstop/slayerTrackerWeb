@@ -19,7 +19,7 @@ function saveFarmRun(){
 
     var netProfit = findItem(player.farmRun.settings.herbType).overall_average * numberOfHerbs;
     var resCost = (numberOfRes + numberOfFailed) * resurrectPrice();
-    var costs = (player.farmRun.settings.numberOfPatches - numberOfCured - numberOfRes) * getSeedprice() + resCost;
+    var costs = (player.farmRun.settings.numberOfPatches - numberOfCured - numberOfRes) * getSeedprice(player.farmRun.settings.herbType) + resCost;
     var profit = netProfit - costs;
 
     var endTime = new Date().getTime();
@@ -94,7 +94,9 @@ function setFarmRunFlavourText(){
     if(player.farmRun.runs.length == 0){
         return;
     }
+}
 
+function setFarmData(runs){
     // RESET THINGS
     d3.select("#farmRunTableBody").html("");
     d3.select("#farmInfoTable").html("");
@@ -111,55 +113,58 @@ function setFarmRunFlavourText(){
         "Number of Failed Resurrections",
         "Number of Cured",
         "Net Profit",
-        "Profit"
+        "Profit",
+        "Avg. Profit Per Run"
     ];
 
-    var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0];
-    for(i = 0; i < player.farmRun.runs.length; i++){
+    var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0,0];
+    for(i = 0; i < runs.length; i++){
         // Number of runs
         tableValues[0]++;
         // Number of Herbs
-        tableValues[1] += player.farmRun.runs[i].numberOfHerbs;
+        tableValues[1] += runs[i].numberOfHerbs;
         // Highest Collected
-        if(player.farmRun.runs[i].numberOfHerbs > tableValues[2]){
-            tableValues[2] = player.farmRun.runs[i].numberOfHerbs;
+        if(runs[i].numberOfHerbs > tableValues[2]){
+            tableValues[2] = runs[i].numberOfHerbs;
         }
         // Lowest Collected
-        if(player.farmRun.runs[i].numberOfHerbs < tableValues[3]){
-            tableValues[3] = player.farmRun.runs[i].numberOfHerbs;
+        if(runs[i].numberOfHerbs < tableValues[3]){
+            tableValues[3] = runs[i].numberOfHerbs;
         }
         // average collected
 
         // Number of dead
-        tableValues[5] += player.farmRun.runs[i].numberOfDead;
+        tableValues[5] += runs[i].numberOfDead;
         // chance of death
         
         // Number of successful res
-        tableValues[7] += player.farmRun.runs[i].numberOfRes;
+        tableValues[7] += runs[i].numberOfRes;
         // Number of failed Res
-        tableValues[8] += player.farmRun.runs[i].numberOfFailRes;
+        tableValues[8] += runs[i].numberOfFailRes;
         // Number of Cured
-        tableValues[9] += player.farmRun.runs[i].numberOfCured;
+        tableValues[9] += runs[i].numberOfCured;
         // Net Profit
-        tableValues[10] += player.farmRun.runs[i].money.netProfit;
+        tableValues[10] += runs[i].money.netProfit;
         // Profit
-        tableValues[11] += player.farmRun.runs[i].money.profit;
+        tableValues[11] += runs[i].money.profit;
+        //Avg profit
+        tableValues[12] += roundToOneDecimal(runs[i].money.profit/runs.length);
         //////////////////////////////////////////////////////////////
         var row = d3.select("#farmRunTableBody").append("tr");
-        var time = new Date(player.farmRun.runs[i].timeCompleted);
-        row.append("td").text(player.farmRun.runs[i].herbType).style("text-align","right");
-        row.append("td").text(player.farmRun.runs[i].numberOfHerbs).style("text-align","right");
-        row.append("td").text(player.farmRun.runs[i].money.profit.toLocaleString()).style("text-align","right");
+        var time = new Date(runs[i].timeCompleted);
+        row.append("td").text(runs[i].herbType).style("text-align","right");
+        row.append("td").text(runs[i].numberOfHerbs).style("text-align","right");
+        row.append("td").text(runs[i].money.profit.toLocaleString()).style("text-align","right");
         row.append("td").text(time.toLocaleTimeString()).style("text-align","right");
         row.append("td").text(time.toDateString()).style("text-align","right");
     }
 
     // Average Collected
     tableValues[4] = (tableValues[1]/tableValues[0]);
-    tableValues[4] = (Math.round(tableValues[4]*10))/10;
+    tableValues[4] = roundToOneDecimal(tableValues[4]);
     // Chance of Death
     tableValues[6] = (tableValues[5]/(tableValues[0]*player.farmRun.settings.numberOfPatches))*100;
-    tableValues[6] = (Math.round(tableValues[6]*1000))/1000;
+    tableValues[6] = roundToTwoDecimal(tableValues[6]);
     tableValues[6] = tableValues[6] + "%";
 
     var table = d3.select("#farmInfoTable");
@@ -169,6 +174,7 @@ function setFarmRunFlavourText(){
         row.append("td").text(tableInfo[i]+":").style("text-align","right");
         row.append("td").text(tableValues[i].toLocaleString()).attr("class","cyanText");
     }
+    drawFarmDataGraph(runs);
 }
 
 /***************************************************
@@ -188,18 +194,6 @@ function resurrectPrice(){
 /***************************************************
 *            Get Price for seeds
 ****************************************************/
-
-function getSeedprice(){
-    if(player.farmRun.settings.herbType == "Torstol"){
-        return findItem("torstol seed").overall_average;
-    }
-    if(player.farmRun.settings.herbType == "Snapdragon"){
-        return findItem("Snapdragon seed").overall_average;
-    }
-    if(player.farmRun.settings.herbType == "Ranarr Weed"){
-        return findItem("Ranarr seed").overall_average;
-    }
-}
 
 function getSeedprice(seedType){
     if(seedType == "Torstol"){
@@ -232,7 +226,7 @@ function stopTimer(){
 *            Draw the graph for data
 ****************************************************/
 
-function drawFarmDataGraph(){
+function drawFarmDataGraph(runs){
     d3.select("#farmDataGraph").html("");
 
     /***************************************************
@@ -244,20 +238,20 @@ function drawFarmDataGraph(){
     var dataset = [];
     var dataset2 = [];
     var i = 0;
-    for(var run of player.farmRun.runs){
+    for(var currentRun of runs){
         i++;
         // Highest Collected
-        if(run.numberOfHerbs > highestRun){
-            highestRun = run.numberOfHerbs;
+        if(currentRun.numberOfHerbs > highestRun){
+            highestRun = currentRun.numberOfHerbs;
         }
         // Lowest Collected
-        if(run.numberOfHerbs < lowestRun){
-            lowestRun = run.numberOfHerbs;
+        if(currentRun.numberOfHerbs < lowestRun){
+            lowestRun = currentRun.numberOfHerbs;
         }
         // add current run
-        dataset.push({y:run.numberOfHerbs});
+        dataset.push({y:currentRun.numberOfHerbs});
 
-        numOfHerbs += run.numberOfHerbs;
+        numOfHerbs += currentRun.numberOfHerbs;
 
         dataset2.push({y:(numOfHerbs/i)});
     }
@@ -268,7 +262,7 @@ function drawFarmDataGraph(){
     height = 400 - margin.top - margin.bottom;
 
     // The number of datapoints
-    var n = player.farmRun.runs.length;
+    var n = runs.length;
 
     /***************************************************
     *            Axies
@@ -331,17 +325,18 @@ function drawFarmDataGraph(){
     ****************************************************/
     svg.selectAll(".dot")
         .data(dataset)
-    .enter().append("circle") // Uses the enter().append() method
+        .enter().append("circle") // Uses the enter().append() method
         .attr("class", "dot") // Assign a class for styling
         .attr("cx", function(d, i) { return xScale(i) })
         .attr("cy", function(d) { return yScale(d.y) })
         .attr("r", 5);
+        
 }
 
 /***************************************************
 *            Check farm runs for errors
 ****************************************************/
-/* Added this because I had errors once */
+/* Added this because I had errors once due to cors proxy*/
 function checkFarmRuns(){
     var anyFixed = false;
     for(var i = 0; i < player.farmRun.runs.length; i++){
@@ -367,6 +362,70 @@ function checkFarmRuns(){
     }
 
     if(anyFixed){
+        console.error("Error found in farm run data.\nError fixed.");
         save();
+    }
+}
+
+/***************************************************
+*            Get a list of all herbs ran
+****************************************************/
+
+function getListOfHerbsRan(){
+    var typesOfHerbs = [];
+    for(run of player.farmRun.runs){
+        var isAdded = false;
+        for(type of typesOfHerbs){
+            if(run.herbType == type){
+                isAdded = true;
+            }
+        }
+        if(!isAdded){
+            typesOfHerbs.push(run.herbType);
+        }
+    }
+    return typesOfHerbs;
+}
+
+/***************************************************
+*            Get all runs of a type of herb
+****************************************************/
+
+function getRunsOfType(type){
+    if(type == "all"){
+        return player.farmRun.runs;
+    }
+    var runs = [];
+
+    for(run of player.farmRun.runs){
+        if(run.herbType == type){
+            runs.push(run);
+        }
+    }
+
+    return runs;
+}
+
+/***************************************************
+*            Herb Type Buttons
+****************************************************/
+
+function setHerbTypeButtons(){
+    var row = d3.select("#herbTypeButtons");
+    var numberOfTypes = getListOfHerbsRan().length + 1;
+
+    row.append("div").style("width",(100/numberOfTypes)+"%").html("All").on("click",onTypeButton("all"));
+
+    for(type of getListOfHerbsRan()){
+        row.append("div")
+            .style("width","calc( "+(100/numberOfTypes)+"% - 15px)")
+            .html(type)
+            .on("click",onTypeButton(type));
+    }
+}
+
+function onTypeButton(type){
+    return function(){
+        setFarmData(getRunsOfType(type));
     }
 }

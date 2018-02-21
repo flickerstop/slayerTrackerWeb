@@ -117,8 +117,9 @@ function showCorpTracker(){
 }
 
 function showFarmData(){
-    setFarmRunFlavourText();
-    drawFarmDataGraph();
+    checkFarmRuns(); // Used because of errors found once
+    setFarmData(player.farmRun.runs);
+    setHerbTypeButtons();
     changeState(7);
 }
 

@@ -165,3 +165,25 @@
     fill: #ffab00;
     stroke: #fff;
 }
+
+/**/
+#herbTypeButtons{
+    height: 40px;
+    width: 100%;
+}
+
+#herbTypeButtons div{
+    height: 38px;
+    float: left;
+    margin: 0px 4px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+#herbTypeButtons div:hover{
+    background-color: white;
+    color: black;
+}
