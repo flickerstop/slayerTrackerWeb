@@ -1,7 +1,7 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.1.2";   // Version Number
+var versionNum = "1.1.3";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.1.1";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -69,7 +69,7 @@ var gePrices;
 function getGEPrices(){
     jQuery.ajaxPrefilter(function(options) {
         if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'https://api.codetabs.com/cors-proxy/' + options.url;
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
         }
     });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
