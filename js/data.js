@@ -69,7 +69,7 @@ var gePrices;
 function getGEPrices(){
     jQuery.ajaxPrefilter(function(options) {
         if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'https://proxy-sauce.glitch.me/' + options.url;
+            options.url = 'https://api.codetabs.com/cors-proxy/' + options.url;
         }
     });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
