@@ -201,6 +201,18 @@ function getSeedprice(){
     }
 }
 
+function getSeedprice(seedType){
+    if(seedType == "Torstol"){
+        return findItem("torstol seed").overall_average;
+    }
+    if(seedType == "Snapdragon"){
+        return findItem("Snapdragon seed").overall_average;
+    }
+    if(seedType == "Ranarr Weed"){
+        return findItem("Ranarr seed").overall_average;
+    }
+}
+
 /***************************************************
 *            Stop the farm timer
 ****************************************************/
@@ -324,4 +336,37 @@ function drawFarmDataGraph(){
         .attr("cx", function(d, i) { return xScale(i) })
         .attr("cy", function(d) { return yScale(d.y) })
         .attr("r", 5);
+}
+
+/***************************************************
+*            Check farm runs for errors
+****************************************************/
+/* Added this because I had errors once */
+function checkFarmRuns(){
+    var anyFixed = false;
+    for(var i = 0; i < player.farmRun.runs.length; i++){
+        var run = player.farmRun.runs[i];
+        if(run.money.profit == null){
+            var netProfit = findItem(run.herbType).overall_average * run.numberOfHerbs;
+            var resCost = (run.numberOfRes + run.numberOfFailRes) * resurrectPrice();
+            var costs = (player.farmRun.settings.numberOfPatches - run.numberOfCured - run.numberOfRes) * getSeedprice(run.herbType) + resCost;
+            var profit = netProfit - costs;
+
+            var money = {
+                costs: costs,
+                netProfit: netProfit,
+                priceOfHerb: findItem(run.herbType).overall_average,
+                priceOfSeed: getSeedprice(run.herbType),
+                profit: profit,
+                resCost: resCost
+            };
+
+            player.farmRun.runs[i].money = money;
+            anyFixed = true;
+        }
+    }
+
+    if(anyFixed){
+        save();
+    }
 }

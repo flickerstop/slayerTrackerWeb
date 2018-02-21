@@ -1,7 +1,7 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.1.3";   // Version Number
+var versionNum = "1.1.4";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.1.1";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -151,6 +151,7 @@ function load(){
             }else{ // If it's an old version
                 console.error("You are currently running an older save. Attempted to update save file!")
                 checkLoadFile(loadFile);
+                checkFarmRuns(); // Used because of errors found once
             }
         }else{
             player = defaultPlayer;
@@ -175,6 +176,18 @@ function save(){
     }
 }
 
+function downloadPlayer(){
+    var textToSave = JSON.stringify(player);
+
+    /* I love Stackoverflow */
+
+    var hiddenElement = document.createElement('a');
+
+    hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'player.json';
+    hiddenElement.click();
+}
 
 /***************************************************
 *            Wipe Save
