@@ -104,9 +104,9 @@ function setFarmData(runs){
     var tableInfo = [
         "Number of Runs",
         "Number of Herbs",
-        "Highest Collected",
-        "Lowest Collected",
-        "Average Collected",
+        "Highest Run",
+        "Lowest Run",
+        "Average Run",
         "Number of Dead Patches",
         "Chance of Death",
         "Number of Successful Resurrections",
@@ -114,10 +114,15 @@ function setFarmData(runs){
         "Number of Cured",
         "Net Profit",
         "Profit",
-        "Avg. Profit Per Run"
+        "Avg. Profit Per Run",
+        "Number of Seeds Used",
+        "Net Profit Per Seed",
+        "Profit Per Seed",
+        "Avg. Herbs Per Seed"
     ];
 
-    var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0,0];
+    var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var totalSuccess = 0; // Total number of successful plants
     for(i = 0; i < runs.length; i++){
         // Number of runs
         tableValues[0]++;
@@ -149,6 +154,8 @@ function setFarmData(runs){
         tableValues[11] += runs[i].money.profit;
         //Avg profit
         tableValues[12] += roundToOneDecimal(runs[i].money.profit/runs.length);
+        // Total Success
+        totalSuccess += 7 - runs[i].numberOfDead - runs[i].numberOfCured;
         //////////////////////////////////////////////////////////////
         var row = d3.select("#farmRunTableBody").append("tr");
         var time = new Date(runs[i].timeCompleted);
@@ -166,6 +173,14 @@ function setFarmData(runs){
     tableValues[6] = (tableValues[5]/(tableValues[0]*player.farmRun.settings.numberOfPatches))*100;
     tableValues[6] = roundToTwoDecimal(tableValues[6]);
     tableValues[6] = tableValues[6] + "%";
+    // Total Seeds Used
+    tableValues[13] = totalSuccess;
+    // Net Avg $ per seed
+    tableValues[14] = roundToOneDecimal(tableValues[10]/totalSuccess);
+    // $ per seed
+    tableValues[15] = roundToOneDecimal((tableValues[10]/totalSuccess) - getSeedprice(runs[0].herbType));
+    // Herbs per Seed
+    tableValues[16] = roundToOneDecimal(tableValues[1]/totalSuccess);
 
     var table = d3.select("#farmInfoTable");
 
@@ -412,20 +427,25 @@ function getRunsOfType(type){
 
 function setHerbTypeButtons(){
     var row = d3.select("#herbTypeButtons");
-    var numberOfTypes = getListOfHerbsRan().length + 1;
+    row.html("");
+    var numberOfTypes = getListOfHerbsRan().length+1;
 
-    row.append("div").style("width",(100/numberOfTypes)+"%").html("All").on("click",onTypeButton("all"));
+    // If there is more than 1 type of herb ran
+    if(numberOfTypes > 2){
+        row.append("div").style("width",(100/numberOfTypes)+"%").html("All").on("click",onTypeButton("all"));
 
-    for(type of getListOfHerbsRan()){
-        row.append("div")
-            .style("width","calc( "+(100/numberOfTypes)+"% - 15px)")
-            .html(type)
-            .on("click",onTypeButton(type));
+        for(type of getListOfHerbsRan()){
+            row.append("div")
+                .style("width","calc( "+(100/numberOfTypes)+"% - 15px)")
+                .html(type)
+                .on("click",onTypeButton(type));
+        }
+    }
+
+    function onTypeButton(type){
+        return function(){
+            setFarmData(getRunsOfType(type));
+        }
     }
 }
 
-function onTypeButton(type){
-    return function(){
-        setFarmData(getRunsOfType(type));
-    }
-}
