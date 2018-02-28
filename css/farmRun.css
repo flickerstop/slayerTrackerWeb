@@ -69,7 +69,7 @@
 *            Save Run Button                    
 ****************************************************/
 
-#saveFarmRunButton{
+#saveFarmRunButton, #saveFarmRunEditButton{
     width: 20%;
     margin-left: 40%;
     margin-right: 40%;
@@ -81,7 +81,7 @@
     color: white;
 }
 
-#saveFarmRunButton:hover{
+#saveFarmRunButton:hover, #saveFarmRunEditButton:hover{
     background-color: #ff6666;
     border-color: rgb(0, 0, 0);
     color: rgb(0, 0, 0);
@@ -117,10 +117,24 @@
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+    /* Removes the ability to select text */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 #farmRunTable th{
     text-align: right;
+}
+
+#farmRunTable tr:hover {
+    background-color: #ffab00;
+    color: black;
+    cursor: pointer;
 }
 
 /***************************************************

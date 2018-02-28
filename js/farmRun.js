@@ -11,11 +11,11 @@ function saveFarmRun(){
         return;
     }
 
-    var numberOfHerbs = parseInt($("#farmRunInputNumOfHerbs").val());
-    var numberOfDead = parseInt($("#farmRunInputNumOfDead").val());
-    var numberOfRes = parseInt($("#farmRunInputNumOfSuccessRes").val());
-    var numberOfFailed = parseInt($("#farmRunInputNumOfFailRes").val());
-    var numberOfCured = parseInt($("#farmRunInputNumOfCured").val());
+    var numberOfHerbs = getValueFromId("#farmRunInputNumOfHerbs");
+    var numberOfDead = getValueFromId("#farmRunInputNumOfDead");
+    var numberOfRes = getValueFromId("#farmRunInputNumOfSuccessRes");
+    var numberOfFailed = getValueFromId("#farmRunInputNumOfFailRes");
+    var numberOfCured = getValueFromId("#farmRunInputNumOfCured");
 
     var netProfit = findItem(player.farmRun.settings.herbType).overall_average * numberOfHerbs;
     var resCost = (numberOfRes + numberOfFailed) * resurrectPrice();
@@ -39,7 +39,7 @@ function saveFarmRun(){
         numberOfCured:numberOfCured,
         money:{
             priceOfHerb:findItem(player.farmRun.settings.herbType).overall_average,
-            priceOfSeed:getSeedprice(),
+            priceOfSeed:getSeedprice(player.farmRun.settings.herbType),
             netProfit:netProfit,
             costs:costs,
             profit:profit,
@@ -158,6 +158,7 @@ function setFarmData(runs){
         totalSuccess += 7 - runs[i].numberOfDead - runs[i].numberOfCured;
         //////////////////////////////////////////////////////////////
         var row = d3.select("#farmRunTableBody").append("tr");
+        row.on("click",function(i){return function(){editFarmRun(i)}}(i));
         var time = new Date(runs[i].timeCompleted);
         row.append("td").text(runs[i].herbType).style("text-align","right");
         row.append("td").text(runs[i].numberOfHerbs).style("text-align","right");
@@ -374,10 +375,16 @@ function checkFarmRuns(){
             player.farmRun.runs[i].money = money;
             anyFixed = true;
         }
+        // Saving seed prices was broken for a long time and I didn't notice
+        if(run.money.priceOfSeed == null){
+            run.money.priceOfSeed = (run.money.costs - run.money.resCost)/(run.numberOfPatches-run.numberOfCured-run.numberOfRes);
+
+            anyFixed = true;
+        }
     }
 
     if(anyFixed){
-        console.error("Error found in farm run data.\nError fixed.");
+        console.error("Error(s) found in farm run data.\nError fixed.");
         save();
     }
 }

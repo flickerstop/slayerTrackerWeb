@@ -1,7 +1,7 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.2.1";   // Version Number
+var versionNum = "1.3.0";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.1.1";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -317,6 +317,7 @@ function turnOnSaving(){
 *            Useful functions
 ****************************************************/
 
+// Find a monster in the monster.json with the given name
 function findMonster(monsterName){
     for(i = 0; i < monsters.length; i++){
         if(monsters[i].name == monsterName){
@@ -325,6 +326,7 @@ function findMonster(monsterName){
     }
 }
 
+// find an item in the downloaded g.e. prices with the given name
 function findItem(name){
     for(i = 0; i < 20000; i++){
         if(gePrices[i] != null){
@@ -335,6 +337,7 @@ function findItem(name){
     }
 }
 
+// Convert milliseconds to readable time
 function msToTime(duration) {
     var milliseconds = parseInt((duration%1000)/100)
         , seconds = parseInt((duration/1000)%60)
@@ -348,10 +351,25 @@ function msToTime(duration) {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+// Round to two decimal places
 function roundToTwoDecimal(number){
     return (Math.round(number*100))/100;
 }
 
+// Round to one decimal places
 function roundToOneDecimal(number){
     return (Math.round(number*10))/10;
+}
+
+// Returns the value from an id
+function getValueFromId(id){
+    return parseInt($(id).val());
+}
+
+function resetIdValue(id){
+    $(id).val(0);
+}
+
+function setIdValue(id, value){
+    $(id).val(value);
 }

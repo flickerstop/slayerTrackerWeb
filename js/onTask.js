@@ -89,7 +89,7 @@ function saveTask(){
     // Net Profit
     var totalProfit = 0;
     for(i = 1; i <= slayerTask.numberOfTrips; i++){
-        totalProfit += parseInt($("#tripInput"+i).val());
+        totalProfit += getValueFromId("#tripInput"+i);
     }
     /////////////////////
     // Time Taken
@@ -104,76 +104,71 @@ function saveTask(){
     var dateCompleted = slayerTask.endTime.getDate() + "/" + (slayerTask.endTime.getMonth()+1) + "/" + slayerTask.endTime.getFullYear();
     ////////////////////
     // Resource Amounts
-    var cballsUsed = 0;
-    var chargesUsed = 0;
-    var waterUsed = 0;
-    var bloodUsed = 0;
-    var deathUsed = 0;
-    var chaosUsed = 0;
+    var task = {
+        type : slayerTask.taskType,
+        cballsUsed : 0,
+        chargesUsed : 0,
+        waterUsed : 0,
+        bloodUsed : 0,
+        deathUsed : 0,
+        chaosUsed : 0
+    };
 
-    switch(slayerTask.taskType){
-        case 1: // Cannon
-            cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
-            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
-            break;
-        case 2: // Trident
-            chargesUsed = player.tridentCharges - parseInt($("#chargesLeftInput").val());
-            player.tridentCharges = parseInt($("#chargesLeftInput").val());
-            break;
-        case 3: // Burst
-            waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
-            deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
-            chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
-            player.runes.water = parseInt($("#waterRunesLeftInput").val());
-            player.runes.death = parseInt($("#deathRunesLeftInput").val());
-            player.runes.chaos = parseInt($("#chaosRunesLeftInput").val());
-            break;
-        case 4: // Burst Cannon
-            cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
-            waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
-            deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
-            chaosUsed = player.runes.chaos - parseInt($("#chaosRunesLeftInput").val());
-            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
-            player.runes.water = parseInt($("#waterRunesLeftInput").val());
-            player.runes.death = parseInt($("#deathRunesLeftInput").val());
-            player.runes.chaos = parseInt($("#chaosRunesLeftInput").val());
-            break;
-        case 5: // Barrage
-            waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
-            deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
-            bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
-            player.runes.water = parseInt($("#waterRunesLeftInput").val());
-            player.runes.death = parseInt($("#deathRunesLeftInput").val());
-            player.runes.blood = parseInt($("#bloodRunesLeftInput").val());
-            break;
-        case 6: // Barrage Cannon
-            waterUsed = player.runes.water - parseInt($("#waterRunesLeftInput").val());
-            deathUsed = player.runes.death - parseInt($("#deathRunesLeftInput").val());
-            bloodUsed = player.runes.blood - parseInt($("#bloodRunesLeftInput").val());
-            cballsUsed = player.cannonballs - parseInt($("#cannonballsLeftInput").val());
-            player.cannonballs = parseInt($("#cannonballsLeftInput").val());
-            player.runes.water = parseInt($("#waterRunesLeftInput").val());
-            player.runes.death = parseInt($("#deathRunesLeftInput").val());
-            player.runes.blood = parseInt($("#bloodRunesLeftInput").val());
-            break;
+    // slayerTask.taskType
+    // 1 - cannon
+    // 2 - Trident
+    // 3 - Burst
+    // 4 - Burst Cannon
+    // 5 - Barrage
+    // 6 - Barrage Cannon
+
+    // Cannons
+    if(task.type == 1 || task.type == 4 || task.type == 6){
+        task.cballsUsed = player.cannonballs - getValueFromId("#cannonballsLeftInput");
+        player.cannonballs = getValueFromId("#cannonballsLeftInput");
+    }
+
+    // Trident
+    if(task.type == 2){
+        task.chargesUsed = player.tridentCharges - getValueFromId("#chargesLeftInput");
+        player.tridentCharges = getValueFromId("#chargesLeftInput");
+    }
+
+    // Burst
+    if(task.type == 3 || task.type == 4){
+        task.waterUsed = player.runes.water - getValueFromId("#waterRunesLeftInput");
+        task.deathUsed = player.runes.death - getValueFromId("#deathRunesLeftInput");
+        task.chaosUsed = player.runes.chaos - getValueFromId("#chaosRunesLeftInput");
+        player.runes.water = getValueFromId("#waterRunesLeftInput");
+        player.runes.death = getValueFromId("#deathRunesLeftInput");
+        player.runes.chaos = getValueFromId("#chaosRunesLeftInput");
+    }
+    // Barrage
+    if(task.type == 5 || task.type == 6){
+        task.waterUsed = player.runes.water - getValueFromId("#waterRunesLeftInput");
+        task.deathUsed = player.runes.death - getValueFromId("#deathRunesLeftInput");
+        task.bloodUsed = player.runes.blood - getValueFromId("#bloodRunesLeftInput");
+        player.runes.water = getValueFromId("#waterRunesLeftInput");
+        player.runes.death = getValueFromId("#deathRunesLeftInput");
+        player.runes.blood = getValueFromId("#bloodRunesLeftInput");
     }
     ///////////////////
     // Resource Cost
     var resourcesPrice = {
-        cballs: cballsUsed * prices.cannonball,
-        charges : chargesUsed * prices.tridentCharge,
-        waterRunes : waterUsed * prices.waterRune,
-        bloodRunes : bloodUsed * prices.bloodRune,
-        deathRunes : deathUsed * prices.deathRune,
-        chaosRunes : chaosUsed * prices.chaosRune
+        cballs: task.cballsUsed * prices.cannonball,
+        charges : task.chargesUsed * prices.tridentCharge,
+        waterRunes : task.waterUsed * prices.waterRune,
+        bloodRunes : task.bloodUsed * prices.bloodRune,
+        deathRunes : task.deathUsed * prices.deathRune,
+        chaosRunes : task.chaosUsed * prices.chaosRune
     }
     var totalResourcePrice = 
-        cballsUsed * prices.cannonball+
-        chargesUsed * prices.tridentCharge+
-        waterUsed * prices.waterRune+
-        bloodUsed * prices.bloodRune+
-        deathUsed * prices.deathRune+
-        chaosUsed * prices.chaosRune;
+        task.cballsUsed * prices.cannonball+
+        task.chargesUsed * prices.tridentCharge+
+        task.waterUsed * prices.waterRune+
+        task.bloodUsed * prices.bloodRune+
+        task.deathUsed * prices.deathRune+
+        task.chaosUsed * prices.chaosRune;
     /////////////////
     // exp
     var exp = findMonster(slayerTask.taskMonster).slayerExp * slayerTask.taskCount;
@@ -193,7 +188,7 @@ function saveTask(){
     var gpMin = totalProfit/minsTaken;
     var xpMin = exp/minsTaken;
 
-    var task = {
+    var finishedTask = {
         count : slayerTask.taskCount,
         monster : slayerTask.taskMonster,
         netProfit : totalProfit,
@@ -201,12 +196,12 @@ function saveTask(){
         expGained : exp,
         type : slayerTask.taskType,
         resourcesUsed : {
-            cballs: cballsUsed,
-            charges : chargesUsed,
-            waterRunes : waterUsed,
-            bloodRunes : bloodUsed,
-            deathRunes : deathUsed,
-            chaosRunes : chaosUsed
+            cballs: task.cballsUsed,
+            charges : task.chargesUsed,
+            waterRunes : task.waterUsed,
+            bloodRunes : task.bloodUsed,
+            deathRunes : task.deathUsed,
+            chaosRunes : task.chaosUsed
         },
         resourcesPrices: resourcesPrice,
         resourcesPriceTotal : totalResourcePrice,
@@ -216,21 +211,30 @@ function saveTask(){
         xpMin: xpMin,
         dateCompleted: dateCompleted
     }
-    player.tasks.push(task);
+    player.tasks.push(finishedTask);
     save();
     returnHome();
-    //console.log(task);
+
+    slayerTask = {
+        numberOfTrips: 0,
+        startTime: null,
+        endTime: null,
+        isClockRunning: false,
+        taskCount: null,
+        taskMonster: null,
+        taskType: null
+    };
 }
 
 function resetOnTask(){
     d3.select("#tripFields").html("");
 
-    $("#waterRunesLeftInput").val(0);
-    $("#deathRunesLeftInput").val(0);
-    $("#bloodRunesLeftInput").val(0);
-    $("#cannonballsLeftInput").val(0);
-    $("#chaosRunesLeftInput").val(0);
-    $("#chargesLeftInput").val(0);
+    resetIdValue("#waterRunesLeftInput");
+    resetIdValue("#deathRunesLeftInput");
+    resetIdValue("#bloodRunesLeftInput");
+    resetIdValue("#cannonballsLeftInput");
+    resetIdValue("#chaosRunesLeftInput");
+    resetIdValue("#chargesLeftInput");
 
     switchTaskType(0);
     document.getElementById('defaultTaskType').checked = true;

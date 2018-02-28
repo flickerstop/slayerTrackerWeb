@@ -10,6 +10,7 @@
 // 6 - home Page
 // 7 - farm data
 // 8 - CML
+// 9 - edit farm run
 
 function changeState(currentState){
 
@@ -22,6 +23,7 @@ function changeState(currentState){
     d3.select("#homePage").style('display','none');
     d3.select("#farmData").style('display','none');
     d3.select("#CML").style('display','none');
+    d3.select("#editFarmRun").style('display','none');
     switch(currentState){
         case 0:
             d3.select("#monsterSelect").style('display', null);
@@ -49,6 +51,9 @@ function changeState(currentState){
             break;
         case 8:
             d3.select("#CML").style('display',null);
+            break;
+        case 9:
+            d3.select("#editFarmRun").style('display',null);
             break;
     }
 }
@@ -125,4 +130,9 @@ function showFarmData(){
 
 function showCML(){
     changeState(8);
+}
+
+function editFarmRun(run){
+    changeState(9);
+    loadFarmRunToEdit(run);
 }

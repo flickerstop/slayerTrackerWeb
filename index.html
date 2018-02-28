@@ -28,6 +28,7 @@
         <script src="./js/farmRun.js"></script>
         <script src="./js/corp.js"></script>
         <script src="./js/cml.js"></script>
+        <script src="./js/farmRunEdit.js"></script>
     </head>
     <body>
         <div id="mainPanel">
@@ -468,6 +469,39 @@
                     <tfoot id="CMLTableFooter">
                     </tfoot>
                     </table>
+            </div>
+            <div id="editFarmRun" style="display:none">
+                <div id="farmRunEditInputContainer">
+                    <div class="settingsRow"><!-- blank space to leave room --></div>
+                    <div class="settingsRow"><!-- blank space to leave room --></div>
+                    <div class="farmRowLeft">Number of Herbs:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunEditInputNumOfHerbs" type="number">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Dead Patches:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunEditInputNumOfDead" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Resurrected Successfully:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunEditInputNumOfSuccessRes" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Failed Resurrection:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunEditInputNumOfFailRes" type="number" value="0">
+                    </div>
+
+                    <div class="farmRowLeft">Number of Cured Patches:</div>
+                    <div class="farmRowRight">
+                        <input id="farmRunEditInputNumOfCured" type="number" value="0">
+                    </div>
+                    <button id="saveFarmRunEditButton" onclick="">
+                        Edit Run
+                    </button>
+                </div>
             </div>
         </div>
 
