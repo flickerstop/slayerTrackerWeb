@@ -93,7 +93,26 @@ function goOnTask(monsterName){
         return;
     }
     d3.select("#monsterCountSpinner").style("background-color",null);
-    d3.select("#monsterCountAndName").text(monsterCount + " " + monsterName)
+    d3.select("#monsterCountAndName").text(monsterCount + " " + monsterName);
+    ///////////////////////////////////////
+    // Setup monster info
+    var monster = findMonster(monsterName);
+    
+    if(monster.bonecrusher){
+        d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/bonecrusher.png")');
+        d3.select("#bonecrusherIcon").style("opacity",'1.0');
+    }else{
+        d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/no_bonecrusher.png")');
+        d3.select("#bonecrusherIcon").style("opacity",'0.5');
+    }
+    if(monster.herbSack){
+        d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/herbSack.png")');
+        d3.select("#herbSackIcon").style("opacity",'1.0');
+    }else{
+        d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/no_herbSack.png")');
+        d3.select("#herbSackIcon").style("opacity",'0.5');
+    }
+
     changeState(1);
 }
 

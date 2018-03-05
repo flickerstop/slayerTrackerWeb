@@ -74,7 +74,7 @@ function clock(){
     if(slayerTask.isClockRunning){
         d3.select("#taskTimerTime").text(
             msToTime(
-                rightNow - slayerTask.startTime.getTime()
+                rightNow - slayerTask.startTime.getTime() + slayerTask.pauseTime
             )
         );
     }

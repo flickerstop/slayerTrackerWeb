@@ -32,7 +32,7 @@
     </head>
     <body>
         <div id="mainPanel">
-            <div id="topBar">
+            <div id="topBar" class="noHighlight">
                 <p id="versionNum"></p>
                 <p id="topBarFarmTimer" onclick="stopTimer()">00:00:00</p>
                 <div id="iconTray">
@@ -83,70 +83,72 @@
             </div>
             <div id="onTask" style="display:none">
                 <div id="infoPanel">
-                    <div id="infoLeft"></div>
+                    <div id="infoLeft">
+                        <div class="slayerItemIcon" id="herbSackIcon" style='background-image:url("./images/itemImages/waterRune.png")'></div>
+                        <div class="slayerItemIcon" id="bonecrusherIcon" style='background-image:url("./images/itemImages/waterRune.png")'></div>
+                    </div>
                     <div id="infoCenter">
-                        <h2 id="monsterCountAndName">### Black Dragons</h1>
+                        <h2 id="monsterCountAndName" class="noHighlight">### Black Dragons</h1>
                     </div>
                     <div id="infoRight"></div>
                 </div>
                 <div id="onTaskInputs">
                     <div id="tripInputs">
-                        <h3 style="text-align:center;padding-bottom:5px;">Trip Profit</h3>
+                        <h3 style="text-align:center;padding-bottom:5px;" class="noHighlight">Trip Profit</h3>
                         <button id="addTripButton" onclick="addTrip()">Add Trip</button>
-                        <div id="tripFields">
+                        <div id="tripFields" class="scrollBarStyle">
                             
                         </div>
                     </div>
                     <div id="otherInfo">
-                        <h3 style="text-align:center;padding-bottom:5px;">Task Type</h3>
-                        <form id="taskType" style="padding-left:30%">
-                            <input id="defaultTaskType" onclick="switchTaskType(0)" type="radio" name="taskType" value="Normal" checked> Normal<br>
-                            <input onclick="switchTaskType(1)" type="radio" name="taskType" value="Cannon"> Cannon<br>
-                            <input onclick="switchTaskType(2)" type="radio" name="taskType" value="Trident"> Trident<br>                            
-                            <input onclick="switchTaskType(3)" type="radio" name="taskType" value="Burst"> Ice Burst<br>
-                            <input onclick="switchTaskType(4)" type="radio" name="taskType" value="BurstCannon"> Ice Burst and Cannon<br>
-                            <input onclick="switchTaskType(5)" type="radio" name="taskType" value="Barrage"> Ice Barrage<br>
-                            <input onclick="switchTaskType(6)" type="radio" name="taskType" value="BarrageCannon"> Ice Barrage and Cannon
-                        </form>
+                        <h3 style="text-align:center;padding-bottom:5px;" class="noHighlight">Task Type</h3>
+                        <div style="padding-left:30%;margin-bottom:15px;" class="noHighlight">
+                            <div id="defaultTaskType"         class="taskTypeRadio" onclick="switchTaskType(0)"> Normal</div>
+                            <div id="cannonTaskType"          class="taskTypeRadio" onclick="switchTaskType(1)"> Cannon</div>
+                            <div id="tridentTaskType"         class="taskTypeRadio" onclick="switchTaskType(2)"> Trident</div>                           
+                            <div id="burstTaskType"           class="taskTypeRadio" onclick="switchTaskType(3)"> Ice Burst</div>
+                            <div id="burstCanonTaskType"      class="taskTypeRadio" onclick="switchTaskType(4)"> Ice Burst and Cannon</div>
+                            <div id="barrageTaskType"         class="taskTypeRadio" onclick="switchTaskType(5)"> Ice Barrage</div>
+                            <div id="barrageCannonTaskType"   class="taskTypeRadio" onclick="switchTaskType(6)"> Ice Barrage and Cannon</div>
+                        </div>
                         <div id="itemsLeftInputs">
                             <div id="cannonballsLeftRow" class="tripRow">
-                                <p class="tripText">Cannonballs Left:</p>   
+                                <p class="tripText noHighlight">Cannonballs Left:</p>   
                                 <input class="tripInput" id="cannonballsLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                             <div id="chargesLeftRow" class="tripRow">
-                                <p class="tripText">Charges Left:</p>   
+                                <p class="tripText noHighlight">Charges Left:</p>   
                                 <input class="tripInput" id="chargesLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                             <div id="waterRunesLeftRow" class="tripRow">
-                                <p class="tripText">Water Runes Left:</p>   
+                                <p class="tripText noHighlight">Water Runes Left:</p>   
                                 <input class="tripInput" id="waterRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                             <div id="bloodRunesLeftRow" class="tripRow">
-                                <p class="tripText">Blood Runes Left:</p>   
+                                <p class="tripText noHighlight">Blood Runes Left:</p>   
                                 <input class="tripInput" id="bloodRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                             <div id="deathRunesLeftRow" class="tripRow">
-                                <p class="tripText">Death Runes Left:</p>   
+                                <p class="tripText noHighlight">Death Runes Left:</p>   
                                 <input class="tripInput" id="deathRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                             <div id="chaosRunesLeftRow" class="tripRow">
-                                <p class="tripText">Chaos Runes Left:</p>   
+                                <p class="tripText noHighlight">Chaos Runes Left:</p>   
                                 <input class="tripInput" id="chaosRunesLeftInput" min="0" max="2147483647" type="number" value="0"> 
                             </div>
                         </div>
                     </div>
-                    <div id="endTaskPanel">
-                        <div id="taskTimer">
-                            <div id="taskTimerTime">00:00:00</div>
-                            <div id="taskTimerButtons">
-                                <button onclick="startSlayerTimer()" id="startTaskTimer">Start Timer</button>
-                                <button onclick="stopSlayerTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
-                            </div>
+                    <div id="taskTimer">
+                        <div id="taskTimerTime" class="noHighlight">00:00:00</div>
+                        <div id="taskTimerButtons">
+                            <button onclick="startSlayerTimer()" id="startTaskTimer">Start Timer</button>
+                            <button onclick="pauseSlayerTimer()" id="pauseTaskTimer" disabled>Pause Timer</button>
+                            <button onclick="stopSlayerTimer()" id="stopTaskTimer" disabled>Stop Timer</button>
                         </div>
-                        <button onclick="saveTask()" id="endTaskButton">
-                            End Task
-                        </button>
                     </div>
+                    <button onclick="saveTask()" id="endTaskButton">
+                        End Task
+                    </button>
                 </div>
             </div>
             <div id="settingsPanel" class="scrollBarStyle" style="display:none">

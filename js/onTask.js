@@ -5,7 +5,8 @@ var slayerTask = {
     isClockRunning: false,
     taskCount: null,
     taskMonster: null,
-    taskType: null
+    taskType: null,
+    pauseTime: 0
 }
 
 
@@ -16,7 +17,7 @@ function addTrip(){
     var row = d3.select("#tripFields").append("div");
     row.attr("class","tripRow");
 
-    row.append("p").attr("class","tripText").text("trip "+slayerTask.numberOfTrips+":");
+    row.append("p").attr("class","tripText noHighlight").text("Trip #"+slayerTask.numberOfTrips+":");
 
     row.append("input")
     .attr("class","tripInput")
@@ -30,6 +31,7 @@ function addTrip(){
 function startSlayerTimer(){
     d3.select("#startTaskTimer").attr("disabled", "disabled");
     d3.select("#stopTaskTimer").attr("disabled", null);
+    d3.select("#pauseTaskTimer").attr("disabled", null);
     slayerTask.startTime = new Date();
     slayerTask.isClockRunning = true;
 }
@@ -39,18 +41,59 @@ function stopSlayerTimer(){
     slayerTask.endTime = new Date();
     d3.select("#startTaskTimer").attr("disabled", null);
     d3.select("#stopTaskTimer").attr("disabled", "disabled");
+    d3.select("#pauseTaskTimer").attr("disabled", "disabled");
+}
+
+function pauseSlayerTimer(){
+    stopSlayerTimer();
+    slayerTask.pauseTime += slayerTask.endTime.getTime() - slayerTask.startTime.getTime();
+    slayerTask.startTime = null;
+    slayerTask.endTime = null;
 }
     
 
 
 function switchTaskType(type){
     slayerTask.taskType = type;
+    //////////////////////////////
+    // Hide Rows
     d3.select("#cannonballsLeftRow").style("display","none");
     d3.select("#chargesLeftRow").style("display","none");
     d3.select("#waterRunesLeftRow").style("display","none");
     d3.select("#bloodRunesLeftRow").style("display","none");
     d3.select("#deathRunesLeftRow").style("display","none");
     d3.select("#chaosRunesLeftRow").style("display","none");
+    /////////////////////////////
+    // Draw radio Boxes
+    var nameOfDivs = ["defaultTaskType",
+                "cannonTaskType",
+                "tridentTaskType",
+                "burstTaskType",
+                "burstCanonTaskType",
+                "barrageTaskType",
+                "barrageCannonTaskType"];
+    
+    var textForDivs = [ "Normal",
+                        "Cannon",
+                        "Trident",
+                        "Ice Burst",
+                        "Ice Burst and Cannon",
+                        "Ice Barrage",
+                        "Ice Barrage and Cannon"];
+
+    for(var i = 0; i < nameOfDivs.length; i++){
+        d3.select("#"+nameOfDivs[i]).html("");
+        if(i == slayerTask.taskType){
+            d3.select("#"+nameOfDivs[i]).append("div").attr("class", "radioButtonIcon").style("background-image",'url("./images/icons/global/radio_button_checked.png")');
+        }else{
+            d3.select("#"+nameOfDivs[i]).append("div").attr("class", "radioButtonIcon").style("background-image",'url("./images/icons/global/radio_button.png")');
+        }
+        d3.select("#"+nameOfDivs[i]).append("p").text(textForDivs[i]);
+    }
+
+    
+
+    /////////////////////////////
     switch(type){
         case 1: // Cannon
             d3.select("#cannonballsLeftRow").style("display",null);
@@ -99,8 +142,8 @@ function saveTask(){
         slayerTask.startTime = new Date();
         slayerTask.endTime = new Date();
     }
-    var timeTaken = msToTime(slayerTask.endTime.getTime() - slayerTask.startTime.getTime());
-    var timeTakenMS = slayerTask.endTime.getTime() - slayerTask.startTime.getTime();
+    var timeTakenMS = slayerTask.endTime.getTime() - slayerTask.startTime.getTime() + slayerTask.pauseTime;
+    var timeTaken = msToTime(timeTakenMS);
     var dateCompleted = slayerTask.endTime.getDate() + "/" + (slayerTask.endTime.getMonth()+1) + "/" + slayerTask.endTime.getFullYear();
     ////////////////////
     // Resource Amounts
@@ -214,7 +257,10 @@ function saveTask(){
     player.tasks.push(finishedTask);
     save();
     returnHome();
+    resetOnTask();
+}
 
+function resetOnTask(){
     slayerTask = {
         numberOfTrips: 0,
         startTime: null,
@@ -222,11 +268,9 @@ function saveTask(){
         isClockRunning: false,
         taskCount: null,
         taskMonster: null,
-        taskType: null
-    };
-}
-
-function resetOnTask(){
+        taskType: null,
+        pauseTime: 0
+    }
     d3.select("#tripFields").html("");
 
     resetIdValue("#waterRunesLeftInput");
@@ -236,17 +280,14 @@ function resetOnTask(){
     resetIdValue("#chaosRunesLeftInput");
     resetIdValue("#chargesLeftInput");
 
+    d3.select("#startTaskTimer").attr("disabled", null);
+    d3.select("#stopTaskTimer").attr("disabled", "disabled");
+    d3.select("#pauseTaskTimer").attr("disabled", "disabled");
+
     switchTaskType(0);
     document.getElementById('defaultTaskType').checked = true;
 
     d3.select("#taskTimerTime").text("00:00:00");
-    var slayerTask = {
-        numberOfTrips: 0,
-        startTime: null,
-        endTime: null,
-        isClockRunning: false,
-        taskCount: null,
-        taskMonster: null,
-        taskType: null
-    }
+    
 }
+

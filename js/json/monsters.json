@@ -4,444 +4,592 @@
         "slayerExp":0,
         "imgUrl":"question_mark.png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Aberrant Spectres",
         "slayerExp":90,
         "imgUrl":"Aberrant_spectre.png",
         "background":"rgb(163, 247, 150)",
-        "foreground":"rgb(0,0,0)"
+        "foreground":"rgb(0,0,0)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Abyssal Demon",
         "slayerExp":150,
         "imgUrl":"Abyssal_demon.png",
         "background":"rgb(94,23,19)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Abyssal Sire",
         "slayerExp":450,
         "imgUrl":"Abyssal_Sire.png",
         "background":"rgb(116,44,30)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Ancient Wyvern",
         "slayerExp":315,
         "imgUrl":"Ancient_Wyvern.png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Ankou",
         "slayerExp":60,
         "imgUrl":"Ankou.png",
         "background":"rgb(114,76,74)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Aviansie",
         "slayerExp":90,
         "imgUrl":"Aviansie.png",
         "background":"rgb(168,169,179)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Baby Black Dragon",
         "slayerExp":80,
         "imgUrl":"Baby_black_dragon.png",
         "background":"rgb(93,88,88)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Barrows Brothers",
         "slayerExp":110,
         "imgUrl":"Verac_the_Defiled.png",
         "background":"rgb(101,41,60)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Black Demon",
         "slayerExp":160,
         "imgUrl":"Black_demon.png",
         "background":"rgb(35,33,33)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Black Dragon",
         "slayerExp":200,
         "imgUrl":"Black_dragon.png",
         "background":"rgb(0,0,0)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Bloodvelds",
         "slayerExp":120,
         "imgUrl":"Bloodveld.png",
         "background":"rgb(204, 106, 99)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Blue Dragons",
         "slayerExp":107,
         "imgUrl":"Blue_dragon.png",
         "background":"rgb(15, 47, 255)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Brine rat",
         "slayerExp":50,
         "imgUrl":"Brine_rat.png",
         "background":"rgb(151,122,121)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
         "name":"Brutal Black Dragon",
         "slayerExp":347,
         "imgUrl":"Brutal_black_dragon.png",
         "background":"rgb(28,25,25)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Brutal Red Dragon",
         "slayerExp":306,
         "imgUrl":"Brutal_red_dragon.png",
         "background":"rgb(255,0,0)",
-        "foreground":"rgb(0,0,0)"
+        "foreground":"rgb(0,0,0)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Callisto",
         "slayerExp":312,
         "imgUrl":"Callisto.png",
         "background":"rgb(93,87,87)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Cave Horror",
         "slayerExp":55,
         "imgUrl":"Cave_horror.png",
         "background":"rgb(103,103,96)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Cave Kraken",
         "slayerExp":125,
         "imgUrl":"Cave_kraken.png",
         "background":"rgb(153,123,39)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Cerberus",
         "slayerExp":690,
         "imgUrl":"Cerberus.png",
         "background":"rgb(157,38,29)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Chaos Elemental",
         "slayerExp":250,
         "imgUrl":"Chaos_Elemental.png",
         "background":"rgb(106,97,120)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Chaos Fanatic",
         "slayerExp":253,
         "imgUrl":"Chaos_Fanatic.png",
         "background":"rgb(185,185,175)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Commander Zilyana",
         "slayerExp":350,
         "imgUrl":"Commander_Zilyana.png",
         "background":"rgb(84,110,176)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Crazy archaeologist",
         "slayerExp":275,
         "imgUrl":"Crazy_archaeologist.png",
         "background":"rgb(29,107,123)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Dagannoth Kings",
         "slayerExp":331,
         "imgUrl":"Dagannoth_Rex.png",
         "background":"rgb(106,100,86)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Dagannoths",
         "slayerExp":90,
         "imgUrl":"Dagannoth.png",
         "background":"rgb(99, 99, 99)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
         "name":"Dark Beast",
         "slayerExp":226,
         "imgUrl":"Dark_beast.png",
         "background":"rgb(52,42,30)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Demonic Gorilla",
         "slayerExp":408,
         "imgUrl":"Demonic_gorilla.png",
         "background":"rgb(99,188,81)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Dust Devils",
         "slayerExp":105,
         "imgUrl":"Dust_devil.png",
         "background":"rgb(255, 196, 94)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Elves",
         "slayerExp":108,
         "imgUrl":"Elf_warrior.png",
         "background":"rgb(247, 140, 238)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Fire Giants",
         "slayerExp":111,
         "imgUrl":"Fire_giant.png",
         "background":"rgb(255, 72, 56)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Gargoyle",
         "slayerExp":105,
         "imgUrl":"garg.png",
         "background":"rgb(61, 61, 61)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"General Graardor",
         "slayerExp":338,
         "imgUrl":"General_Graardor.png",
         "background":"rgb(92,115,94)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Giant Mole",
         "slayerExp":215,
         "imgUrl":"Giant_Mole.png",
         "background":"rgb(86,73,61)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Greater Demon",
         "slayerExp":87,
         "imgUrl":"Greater_demon.png",
         "background":"rgb(165, 9, 9)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Greater Nechryaels",
         "slayerExp":210,
         "imgUrl":"Nechryael.png",
         "background":"rgb(252, 174, 148)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Hellhound",
         "slayerExp":116,
         "imgUrl":"Hellhound.png",
         "background":"rgb(94,42,30)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
         "name":"Ice Trolls",
         "slayerExp":100,
         "imgUrl":"Ice_troll_female.png",
         "background":"rgb(212, 214, 216)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Iron Dragon",
         "slayerExp":190,
         "imgUrl":"Iron_dragon.png",
         "background":"rgb(73, 73, 73)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"K'ril Tsutsaroth",
         "slayerExp":351,
         "imgUrl":"K'ril_Tsutsaroth.png",
         "background":"rgb(206,86,61)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kalphite Guardian (lvl 141)",
         "slayerExp":170,
         "imgUrl":"Kalphite_Guardian.png",
         "background":"rgb(62,80,47)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kalphite Queen",
         "slayerExp":535,
         "imgUrl":"Kalphite_Queen.png",
         "background":"rgb(83,97,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kalphite Soldier (lvl 85)",
         "slayerExp":90,
         "imgUrl":"Kalphite_Soldier.png",
         "background":"rgb(100,118,83)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Kalphite Worker (lvl 28)",
         "slayerExp":40,
         "imgUrl":"Kalphite_Worker.png",
         "background":"rgb(99, 124, 91)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"King Black Dragon",
         "slayerExp":258,
         "imgUrl":"King_Black_Dragon.png",
         "background":"rgb(47,47,34)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kraken (boss)",
         "slayerExp":255,
         "imgUrl":"Cave_kraken.png",
         "background":"rgb(153,123,39)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kree'arra",
         "slayerExp":357,
         "imgUrl":"Kree'arra.png",
         "background":"rgb(93,81,58)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Kurask",
         "slayerExp":97,
         "imgUrl":"Kurask.png",
         "background":"rgb(53,58,15)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Lizardmen",
         "slayerExp":60,
         "imgUrl":"Lizardman.png",
         "background":"rgb(163, 239, 139)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
-        "name":"Lizardmen Shaman",
+        "name":"Lizardman Shaman",
         "slayerExp":157,
         "imgUrl":"Lizardman_shaman.png",
         "background":"rgb(179,178,144)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
         "name":"Long-tailed Wyvern",
         "slayerExp":205,
         "imgUrl":"Long-tailed_Wyvern.png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Mithril Dragon",
         "slayerExp":273,
         "imgUrl":"Mithril_dragon.png",
         "background":"rgb(136,154,171)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Mountain Troll",
         "slayerExp":90,
         "imgUrl":"Mountain_troll.png",
         "background":"rgb(121,111,86)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Nechryaels",
         "slayerExp":105,
         "imgUrl":"Nechryael.png",
         "background":"rgb(232, 154, 128)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Red Dragon",
         "slayerExp":143,
         "imgUrl":"Red_dragon.png",
         "background":"rgb(113,33,41)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Scabarites",
         "slayerExp":85,
         "imgUrl":"Locust_rider_(melee).png",
         "background":"rgb(93,72,33)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"Scorpia",
         "slayerExp":260,
         "imgUrl":"Scorpia.png",
         "background":"rgb(83,77,77)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Smoke Devils",
         "slayerExp":185,
         "imgUrl":"Smoke_devil.png",
         "background":"rgb(124, 120, 112)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
-        "name":"Spitiual Mage",
+        "name":"Spiritiual Mage",
         "slayerExp":85,
         "imgUrl":"Spiritual_mage_(Saradomin).png",
         "background":"rgb(63,139,244)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
-        "name":"Spitiual Ranger",
+        "name":"Spiritiual Ranger",
         "slayerExp":120,
         "imgUrl":"Spiritual_ranger_(Zamorak).png",
         "background":"rgb(140,45,40)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
-        "name":"Spitiual Warrior",
+        "name":"Spiritiual Warrior",
         "slayerExp":110,
         "imgUrl":"Spiritual_warrior_(Saradomin).png",
         "background":"rgb(102,116,146)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Spitting Wyvern",
         "slayerExp":205,
         "imgUrl":"Spitting_Wyvern.png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Steel Dragon",
         "slayerExp":262,
         "imgUrl":"Steel_dragon.png",
         "background":"rgb(255, 255, 255)",
-        "foreground":"rgb(0,0,0)"
+        "foreground":"rgb(0,0,0)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Suqah",
         "slayerExp":107,
         "imgUrl":"Suqah.png",
         "background":"rgb(100,108,101)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":false
     },{
         "name":"Taloned Wyvern",
         "slayerExp":205,
         "imgUrl":"Taloned_Wyvern.png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Thermonuclear smoke devil",
         "slayerExp":240,
         "imgUrl":"Smoke_devil.png",
         "background":"rgb(120,127,150)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Turoth",
         "slayerExp":80,
         "imgUrl":"Turoth.png",
         "background":"rgb(151,106,104)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":true,
+		"herbSack":true
     },{
         "name":"TzHaar",
         "slayerExp":120,
         "imgUrl":"TzHaar-Xil.png",
         "background":"rgb(41,39,39)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Venenatis",
         "slayerExp":389,
         "imgUrl":"Venenatis.png",
         "background":"rgb(131,44,40)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Vet'ion",
         "slayerExp":312,
         "imgUrl":"Vet'ion.png",
         "background":"rgb(120,28,118)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Waterfiend",
         "slayerExp":128,
         "imgUrl":"Waterfiend.png",
         "background":"rgb(91,155,146)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Wyverns",
         "slayerExp":210,
         "imgUrl":"Skeletal_Wyvern.png",
         "background":"rgb(216, 231, 255)",
-        "foreground":"rgb(0,0,0)"
+        "foreground":"rgb(0,0,0)",
+		"bonecrusher":false,
+		"herbSack":true
     },{
         "name":"Zulrah",
         "slayerExp":500,
         "imgUrl":"Zulrah.png",
         "background":"rgb(187,207,61)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
     },{
         "name":"Zygomite",
         "slayerExp":70,
         "imgUrl":"Zygomite_(lv_86).png",
         "background":"rgb(173,87,53)",
-        "foreground":"rgb(255,255,255)"
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":true
     }
 ]
