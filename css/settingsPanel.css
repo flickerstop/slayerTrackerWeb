@@ -114,3 +114,39 @@
     padding-left: 5px;
     line-height: 100%;
 }
+
+/****************************************************
+*            Toggles
+****************************************************/
+
+.twoToggle{
+    float: left;
+    line-height: 38px;
+    border: white;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0px 10px;
+    margin-left: 5px;
+    width: 100px;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.twoToggle.on{
+    background-color: #00A1CB;
+    opacity: 1.0;
+    cursor: default;
+}
+
+.twoToggle:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    opacity: 1.0;
+}
+
+.twoToggle.on:hover{
+    cursor: default;
+    background-color: #00A1CB;
+    color: white;
+}

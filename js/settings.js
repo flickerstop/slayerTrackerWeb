@@ -6,23 +6,52 @@ var numberOfPlayersToTrack = 0;
 ***************************************************/
 function populateSettings(){
     resetSettings();
-    for(i = 0; i < player.monsters.length; i++){
-        addMonsterCardOption(player.monsters[i].name);
+    for(i = 0; i < player.settings.monsters.length; i++){
+        addMonsterCardOption(player.settings.monsters[i].name);
     }
-    for(var account of player.playersToTrack){
+    for(var account of player.settings.playersToTrack){
         addPlayerSettingsInput(account);
     }
 
-    numberOfMonsterCards = player.monsters.length;
+    numberOfMonsterCards = player.settings.monsters.length;
 
-    $("#settingsInputWaterRunes").val(player.runes.water);
-    $("#settingsInputBloodRunes").val(player.runes.blood);
-    $("#settingsInputDeathRunes").val(player.runes.death);
-    $("#settingsInputChaosRunes").val(player.runes.chaos);
-    $("#settingsInputTridentCharges").val(player.tridentCharges);
-    $("#settingsInputCannonballs").val(player.cannonballs);
+    $("#settingsInputWaterRunes").val(player.slayerItems.runes.water);
+    $("#settingsInputBloodRunes").val(player.slayerItems.runes.blood);
+    $("#settingsInputDeathRunes").val(player.slayerItems.runes.death);
+    $("#settingsInputChaosRunes").val(player.slayerItems.runes.chaos);
+    $("#settingsInputTridentCharges").val(player.slayerItems.tridentCharges);
+    $("#settingsInputCannonballs").val(player.slayerItems.cannonballs);
     $("#settingsInputNumberOfPatches").val(player.farmRun.settings.numberOfPatches);
     $("#settingsInputHerbType").val(player.farmRun.settings.herbType);
+
+    // Toggles
+    if(player.farmRun.remind){
+        d3.select("#toggleFarmSoundOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleFarmSoundOff").attr("class","twoToggle on");
+    }
+    if(player.dailies.misc.remind){
+        d3.select("#toggleMiscOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleMiscOff").attr("class","twoToggle on");
+    }
+    if(player.dailies.battleStaffs.remind){
+        d3.select("#toggleBattlestaffsOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleBattlestaffsOff").attr("class","twoToggle on");
+    }
+    if(player.dailies.tearsOfGuthix.remind){
+        d3.select("#toggleTearsOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleTearsOff").attr("class","twoToggle on");
+    }
+    if(player.settings.showTaskDetails){
+        d3.select("#toggleDetailsOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleDetailsOff").attr("class","twoToggle on");
+    }
+
+
 }
 
 /***************************************************
@@ -74,21 +103,21 @@ function saveSettings(){
     for(t = 0; t < numberOfMonsterCards;t++){
         newMonsters.push(findMonster($("#monsterOption"+t).val()));
     }
-    player.monsters = newMonsters;
+    player.settings.monsters = newMonsters;
     /////////////////////
     // Get Players
     var newPlayers = [];
     for(t = 0; t < numberOfPlayersToTrack; t++){
         newPlayers.push($("#playerToTrack"+t).val());
     }
-    player.playersToTrack = newPlayers;
+    player.settings.playersToTrack = newPlayers;
 
-    player.runes.water = $("#settingsInputWaterRunes").val();
-    player.runes.blood = $("#settingsInputBloodRunes").val();
-    player.runes.death = $("#settingsInputDeathRunes").val();
-    player.runes.chaos = $("#settingsInputChaosRunes").val();
-    player.tridentCharges = $("#settingsInputTridentCharges").val();
-    player.cannonballs = $("#settingsInputCannonballs").val();
+    player.slayerItems.runes.water = $("#settingsInputWaterRunes").val();
+    player.slayerItems.runes.blood = $("#settingsInputBloodRunes").val();
+    player.slayerItems.runes.death = $("#settingsInputDeathRunes").val();
+    player.slayerItems.runes.chaos = $("#settingsInputChaosRunes").val();
+    player.slayerItems.tridentCharges = $("#settingsInputTridentCharges").val();
+    player.slayerItems.cannonballs = $("#settingsInputCannonballs").val();
 
     player.farmRun.settings.numberOfPatches = $("#settingsInputNumberOfPatches").val();
     player.farmRun.settings.herbType = $("#settingsInputHerbType").val();
@@ -126,4 +155,68 @@ function addPlayerSettingsInput(playerName){
         input.property('value', playerName);
     }
     numberOfPlayersToTrack++;
+}
+
+/***************************************************
+*            toggles
+***************************************************/
+
+function toggleSettings(toggleName, value){
+    switch(toggleName){
+        case "farmSound":
+            if(value){
+                player.farmRun.remind = true;
+                d3.select("#toggleFarmSoundOn").attr("class","twoToggle on");
+                d3.select("#toggleFarmSoundOff").attr("class","twoToggle");
+            }else{
+                player.farmRun.remind = false;
+                d3.select("#toggleFarmSoundOn").attr("class","twoToggle");
+                d3.select("#toggleFarmSoundOff").attr("class","twoToggle on");
+            }
+            break;
+        case "misc":
+            if(value){
+                player.dailies.misc.remind = true;
+                d3.select("#toggleMiscOn").attr("class","twoToggle on");
+                d3.select("#toggleMiscOff").attr("class","twoToggle");
+            }else{
+                player.dailies.misc.remind = false;
+                d3.select("#toggleMiscOn").attr("class","twoToggle");
+                d3.select("#toggleMiscOff").attr("class","twoToggle on");
+            }
+            break;
+        case "battlestaffs":
+            if(value){
+                player.dailies.battleStaffs.remind = true;
+                d3.select("#toggleBattlestaffsOn").attr("class","twoToggle on");
+                d3.select("#toggleBattlestaffsOff").attr("class","twoToggle");
+            }else{
+                player.dailies.battleStaffs.remind = false;
+                d3.select("#toggleBattlestaffsOn").attr("class","twoToggle");
+                d3.select("#toggleBattlestaffsOff").attr("class","twoToggle on");
+            }
+            break;
+        case "tears":
+            if(value){
+                player.dailies.tearsOfGuthix.remind = true;
+                d3.select("#toggleTearsOn").attr("class","twoToggle on");
+                d3.select("#toggleTearsOff").attr("class","twoToggle");
+            }else{
+                player.dailies.tearsOfGuthix.remind = false;
+                d3.select("#toggleTearsOn").attr("class","twoToggle");
+                d3.select("#toggleTearsOff").attr("class","twoToggle on");
+            }
+            break;
+        case "details":
+            if(value){
+                player.settings.showTaskDetails = true;
+                d3.select("#toggleDetailsOn").attr("class","twoToggle on");
+                d3.select("#toggleDetailsOff").attr("class","twoToggle");
+            }else{
+                player.settings.showTaskDetails = false;
+                d3.select("#toggleDetailsOn").attr("class","twoToggle");
+                d3.select("#toggleDetailsOff").attr("class","twoToggle on");
+            }
+            break;
+    }
 }

@@ -94,7 +94,7 @@
         "background":"rgb(204, 106, 99)",
         "foreground":"rgb(255,255,255)",
 		"bonecrusher":true,
-		"herbSack":true
+		"herbSack":false
     },{
         "name":"Blue Dragons",
         "slayerExp":107,
@@ -309,6 +309,14 @@
         "imgUrl":"Iron_dragon.png",
         "background":"rgb(73, 73, 73)",
         "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
+    },{
+        "name":"Jad (Fight Caves)",
+        "slayerExp":37010,
+        "imgUrl":"Jad.png",
+        "background":"rgb(255, 0, 0)",
+        "foreground":"rgb(0,0,0)",
 		"bonecrusher":false,
 		"herbSack":false
     },{

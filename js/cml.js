@@ -15,10 +15,10 @@ var CMLData = {
 function getCMLData(){
 
     var sendString = [];
-    for(var account of player.playersToTrack){
+    for(var account of player.settings.playersToTrack){
         sendString.push({type:"update",player:account});
     }
-    for(var account of player.playersToTrack){
+    for(var account of player.settings.playersToTrack){
         sendString.push({type:"track",player:account});
     }
     sendString = JSON.stringify(sendString);
@@ -63,7 +63,7 @@ function fillCMLTable(){
     var i = 0;
     for(var account of CMLData.playerData){
         var tableRow = table.append("tr");
-        tableRow.append("td").text(player.playersToTrack[i]);
+        tableRow.append("td").text(player.settings.playersToTrack[i]);
         var p = 0;
         for(var skill of account){
             var text = tableRow.append("td").text(skill.toLocaleString());

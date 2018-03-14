@@ -1,20 +1,21 @@
 ////////////////
 // set version number
 $( document ).ready(function() {
+    loadHomePageCards();
     getGEPrices();
     d3.select("#versionNum").text("v"+versionNum);
     load();
     
     
     // Check if running on my computer to show testing buttons
-    if(window.location.href == "http://192.168.2.168:8080/"){
-        d3.select("#tableRowForTesting").style('display', null);
+    if(window.location.href == "http://localhost:8080/"){
+        d3.select("#testingCard").style('display', null);
         console.error("Local host, not grabbing CML data");
     }else{
         getCMLData();
     }
     // check if url is for temp data
-    if(window.location.href == "http://192.168.2.168:8080/?tempData" || window.location.href == "https://flickerstop.github.io/slayerTrackerWeb/?tempData"){
+    if(window.location.href == "http://localhost:8080/?tempData" || window.location.href == "https://flickerstop.github.io/slayerTrackerWeb/?tempData"){
         loadTestPlayer();
     }
 
@@ -27,7 +28,6 @@ $( document ).ready(function() {
     var globalClock = setInterval(clock, 500);
 
     loadMonsters();
-    returnHome();
 });
 
 function closeWarning(){
@@ -48,17 +48,24 @@ function clock(){
         //var endTime = player.farmRun.lastRunAt+3000;
 
         if(endTime < rightNow && audio.duration > 0){
-            audio.play();
+            if(player.farmRun.remind){
+                if(player.farmRun.remind){
+                    audio.play();
+                }
+            }
             d3.select("#farmTimer").text("00:00:00");
             d3.select("#topBarFarmTimer").text("00:00:00");
+            d3.select("#windowTitle").html("Jr2254's Slayer Tracker");
         }else{
             d3.select("#farmTimer").text(msToTime(endTime-rightNow));
             d3.select("#topBarFarmTimer").text(msToTime(endTime-rightNow));
+            d3.select("#windowTitle").html(msToTime(endTime-rightNow));
         }
         
     }else{
         d3.select("#farmTimer").text("00:00:00");
         d3.select("#topBarFarmTimer").text("00:00:00");
+        d3.select("#windowTitle").html("Jr2254's Slayer Tracker");
     }
     /****************************************************/
     /*            Corp Clock                            */
@@ -88,5 +95,10 @@ function clock(){
         getGEPrices();
         getCMLData();
     }
+    /****************************************************/
+    /*            Home page dailies card                */
+    /****************************************************/
+    var msToMidnightGMT = 8.64e7 - (rightNow % 8.64e7);
+    d3.select("#dailiesCardTimers").html(msToTime(rightNow) + "<br />" + msToTime(msToMidnightGMT));
     
 }

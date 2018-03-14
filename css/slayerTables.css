@@ -8,3 +8,8 @@
 #slayerTables table{
     width: 100%;
 }
+
+#slayerTables{
+    overflow-y: auto;
+    height: calc(100% - 35px);
+}

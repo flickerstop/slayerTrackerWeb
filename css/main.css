@@ -13,7 +13,7 @@ body {
 }
 
 #mainPanel{
-    min-width: 640px;
+    min-width: 700px;
     width: 75%;
     height: 100%;
     margin-left: auto;
@@ -252,3 +252,4 @@ body {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+

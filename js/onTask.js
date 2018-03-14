@@ -167,33 +167,33 @@ function saveTask(){
 
     // Cannons
     if(task.type == 1 || task.type == 4 || task.type == 6){
-        task.cballsUsed = player.cannonballs - getValueFromId("#cannonballsLeftInput");
-        player.cannonballs = getValueFromId("#cannonballsLeftInput");
+        task.cballsUsed = player.slayerItems.cannonballs - getValueFromId("#cannonballsLeftInput");
+        player.slayerItems.cannonballs = getValueFromId("#cannonballsLeftInput");
     }
 
     // Trident
     if(task.type == 2){
-        task.chargesUsed = player.tridentCharges - getValueFromId("#chargesLeftInput");
-        player.tridentCharges = getValueFromId("#chargesLeftInput");
+        task.chargesUsed = player.slayerItems.tridentCharges - getValueFromId("#chargesLeftInput");
+        player.slayerItems.tridentCharges = getValueFromId("#chargesLeftInput");
     }
 
     // Burst
     if(task.type == 3 || task.type == 4){
-        task.waterUsed = player.runes.water - getValueFromId("#waterRunesLeftInput");
-        task.deathUsed = player.runes.death - getValueFromId("#deathRunesLeftInput");
-        task.chaosUsed = player.runes.chaos - getValueFromId("#chaosRunesLeftInput");
-        player.runes.water = getValueFromId("#waterRunesLeftInput");
-        player.runes.death = getValueFromId("#deathRunesLeftInput");
-        player.runes.chaos = getValueFromId("#chaosRunesLeftInput");
+        task.waterUsed = player.slayerItems.runes.water - getValueFromId("#waterRunesLeftInput");
+        task.deathUsed = player.slayerItems.runes.death - getValueFromId("#deathRunesLeftInput");
+        task.chaosUsed = player.slayerItems.runes.chaos - getValueFromId("#chaosRunesLeftInput");
+        player.slayerItems.runes.water = getValueFromId("#waterRunesLeftInput");
+        player.slayerItems.runes.death = getValueFromId("#deathRunesLeftInput");
+        player.slayerItems.runes.chaos = getValueFromId("#chaosRunesLeftInput");
     }
     // Barrage
     if(task.type == 5 || task.type == 6){
-        task.waterUsed = player.runes.water - getValueFromId("#waterRunesLeftInput");
-        task.deathUsed = player.runes.death - getValueFromId("#deathRunesLeftInput");
-        task.bloodUsed = player.runes.blood - getValueFromId("#bloodRunesLeftInput");
-        player.runes.water = getValueFromId("#waterRunesLeftInput");
-        player.runes.death = getValueFromId("#deathRunesLeftInput");
-        player.runes.blood = getValueFromId("#bloodRunesLeftInput");
+        task.waterUsed = player.slayerItems.runes.water - getValueFromId("#waterRunesLeftInput");
+        task.deathUsed = player.slayerItems.runes.death - getValueFromId("#deathRunesLeftInput");
+        task.bloodUsed = player.slayerItems.runes.blood - getValueFromId("#bloodRunesLeftInput");
+        player.slayerItems.runes.water = getValueFromId("#waterRunesLeftInput");
+        player.slayerItems.runes.death = getValueFromId("#deathRunesLeftInput");
+        player.slayerItems.runes.blood = getValueFromId("#bloodRunesLeftInput");
     }
     ///////////////////
     // Resource Cost

@@ -1,0 +1,27 @@
+[
+    {
+        "cardName": "slayerCard",
+        "cardWidth": 1,
+        "cardHeight": 2
+    },{
+        "cardName": "farmingCard",
+        "cardWidth": 1,
+        "cardHeight": 2
+    },{
+        "cardName": "bossesCard",
+        "cardWidth": 1,
+        "cardHeight": 1
+    },{
+        "cardName": "dailiesCard",
+        "cardWidth": 1,
+        "cardHeight": 1
+    },{
+        "cardName": "otherCard",
+        "cardWidth": 1,
+        "cardHeight": 2
+    },{
+        "cardName": "testingCard",
+        "cardWidth": 1,
+        "cardHeight": 5
+    }
+]

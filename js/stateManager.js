@@ -13,7 +13,6 @@
 // 9 - edit farm run
 
 function changeState(currentState){
-
     d3.select("#onTask").style('display', 'none');
     d3.select("#monsterSelect").style('display', 'none');
     d3.select("#settingsPanel").style('display','none');
@@ -61,14 +60,19 @@ function changeState(currentState){
 function returnHome(){
     if(player.farmRun.runs.length == 0){
         d3.select("#farmDataHomeButton").style('display','none');
+        homePageCards[1].cardHeight = 1;
     }else{
         d3.select("#farmDataHomeButton").style('display',null);
+        homePageCards[1].cardHeight = 2;
     }
     if(player.tasks.length == 0){
         d3.select("#slayerLogHomeButton").style('display','none');
+        homePageCards[0].cardHeight = 1;
     }else{
         d3.select("#slayerLogHomeButton").style('display',null);
+        homePageCards[0].cardHeight = 2;
     }
+    updateHomepageGrid();
     changeState(6);
 }
 
@@ -82,6 +86,12 @@ function goToMonsterPage(){
 function goOnTask(monsterName){
     resetOnTask();
     var monsterCount = $('#monsterCountSpinner').val();
+    ///////////////////////////////////////
+    // If Jad Task
+    if(monsterName == "Jad (Fight Caves)"){
+        monsterCount = 1;
+    }
+    ///////////////////////////////////////
     slayerTask.taskCount = monsterCount;
     slayerTask.taskMonster = monsterName;
     if(monsterCount == 0){
@@ -97,20 +107,24 @@ function goOnTask(monsterName){
     ///////////////////////////////////////
     // Setup monster info
     var monster = findMonster(monsterName);
-    
-    if(monster.bonecrusher){
-        d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/bonecrusher.png")');
-        d3.select("#bonecrusherIcon").style("opacity",'1.0');
+    if(player.settings.showTaskDetails){
+        if(monster.bonecrusher){
+            d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/bonecrusher.png")');
+            d3.select("#bonecrusherIcon").style("opacity",'1.0');
+        }else{
+            d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/no_bonecrusher.png")');
+            d3.select("#bonecrusherIcon").style("opacity",'0.5');
+        }
+        if(monster.herbSack){
+            d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/herbSack.png")');
+            d3.select("#herbSackIcon").style("opacity",'1.0');
+        }else{
+            d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/no_herbSack.png")');
+            d3.select("#herbSackIcon").style("opacity",'0.5');
+        }
     }else{
-        d3.select("#bonecrusherIcon").style("background-image",'url("./images/icons/onTask/no_bonecrusher.png")');
-        d3.select("#bonecrusherIcon").style("opacity",'0.5');
-    }
-    if(monster.herbSack){
-        d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/herbSack.png")');
-        d3.select("#herbSackIcon").style("opacity",'1.0');
-    }else{
-        d3.select("#herbSackIcon").style("background-image",'url("./images/icons/onTask/no_herbSack.png")');
-        d3.select("#herbSackIcon").style("opacity",'0.5');
+        d3.select("#herbSackIcon").style("background-image",null);
+        d3.select("#bonecrusherIcon").style("background-image",null);
     }
 
     changeState(1);
@@ -121,6 +135,7 @@ function goOnTask(monsterName){
 ****************************************************/
 
 function switchToSettings(){
+    populateSettings();
     changeState(2);
 }
 

@@ -3,7 +3,7 @@
         <!--*********************************************
         *                 Imports
         **********************************************-->
-        <title>Jr2254's Slayer Tracker</title>
+        <title id="windowTitle">Jr2254's Slayer Tracker</title>
         <link rel="shortcut icon" type="image/png" href="./images/icons/favicon.ico"/>
         <script src="./js/externalLibs/jquery-3.2.1.min.js"></script>
         <script src="./js/externalLibs/d3.js"></script>
@@ -29,8 +29,9 @@
         <script src="./js/corp.js"></script>
         <script src="./js/cml.js"></script>
         <script src="./js/farmRunEdit.js"></script>
+        <script src="./js/autoResize.js"></script>
     </head>
-    <body>
+    <body id="body">
         <div id="mainPanel">
             <div id="topBar" class="noHighlight">
                 <p id="versionNum"></p>
@@ -42,6 +43,9 @@
                     <div class="icon" onclick="switchToSettings()" style='background-image:url("./images/icons/settingsIcon.gif")'></div>  
                 </div>
             </div>
+            <!--*************************
+            *   Monster Select
+            **************************-->
             <div id="monsterSelect" style="display:none">
                 <div id="infoPanel">
                     <div id="infoLeft">
@@ -81,11 +85,14 @@
                     
                 </div>
             </div>
+            <!--*************************
+            *   On Task
+            **************************-->
             <div id="onTask" style="display:none">
                 <div id="infoPanel">
                     <div id="infoLeft">
-                        <div class="slayerItemIcon" id="herbSackIcon" style='background-image:url("./images/itemImages/waterRune.png")'></div>
-                        <div class="slayerItemIcon" id="bonecrusherIcon" style='background-image:url("./images/itemImages/waterRune.png")'></div>
+                        <div class="slayerItemIcon" id="herbSackIcon"></div>
+                        <div class="slayerItemIcon" id="bonecrusherIcon"></div>
                     </div>
                     <div id="infoCenter">
                         <h2 id="monsterCountAndName" class="noHighlight">### Black Dragons</h1>
@@ -151,12 +158,73 @@
                     </button>
                 </div>
             </div>
+            <!--*************************
+            *   Settings
+            **************************-->
             <div id="settingsPanel" class="scrollBarStyle" style="display:none">
                 <!--*********************************************
                 *                 Title
                 **********************************************-->
-                <h2>Settings</h2>
+                <h2 class="borderBottom">Settings</h2>
+                <!--*********************************************
+                *                 Toggles
+                **********************************************-->
+                <div class="settingsRow" style="text-align:center">
+                    <h3>Toggles</h3>
+                    The reminders don't do anything at the moment
+                </div>
+                <!-- Farm Timer Sound -->
+                <div class="settingsRow">
+                    <div class="settingsText">
+                        Farm Timer Sound 
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("farmSound", true)' class="twoToggle" id="toggleFarmSoundOn">ON</div>
+                        <div onclick='toggleSettings("farmSound", false)' class="twoToggle" id="toggleFarmSoundOff">OFF</div>
+                    </div>
+                </div>
+                <!-- Slayer Task Extra Details -->
+                <div class="settingsRow">
+                    <div class="settingsText">
+                        Slayer Task Extra Details
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("details", true)' class="twoToggle" id="toggleDetailsOn">ON</div>
+                        <div onclick='toggleSettings("details", false)' class="twoToggle" id="toggleDetailsOff">OFF</div>
+                    </div>
+                </div>
+                <!-- Misc Reminder -->
+                <div class="settingsRow">
+                    <div class="settingsText">
+                        Miscellania Reminder
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("misc", true)' class="twoToggle" id="toggleMiscOn">ON</div>
+                        <div onclick='toggleSettings("misc", false)' class="twoToggle" id="toggleMiscOff">OFF</div>
+                    </div>
+                </div>
+                <!-- Battlestaffs Reminder -->
+                <div class="settingsRow">
+                    <div class="settingsText">
+                        Battlestaffs  Reminder
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("battlestaffs", true)' class="twoToggle" id="toggleBattlestaffsOn">ON</div>
+                        <div onclick='toggleSettings("battlestaffs", false)' class="twoToggle" id="toggleBattlestaffsOff">OFF</div>
+                    </div>
+                </div>
+                <!-- Tears of Guthix -->
+                <div class="settingsRow">
+                    <div class="settingsText">
+                        Tears of Guthix Reminder
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("tears", true)' class="twoToggle" id="toggleTearsOn">ON</div>
+                        <div onclick='toggleSettings("tears", false)' class="twoToggle" id="toggleTearsOff">OFF</div>
+                    </div>
+                </div>
 
+                <div class="settingsRow borderBottom"><!-- blank space to leave room --></div>
                 <!--*********************************************
                 *                 Slayer item inputs
                 **********************************************-->
@@ -221,7 +289,7 @@
                 *                 Farm Options
                 **********************************************-->
                 <div class="settingsRow" style="text-align:center">
-                    These are used for farm runs.
+                    <h3>Farm Settings</h3>
                 </div>
                 <div class="settingsRow">
                     <div class="settingsText">
@@ -274,9 +342,12 @@
                 <div class="settingsRow">
                     <button onclick="saveSettings()" id="saveButton"> CLICK ME<br> To save your settings</button>
                 </div>
-                
+                <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
-            <div id="slayerTables" style="display:none">
+            <!--*************************
+            *   Slayer Tables
+            **************************-->
+            <div id="slayerTables" style="display:none" class="scrollBarStyle">
                 <h2>Slayer Tasks</h2> 
                 <table class="sortable">
                     <thead>
@@ -294,9 +365,13 @@
                         
                     </tbody>
                     <tfoot id="slayerTableFooter">
-                    </tfoot>
+                    </tfoot>     
                </table>
+               <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
+            <!--*************************
+            *   Farm Run
+            **************************-->
             <div id="farmRun" class="scrollBarStyle" style="display:none">
                 <h1 id="farmTimer">00:00:00</h1>
                 <p id="stopFarmTimer" onclick="stopTimer()">Click me to stop the farm timer</p>
@@ -331,6 +406,9 @@
                     </button>
                 </div>
             </div>
+            <!--*************************
+            *   Farm Data
+            **************************-->
             <div id="farmData" class="scrollBarStyle" style="display:none">
                 <div class="settingsRow"><!-- blank space to leave room --></div>
                 <div id="herbTypeButtons"></div>
@@ -362,6 +440,9 @@
                 </table>
                 <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
+            <!--*************************
+            *   Corp Tracker
+            **************************-->
             <div id="corpTracker" class="scrollBarStyle" style="display: none">
                 <h1 id="corpClock">00:00:00</h1>
                 <div id="corpRunInfo">
@@ -393,46 +474,58 @@
                 <div id="finishCorpRunButton" onclick="saveCorpRun()">Finish Corp Run</div>
                 <div class="settingsRow"><!-- blank space to leave room --></div>
             </div>
+            <!--*************************
+            *   Home Page
+            **************************-->
             <div id="homePage" class="scrollBarStyle">
                 <div class="settingsRow"><!-- blank space to leave room --></div>
-                <div class="settingsRow"><!-- blank space to leave room --></div>
-                <table id="homePageTable">
-                    <tr>
-                        <td>
-                            <h2>Slayer</h2>
-                            <div class="homePageButton" onclick="goToMonsterPage()">Start a Slayer Task</div>
-                            <div id="slayerLogHomeButton" class="homePageButton" onclick="showSlayerLogs()">View Your Slayer Logs</div>
-                        </td>
-                        <td>
-                            <h2>Farming</h2>
-                            <div class="homePageButton" onclick="showFarmRun()">Track a Herb Run</div>
-                            <div id="farmDataHomeButton" class="homePageButton" onclick="showFarmData()">Show Herb Run Data</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>Bosses</h2>
-                            <div class="homePageButton" onclick="showCorpTracker()">Corp Tracker</div>
-                        </td>
-                        <td>
-                            <h2>Other</h2>
-                            <div class="homePageButton" onclick="switchToSettings()">Settings</div>
-                            <div class="homePageButton" onclick="showCML()">Player Tracker</div>
-                        </td>
-                    </tr>
-                    <tr id="tableRowForTesting" style="display:none">
-                        <td>
-                            <h2>Testing</h2>
-                            <div class="homePageButton" onclick="wipeSave(0)">Wipe Player (turns off save)</div>
-                            <div class="homePageButton" onclick="wipeSave(1)">Wipe Save</div>
-                            <div class="homePageButton" onclick="setOldSaveForTest()">Set Old Save</div>
-                            <div class="homePageButton" onclick="loadTestPlayer()">Load Test Save (turns off save)</div>
-                            <div class="homePageButton" onclick="turnOnSaving()">Turn ON Save</div>
-                            <div class="homePageButton" onclick="downloadPlayer()">Download</div>
-                        </td>
-                    </tr>
-                </table>
+                <div id="homePageWidth" class="settingsRow"><!-- blank space to leave room --></div>
+                <div id="homepageGrid">
+                    <div class="homePageCard" id="slayerCard">
+                        <h2>Slayer</h2>
+                        <div class="homePageButton" onclick="goToMonsterPage()">Start a Slayer Task</div>
+                        <div id="slayerLogHomeButton" class="homePageButton" onclick="showSlayerLogs()">View Your Slayer Logs</div>
+                    </div>
+                    <div class="homePageCard" id="farmingCard">
+                        <h2>Farming</h2>
+                        <div class="homePageButton" onclick="showFarmRun()">Track a Herb Run</div>
+                        <div id="farmDataHomeButton" class="homePageButton" onclick="showFarmData()">Show Herb Run Data</div>
+                    </div>
+                    <div class="homePageCard" id="bossesCard">
+                        <h2>Bosses</h2>
+                        <div class="homePageButton" onclick="showCorpTracker()">Corp Tracker</div>
+                        <!-- <div class="homePageButton" onclick="">More Soon...</div> -->
+                    </div>
+                    <div class="homePageCard" id="dailiesCard" style="padding-top:50px;">
+                        <h2>Clocks</h2>
+                        <div class="leftSide" style="text-align:right;">
+                            Game Time:<br />
+                            Next Battlestaffs:<br />
+                        </div>
+                        <div class="rightSide" id="dailiesCardTimers">
+                            00:00:00<br />
+                            00:00:00
+                        </div>
+                    </div>
+                    <div class="homePageCard" id="otherCard">
+                        <h2>Other</h2>
+                        <div class="homePageButton" onclick="switchToSettings()">Settings</div>
+                        <div class="homePageButton" onclick="showCML()">Player Tracker</div>
+                    </div>
+                    <div class="homePageCard" id="testingCard" style="display:none">
+                        <h2>Testing</h2>
+                        <div class="homePageButton" onclick="wipeSave(0)">Wipe Player (turns off save)</div>
+                        <div class="homePageButton" onclick="wipeSave(1)">Wipe Save</div>
+                        <div class="homePageButton" onclick="setOldSaveForTest()">Set Old Save</div>
+                        <div class="homePageButton" onclick="loadTestPlayer()">Load Test Save (turns off save)</div>
+                        <div class="homePageButton" onclick="turnOnSaving()">Turn ON Save</div>
+                        <div class="homePageButton" onclick="downloadPlayer()">Download</div>
+                    </div>
+                </div>
             </div>
+            <!--*************************
+            *   Player Tracker
+            **************************-->
             <div id="CML">
                 <div class="settingsRow"><!-- blank space to leave room --></div>
                 <table id="CMLTable">
@@ -472,6 +565,9 @@
                     </tfoot>
                     </table>
             </div>
+            <!--*************************
+            *   Edit Farm Run
+            **************************-->
             <div id="editFarmRun" style="display:none">
                 <div id="farmRunEditInputContainer">
                     <div class="settingsRow"><!-- blank space to leave room --></div>

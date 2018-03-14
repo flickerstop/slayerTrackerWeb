@@ -1,9 +1,9 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.4.0";   // Version Number
+var versionNum = "1.5.0";   // Version Number
 var isOldVersion = false;
-var playerVersion = "1.1.1";
+var playerVersion = "1.5.0";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
 var isAbleToSave = true;
 var timeGePricesUpdated = 0;
@@ -11,6 +11,8 @@ var timeGePricesUpdated = 0;
 var CMLData = {
     playerData : []
 };
+
+var homePageCards;
 
 /***************************************************
 *            Player Object
@@ -20,17 +22,16 @@ var CMLData = {
 // updates the save file!
 var defaultPlayer = {
     versionNum: playerVersion,
-    playerName: "",
-    playersToTrack: [],
-    cannonballs:0,
-    runes:{
-        water:0,
-        chaos:0,
-        death:0,
-        blood:0
+    slayerItems: {
+        cannonballs:0,
+        runes:{
+            water:0,
+            chaos:0,
+            death:0,
+            blood:0
+        },
+        tridentCharges:0
     },
-    tridentCharges:0,
-    monsters:[],
     tasks:[],
     farmRun:{
         nextRunAt: 0,
@@ -44,10 +45,30 @@ var defaultPlayer = {
         },
         runs: []
     },
-    cookieWarning: false,
     bosses:{
         corpRuns:[],
         raidRuns:[]
+    },
+    dailies:{
+        misc: {
+            remind: false,
+            everyXDays: 0,
+            lastRemind: 0
+        },
+        battleStaffs:{
+            remind: false
+        },
+        tearsOfGuthix:{
+            remind: false,
+            lastRemind: 0
+        }
+    },
+    settings:{
+        showTaskDetails: false,
+        playerName: "",
+        playersToTrack: [],
+        monsters:[],
+        cookieWarning: false,
     }
 };
 
@@ -107,11 +128,11 @@ function loadMonsters(){
     $.getJSON("./js/json/monsters.json", function(json) {
         monsters = json;
 
-        for(i = 0; i<player.monsters.length; i++){
-            addMonsterCard(player.monsters[i]);
+        for(i = 0; i<player.settings.monsters.length; i++){
+            addMonsterCard(player.settings.monsters[i]);
         }
 
-        if(player.monsters.length == 0){
+        if(player.settings.monsters.length == 0){
             d3.select("#monsterSelectPanel").append("h2")
             .text("Click the Settings button in the top right to add Monsters!")
             .style("text-align","center")
@@ -126,12 +147,12 @@ function loadMonsters(){
 *            Player Object Resources
 ****************************************************/
 function setResources(){
-    d3.select("#waterRunesLeft").text(player.runes.water);
-    d3.select("#bloodRunesLeft").text(player.runes.blood);
-    d3.select("#deathRunesLeft").text(player.runes.death);
-    d3.select("#chaosRunesLeft").text(player.runes.chaos);
-    d3.select("#cannonballsLeft").text(player.cannonballs);
-    d3.select("#tridentChargesLeft").text(player.tridentCharges);
+    d3.select("#waterRunesLeft").text(player.slayerItems.runes.water);
+    d3.select("#bloodRunesLeft").text(player.slayerItems.runes.blood);
+    d3.select("#deathRunesLeft").text(player.slayerItems.runes.death);
+    d3.select("#chaosRunesLeft").text(player.slayerItems.runes.chaos);
+    d3.select("#cannonballsLeft").text(player.slayerItems.cannonballs);
+    d3.select("#tridentChargesLeft").text(player.slayerItems.tridentCharges);
 }
 
 /***************************************************
@@ -221,41 +242,53 @@ function wipeSave(num){
 function checkLoadFile(playerLoaded){
     var updatedPlayerSave = playerLoaded;
 
-    // check for cookie warning
-    if(updatedPlayerSave.cookieWarning == null){
-        console.error("No cookie warning, added default");
-        updatedPlayerSave.cookieWarning = false;
+    //check to see if player has been updated to settings version
+    if(updatedPlayerSave.settings == null){
+        //settings
+        updatedPlayerSave.settings = {};
+
+        updatedPlayerSave.settings.showTaskDetails = false;
+        updatedPlayerSave.settings.playerName = updatedPlayerSave.playerName;
+        updatedPlayerSave.settings.playersToTrack = updatedPlayerSave.playersToTrack;
+        updatedPlayerSave.settings.monsters = updatedPlayerSave.monsters;
+        updatedPlayerSave.settings.cookieWarning = updatedPlayerSave.cookieWarning;
+        // delete old 
+        delete updatedPlayerSave.playerName;
+        delete updatedPlayerSave.playersToTrack;
+        delete updatedPlayerSave.monsters;
+        delete updatedPlayerSave.cookieWarning;
     }
 
-    // check for farm run settings
-    if(updatedPlayerSave.farmRun.settings == null){
-        console.error("No farm run settings, added default");
-        updatedPlayerSave.farmRun.settings = {
-            numberOfPatches:0,
-            herbType:"",
-            compostType:""
+    // check for slayer items update
+    if(updatedPlayerSave.slayerItems == null){
+        updatedPlayerSave.slayerItems = {};
+
+        updatedPlayerSave.slayerItems.cannonballs = updatedPlayerSave.cannonballs;
+        updatedPlayerSave.slayerItems.runes = updatedPlayerSave.runes;
+        updatedPlayerSave.slayerItems.tridentCharges = updatedPlayerSave.tridentCharges;
+
+        delete updatedPlayerSave.cannonballs;
+        delete updatedPlayerSave.runes;
+        delete updatedPlayerSave.tridentCharges;
+    }
+
+    //check for dailies
+    if(updatedPlayerSave.dailies == null){
+        console.error("No dailies to track, added default");
+        updatedPlayerSave.dailies = {
+            misc: {
+                remind: false,
+                everyXDays: 0,
+                lastRemind: 0
+            },
+            battleStaffs:{
+                remind: false
+            },
+            tearsOfGuthix:{
+                remind: false,
+                lastRemind: 0
+            }
         };
-    }
-
-    // check for onRun
-    if(updatedPlayerSave.farmRun.onRun == null){
-        console.error("No farm run onRun, added default");
-        updatedPlayerSave.farmRun.onRun = false;
-    }
-
-    // Check for bosses
-    if(updatedPlayerSave.bosses == null){
-        console.error("No bosses, added default");
-        updatedPlayerSave.bosses = {
-            corpRuns:[],
-            raidRuns:[]
-        };
-    }
-
-    // Check for players to track
-    if(updatedPlayerSave.playersToTrack == null){
-        console.error("No Players to track, added default");
-        updatedPlayerSave.playersToTrack = [];
     }
 
     // change version number
@@ -306,11 +339,23 @@ function loadTestPlayer(){
 }
 
 /***************************************************
+*            Load Cards for Home Page
+****************************************************/
+
+function loadHomePageCards(){
+    $.getJSON("./js/json/homePageCards.json", function(json) {
+        homePageCards = json;
+        returnHome();
+    });
+}
+
+/***************************************************
 *            Turn on Saving
 ****************************************************/
 function turnOnSaving(){
     console.error("THIS MIGHT DELETE YOUR SAVE!");
     isAbleToSave = true;
+    save();
 }
 
 /***************************************************
@@ -373,3 +418,4 @@ function resetIdValue(id){
 function setIdValue(id, value){
     $(id).val(value);
 }
+
