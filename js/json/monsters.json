@@ -448,6 +448,14 @@
 		"bonecrusher":false,
 		"herbSack":true
     },{
+        "name":"Rune Dragon",
+        "slayerExp":363,
+        "imgUrl":"Rune_dragon.png",
+        "background":"rgb(104,121,128)",
+        "foreground":"rgb(255,255,255)",
+		"bonecrusher":false,
+		"herbSack":false
+    },{
         "name":"Scabarites",
         "slayerExp":85,
         "imgUrl":"Locust_rider_(melee).png",
