@@ -150,3 +150,22 @@
     background-color: #00A1CB;
     color: white;
 }
+
+/****************************************************
+*            Farm settings button
+****************************************************/
+#seedInfoButton{
+    color: white;
+    width: 50%;
+    border: white;
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px 0px;
+    margin: 0px 25%;
+}
+
+#seedInfoButton:hover{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+}

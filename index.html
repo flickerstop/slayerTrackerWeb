@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./css/corp.css">
         <link rel="stylesheet" href="./css/homePage.css">
         <link rel="stylesheet" href="./css/cml.css">
+        <link rel="stylesheet" href="./css/popup.css">
         <script type="text/javascript" src="./js/json/monsters.json"></script>
         <script src="./js/data.js"></script>
         <script src="./js/onTask.js"></script>
@@ -30,6 +31,7 @@
         <script src="./js/cml.js"></script>
         <script src="./js/farmRunEdit.js"></script>
         <script src="./js/autoResize.js"></script>
+        <script src="./js/popup.js"></script>
     </head>
     <body id="body">
         <div id="mainPanel">
@@ -290,6 +292,9 @@
                 **********************************************-->
                 <div class="settingsRow" style="text-align:center">
                     <h3>Farm Settings</h3>
+                </div>
+                <div class="settingsRow" style="text-align:center">
+                    <div id="seedInfoButton" onclick="showSeedDetailsPopup()">Click me to view data about all seed types</div>
                 </div>
                 <div class="settingsRow">
                     <div class="settingsText">
@@ -604,7 +609,7 @@
         </div>
 
         <div id="fullScreenWarning" onclick="closeWarning()">
-            <div id="grayOut"></div>
+            <div class="grayOut"></div>
             <div id="textBox">
                 <p>To save your data this website uses cookies. By continuing to use this website you are giving consent to cookies being used.
                     To find out about the cookies we use check out the cookie policy. 
@@ -612,6 +617,21 @@
                 <p style="text-align:center"> 
                     Click anywhere to close this warning.
                 </p>
+            </div>
+        </div>
+
+        <div id="popup" style="display:none">
+            <div class="grayOut" onclick="closePopup()"></div>
+            <div id="popupPanel">
+                <div id="popupTitle">
+                    Test Title
+                </div>
+                <div id="popupBody">
+                    Test Body
+                </div>
+                <div id="popupFooter">
+                    Click Anywhere Outside This Box To Close
+                </div>
             </div>
         </div>
     </body>

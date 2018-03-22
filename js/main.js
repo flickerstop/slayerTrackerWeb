@@ -3,6 +3,7 @@
 $( document ).ready(function() {
     loadHomePageCards();
     getGEPrices();
+    loadTypesOfSeeds();
     d3.select("#versionNum").text("v"+versionNum);
     load();
     

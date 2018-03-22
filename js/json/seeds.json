@@ -1,0 +1,45 @@
+[
+    {
+        "seedName":"Guam seed",
+        "herbName":"Guam leaf"
+    },{
+        "seedName":"Marrentill seed",
+        "herbName":"Marrentill"
+    },{
+        "seedName":"Tarromin seed",
+        "herbName":"Tarromin"
+    },{
+        "seedName":"Harralander seed",
+        "herbName":"Harralander"
+    },{
+        "seedName":"Ranarr seed",
+        "herbName":"Ranarr weed"
+    },{
+        "seedName":"Toadflax seed",
+        "herbName":"Toadflax"
+    },{
+        "seedName":"Irit seed",
+        "herbName":"Irit leaf"
+    },{
+        "seedName":"Avantoe seed",
+        "herbName":"Avantoe"
+    },{
+        "seedName":"Kwuarm seed",
+        "herbName":"Kwuarm"
+    },{
+        "seedName":"Snapdragon seed",
+        "herbName":"Snapdragon"
+    },{
+        "seedName":"Cadantine seed",
+        "herbName":"Cadantine"
+    },{
+        "seedName":"Lantadyme seed",
+        "herbName":"Lantadyme"
+    },{
+        "seedName":"Dwarf weed seed",
+        "herbName":"Dwarf weed"
+    },{
+        "seedName":"Torstol seed",
+        "herbName":"Torstol"
+    }
+]

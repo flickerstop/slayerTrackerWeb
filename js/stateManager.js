@@ -11,8 +11,10 @@
 // 7 - farm data
 // 8 - CML
 // 9 - edit farm run
+var currentState = -1;
 
 function changeState(currentState){
+    this.currentState = currentState;
     d3.select("#onTask").style('display', 'none');
     d3.select("#monsterSelect").style('display', 'none');
     d3.select("#settingsPanel").style('display','none');

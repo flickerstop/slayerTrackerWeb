@@ -154,7 +154,7 @@ body {
     border-style: solid;
 }
 
-#fullScreenWarning #grayOut{
+.grayOut{
     position: absolute;
     top: 0px;
     bottom: 0px;

@@ -1,6 +1,10 @@
 window.onresize = function(event) {
     updateHomepageGrid();
     checkMainPanelWidth();
+
+    if(currentState == 7){ // farm tracker
+        adjustGraphWidth();
+    }
 };
 
 /***************************************************
@@ -15,7 +19,7 @@ function updateHomepageGrid(){
     var width = document.getElementById('mainPanel').offsetWidth;
 
     var numOfCardsWidth = Math.floor(width/cardWidth);
-    var cardInfo = getCellArray(numOfCardsWidth,cards);
+    var cardInfo = getCellArray(numOfCardsWidth,cards).cells;
 
     // //Set number of columns
     var temp = "";
@@ -26,7 +30,7 @@ function updateHomepageGrid(){
     d3.select("#homepageGrid").style("grid-template-columns",temp);
     // // Set number of rows
     temp = "";
-    for(i = 0; i < 10; i++){
+    for(i = 0; i < getCellArray(numOfCardsWidth,cards).maxHeight; i++){
         temp += "150px ";
     }
     d3.select("#homepageGrid").style("grid-template-rows",temp);
@@ -40,7 +44,7 @@ function updateHomepageGrid(){
 
 function getCellArray(tableWidth,cards){
     var tableHeight = 20; // Set this to a high number, wont effect final table
-
+    var maxHeight = 0;
     var cells = []; // array for the data to be sent back
     //////////////////////////
     // Create table (2D array)
@@ -82,6 +86,9 @@ function getCellArray(tableWidth,cards){
                         for(var cy = 0; cy < height; cy++){
                             table[y+cy][x+cx] = i; // fill the cell with this card
                             temp.endY = y+cy+1; // set the endpoint to here 
+                            if((y+cy) > maxHeight){
+                                maxHeight = (y+cy); // Get the highest row
+                            }
                         }
                     }
                     cells.push(temp); // push the final card info
@@ -109,7 +116,7 @@ function getCellArray(tableWidth,cards){
 
     //console.log(output);
     //console.log(cells);
-    return cells;
+    return {cells:cells,maxHeight:maxHeight};
 }
 
 /***************************************************

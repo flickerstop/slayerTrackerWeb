@@ -1,12 +1,13 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.5.1";   // Version Number
+var versionNum = "1.5.2";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.5.0";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
 var isAbleToSave = true;
 var timeGePricesUpdated = 0;
+var typesOfSeedsForFarming;
 
 var CMLData = {
     playerData : []
@@ -346,6 +347,16 @@ function loadHomePageCards(){
     $.getJSON("./js/json/homePageCards.json", function(json) {
         homePageCards = json;
         returnHome();
+    });
+}
+
+/***************************************************
+*            Load Seeds for prices
+****************************************************/
+
+function loadTypesOfSeeds(){
+    $.getJSON("./js/json/seeds.json", function(json) {
+        typesOfSeedsForFarming = json;
     });
 }
 

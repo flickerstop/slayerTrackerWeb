@@ -1,3 +1,5 @@
+var currentFarmData;
+
 /***************************************************
 *            Save Farm Run
 ****************************************************/
@@ -191,6 +193,7 @@ function setFarmData(runs){
         row.append("td").text(tableValues[i].toLocaleString()).attr("class","cyanText");
     }
     drawFarmDataGraph(runs);
+    currentFarmData = runs;
 }
 
 /***************************************************
@@ -274,7 +277,7 @@ function drawFarmDataGraph(runs){
 
     // 2. Use the margin convention practice 
     var margin = {top: 50, right: 50, bottom: 50, left: 50}, 
-    width = parseInt(d3.select("#mainPanel").style("width")) - margin.left - margin.right, 
+    width = document.getElementById('mainPanel').offsetWidth - margin.left - margin.right, 
     height = 400 - margin.top - margin.bottom;
 
     // The number of datapoints
@@ -347,6 +350,10 @@ function drawFarmDataGraph(runs){
         .attr("cy", function(d) { return yScale(d.y) })
         .attr("r", 5);
         
+}
+
+function adjustGraphWidth(){
+    drawFarmDataGraph(currentFarmData);
 }
 
 /***************************************************
@@ -456,3 +463,56 @@ function setHerbTypeButtons(){
     }
 }
 
+/***************************************************
+*            Get info on each seed to plant
+****************************************************/
+
+function getSeedDetails(){
+    var seeds = [];
+
+    var avgHerbPerSeed = 0;
+    for(var i = 0; i < player.farmRun.runs.length; i++){
+        var currentRun = player.farmRun.runs[i];
+        avgHerbPerSeed += (currentRun.numberOfHerbs/(
+            player.farmRun.settings.numberOfPatches - 
+            currentRun.numberOfCured -
+            currentRun.numberOfDead));
+    }
+    avgHerbPerSeed = avgHerbPerSeed/player.farmRun.runs.length;
+
+    if(avgHerbPerSeed < 7.5){
+        avgHerbPerSeed = 7.5;
+    }
+
+    for(var seed of typesOfSeedsForFarming){
+        var temp = seed;
+        temp.priceOfSeed = findItem(seed.seedName).sell_average;
+        temp.priceOfHerb = findItem(seed.herbName).sell_average;
+        temp.netProfit = temp.priceOfHerb * avgHerbPerSeed;
+        temp.profit = temp.netProfit - temp.priceOfSeed;
+        temp.avgHerbPerSeed = avgHerbPerSeed;
+        seeds.push(temp);
+    }
+    return seeds;
+}
+
+function showSeedDetailsPopup(){
+    var seeds = getSeedDetails();
+
+    setPopupTitle("Profit Per Seed");
+    var body = getPopupBody();
+    body.append("div")
+        .attr("class","settingsRow")
+        .html("Data using YOUR average of " + roundToOneDecimal(seeds[0].avgHerbPerSeed) + " herbs per seed")
+        .style("text-align","center")
+        .style("line-height","40px");
+
+    var table = body.append("table").style("width","100%");
+    for(var seed of seeds){
+        var row = table.append("tr").style("padding","10px");
+        row.append("td").html(seed.herbName).style("text-align","right").style("width","50%").style("padding-right","10px");
+        row.append("td").html(roundToTwoDecimal(seed.profit).toLocaleString());
+    }
+
+    openPopup();
+}
