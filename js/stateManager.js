@@ -11,6 +11,7 @@
 // 7 - farm data
 // 8 - CML
 // 9 - edit farm run
+// 10 - corp data page
 var currentState = -1;
 
 function changeState(currentState){
@@ -25,6 +26,7 @@ function changeState(currentState){
     d3.select("#farmData").style('display','none');
     d3.select("#CML").style('display','none');
     d3.select("#editFarmRun").style('display','none');
+    d3.select("#corpData").style('display','none');
     switch(currentState){
         case 0:
             d3.select("#monsterSelect").style('display', null);
@@ -55,6 +57,9 @@ function changeState(currentState){
             break;
         case 9:
             d3.select("#editFarmRun").style('display',null);
+            break;
+        case 10:
+            d3.select("#corpData").style('display',null);
             break;
     }
 }
@@ -155,6 +160,11 @@ function showCorpTracker(){
     resetCorpPage();
     addCorpDrops()
     changeState(5);
+}
+
+function showCorpData(){
+    changeState(10);
+    generateCorpDropTable();
 }
 
 function showFarmData(){

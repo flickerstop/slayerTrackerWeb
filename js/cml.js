@@ -13,21 +13,32 @@ var CMLData = {
 };*/
 
 function getCMLData(){
+    d3.select("#playerTrackerButton").html("Loading Data...");
+    d3.select("#playerTrackerButton").attr("class","homePageButtonDisabled");
+    try{
+        var sendString = [];
+        for(var account of player.settings.playersToTrack){
+            sendString.push({type:"update",player:account});
+        }
+        for(var account of player.settings.playersToTrack){
+            sendString.push({type:"track",player:account});
+        }
+        sendString = JSON.stringify(sendString);
 
-    var sendString = [];
-    for(var account of player.settings.playersToTrack){
-        sendString.push({type:"update",player:account});
+        $.get('https://crystalmathlabs.com/tracker/api.php?multiquery='+sendString, function(data) {
+            parseCMLText(data);
+        }).done(function(d) { 
+            console.log("CML data grabbed!");
+            fillCMLTable();
+            d3.select("#playerTrackerButton").html("Player Tracker");
+            d3.select("#playerTrackerButton").attr("class","homePageButton");
+        }).fail(function(d){
+            console.error("CML CONNECTION ERROR");
+            d3.select("#playerTrackerButton").html("ERROR!");
+        }); 
+    }catch(exception){
+        
     }
-    for(var account of player.settings.playersToTrack){
-        sendString.push({type:"track",player:account});
-    }
-    sendString = JSON.stringify(sendString);
-    $.get('https://crystalmathlabs.com/tracker/api.php?multiquery='+sendString, function(data) {
-        parseCMLText(data);
-    }).always(function(d) { 
-        console.log("CML data grabbed!");
-        fillCMLTable();
-    }); 
 }
 
 /***************************************************

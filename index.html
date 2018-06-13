@@ -499,6 +499,7 @@
                     <div class="homePageCard" id="bossesCard">
                         <h2>Bosses</h2>
                         <div class="homePageButton" onclick="showCorpTracker()">Corp Tracker</div>
+                        <div class="homePageButton" onclick="showCorpData()">Corp Data</div>
                         <!-- <div class="homePageButton" onclick="">More Soon...</div> -->
                     </div>
                     <div class="homePageCard" id="dailiesCard" style="padding-top:50px;">
@@ -515,7 +516,7 @@
                     <div class="homePageCard" id="otherCard">
                         <h2>Other</h2>
                         <div class="homePageButton" onclick="switchToSettings()">Settings</div>
-                        <div class="homePageButton" onclick="showCML()">Player Tracker</div>
+                        <div id="playerTrackerButton" class="homePageButton" onclick="showCML()">Player Tracker</div>
                     </div>
                     <div class="homePageCard" id="testingCard" style="display:none">
                         <h2>Testing</h2>
@@ -605,6 +606,28 @@
                         Edit Run
                     </button>
                 </div>
+            </div>
+            <!--*************************
+            *   Corp Data
+            **************************-->
+            <div id="corpData" class="scrollBarStyle" style="display: none">
+                <table id="corpDataTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Icon</th>
+                            <th>Times Dropped</th>
+                            <th>Drop Chance %</th>
+                            <th>Drop Chance x/x</th>
+                            <th>Jagex Chance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpDataTableBody">
+                        
+                    </tbody>
+                    <tfoot id="corpDataTableFooter">
+                    </tfoot>
+                    </table>
             </div>
         </div>
 

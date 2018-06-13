@@ -172,3 +172,74 @@ function saveCorpRun(){
     save();
     returnHome();
 }
+
+/***************************************************
+*            Generate table for corp data
+****************************************************/
+
+function generateCorpDropTable(){
+    // Get all the drops from the corp json file
+    $.getJSON("./js/json/corp.json", function(json) {
+        corpDrops = json;
+    }).done(function(d){
+        d3.select("#corpDataTableBody").html(null);
+        d3.select("#corpDataTableFooter").html(null);
+
+        var currentDrops = corpDrops;
+        // add dropCounts to corp drops
+        for(var drop of currentDrops){
+            drop.totalDropCount = 0;
+
+        }
+
+
+        // Loop through all runs
+        for(var run of player.bosses.corpRuns){
+            // Loop through all drops in that run
+            for(var runDrops of run.drops){
+                // Loop through all corp drops till a match
+                for(var drop of currentDrops){
+                    if(runDrops.name == drop.name){
+                        drop.totalDropCount += drop.dropCount;
+                    }
+                }
+            }
+        }   
+
+        // calculate number of times it's dropped
+        var totalDrops = 0;
+        for(var drop of currentDrops){
+            drop.numberOfDrops = drop.totalDropCount/drop.dropCount;
+            totalDrops += drop.numberOfDrops;
+        }
+
+
+        // populate the table
+        var table = d3.select("#corpDataTableBody");
+        for(var drop of currentDrops){
+            //<div class="CMLIcon" style='background-image:url("./images/skills/overall.gif")'>
+            var row = table.append("tr");
+            row.append("th").html(drop.name);
+            row.append("th").append("div").attr("class","corpDropIcon").style("background-image",'url("./images/bossDrops/'+drop.imgName+'")');
+            row.append("th").html(drop.numberOfDrops);
+            row.append("th").html(roundToTwoDecimal((drop.numberOfDrops/totalDrops)*100)+"%");
+            if(drop.numberOfDrops == 0){
+                row.append("th").html("N/A");
+            }else{
+                row.append("th").html(reduce(drop.numberOfDrops, totalDrops)[0]+"/"+reduce(drop.numberOfDrops, totalDrops)[1]);
+            }
+            row.append("th").html(drop.dropChance);
+            
+        }
+
+        var footer = d3.select("#corpDataTableFooter").append("tr");
+        footer.append("td").html("Total Kills");
+        footer.append("td");
+        footer.append("td").html(totalDrops);
+        footer.append("td");
+        footer.append("td");
+        footer.append("td");
+
+    });
+    
+}

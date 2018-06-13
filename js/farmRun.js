@@ -327,16 +327,28 @@ function drawFarmDataGraph(runs){
     /***************************************************
     *            Draw the line
     ****************************************************/
-    svg.append("path")
-        .datum(dataset2) // 10. Binds data to the line 
-        .attr("class", "line2") // Assign a class for styling 
-        .attr("d", line); // 11. Calls the line generator 
 
-    svg.append("path")
+    if(n >= 100 && n <= 200){
+        svg.append("path")
         .datum(dataset) // 10. Binds data to the line 
-        .attr("class", "line") // Assign a class for styling 
+        .attr("class", "orangeLineThin") // Assign a class for styling 
         .attr("d", line); // 11. Calls the line generator 
+    }else if(n > 200){
+        svg.append("path")
+        .datum(dataset) // 10. Binds data to the line 
+        .attr("class", "orangeLineVeryThin") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
+    }else{
+        svg.append("path")
+        .datum(dataset) // 10. Binds data to the line 
+        .attr("class", "orangeLine") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
+    }
 
+    svg.append("path")
+    .datum(dataset2) // 10. Binds data to the line 
+    .attr("class", "purpleLine") // Assign a class for styling 
+    .attr("d", line); // 11. Calls the line generator 
     
 
     /***************************************************
@@ -349,6 +361,12 @@ function drawFarmDataGraph(runs){
         .attr("cx", function(d, i) { return xScale(i) })
         .attr("cy", function(d) { return yScale(d.y) })
         .attr("r", 5);
+
+    if(n >= 100 && n <= 200){
+        svg.selectAll(".dot").attr("r", 2.5);
+    }else if(n > 200){
+        svg.selectAll(".dot").attr("r", 0.5);
+    }
         
 }
 

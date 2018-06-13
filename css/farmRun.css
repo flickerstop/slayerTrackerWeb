@@ -162,17 +162,28 @@
     fill: white;
 }
 
-.line {
+.orangeLine{
     fill: none;
     stroke: #ffab00;
     stroke-width: 2;
 }
+.orangeLineThin{
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 1;
+}
+.orangeLineVeryThin{
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 0.5;
+}
 
-.line2 {
+.purpleLine {
     fill: none;
     stroke: #e100ff;
     stroke-width: 2;
 }
+
 
 /* Style the dots by assigning a fill and stroke */
 .dot {

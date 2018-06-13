@@ -50,6 +50,22 @@
     user-select: none;          /* Likely future */      
 }
 
+.homePageButtonDisabled{
+    opacity: 0.5;
+    width: 50%;
+    border: 1px solid white;
+    height: 75px;
+    margin: 50px 25%;
+    text-align: center;
+    line-height: 75px;
+    cursor: progress;
+    border-radius: 25px;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */      
+}
+
 .homePageButton:hover{
     background-color: white;
     color: black;

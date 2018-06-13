@@ -2,122 +2,152 @@
     {
         "name": "Adamant arrow",
         "dropCount":750,
-		"imgName" : "Adamant_arrow_detail.png"
-    },{
+		"imgName" : "Adamant_arrow_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Runite bolts",
         "dropCount":250,
-		"imgName" : "Runite_bolts_detail.png"
-    },{
+		"imgName" : "Runite_bolts_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Mystic air staff",
         "dropCount":1,
-		"imgName" : "mystic_staff.png"
-    },{
+		"imgName" : "mystic_staff.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Mystic robe top",
         "dropCount":1,
-		"imgName" : "Mystic_robe_top_detail.png"
-    },{
+		"imgName" : "Mystic_robe_top_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Mystic robe bottom",
         "dropCount":1,
-		"imgName" : "Mystic_robe_bottom_detail.png"
-    },{
+		"imgName" : "Mystic_robe_bottom_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Onyx bolts (e)",
         "dropCount":175,
-		"imgName" : "Onyx_bolts_(e)_detail.png"
-    },{
+		"imgName" : "Onyx_bolts_(e)_detail.png",
+    	"dropChance":"1/26"
+	},{
         "name": "Cannonball",
         "dropCount":2000,
-		"imgName" : "Cannonball_detail.png"
-    },{
+		"imgName" : "Cannonball_detail.png",
+    	"dropChance":"1/30"
+	},{
         "name": "Spirit shield",
         "dropCount":1,
-		"imgName" : "Spirit_shield_detail.png"
-    },{
+		"imgName" : "Spirit_shield_detail.png",
+    	"dropChance":"1/64"
+	},{
         "name": "Pure essence",
         "dropCount":2500,
-		"imgName" : "Pure_essence_detail.png"
-    },{
+		"imgName" : "Pure_essence_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Law rune",
         "dropCount":250,
-		"imgName" : "Law_rune_detail.png"
-    },{
+		"imgName" : "Law_rune_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Cosmic rune",
         "dropCount":500,
-		"imgName" : "Cosmic_rune_detail.png"
-    },{
+		"imgName" : "Cosmic_rune_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Death rune",
         "dropCount":300,
-		"imgName" : "Death_rune_detail.png"
-    },{
+		"imgName" : "Death_rune_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Soul rune",
         "dropCount":250,
-		"imgName" : "Soul_rune_detail.png"
-    },{
+		"imgName" : "Soul_rune_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Adamantite ore",
         "dropCount":125,
-		"imgName" : "Adamantite_ore_detail.png"
-    },{
+		"imgName" : "Adamantite_ore_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Runite ore",
         "dropCount":20,
-		"imgName" : "Runite_ore_detail.png"
-    },{
+		"imgName" : "Runite_ore_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Adamantite bar",
         "dropCount":35,
-		"imgName" : "Adamantite_bar_detail.png"
-    },{
+		"imgName" : "Adamantite_bar_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Teak plank",
         "dropCount":100,
-		"imgName" : "Teak_plank.png"
-    },{
+		"imgName" : "Teak_plank.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Mahogany logs",
         "dropCount":150,
-		"imgName" : "Mahogany_logs_detail.png"
-    },{
+		"imgName" : "Mahogany_logs_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Magic logs",
         "dropCount":75,
-		"imgName" : "Magic_logs_detail.png"
-    },{
+		"imgName" : "Magic_logs_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Green dragonhide",
         "dropCount":100,
-		"imgName" : "Green_dragonhide_detail.png"
-    },{
+		"imgName" : "Green_dragonhide_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Watermelon seed",
         "dropCount":24,
-		"imgName" : "Watermelon_seed_detail.png"
-    },{
+		"imgName" : "Watermelon_seed_detail.png",
+    	"dropChance":"Common"
+	},{
         "name": "Raw shark",
         "dropCount":70,
-		"imgName" : "Raw_shark_detail.png"
-    },{
+		"imgName" : "Raw_shark_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "White berries",
         "dropCount":120,
-		"imgName" : "White_berries_detail.png"
-    },{
+		"imgName" : "White_berries_detail.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Desert goat horn",
         "dropCount":120,
-		"imgName" : "Desert_goat_horn.png"
-    },{
+		"imgName" : "Desert_goat_horn.png",
+    	"dropChance":"Uncommon"
+	},{
         "name": "Ranarr seed",
         "dropCount":10,
-		"imgName" : "Herb_seed_detail.png"
-    },{
+		"imgName" : "Herb_seed_detail.png",
+    	"dropChance":"Rare"
+	},{
         "name": "Holy elixir",
         "dropCount":1,
-		"imgName" : "Holy_elixir_detail.png"
-    },{
+		"imgName" : "Holy_elixir_detail.png",
+    	"dropChance":"1/171"
+	},{
         "name": "Spectral sigil",
         "dropCount":1,
-        "imgName" : "Spectral_sigil_detail.png"
-    },{
+        "imgName" : "Spectral_sigil_detail.png",
+    	"dropChance":"1/1365"
+	},{
         "name": "Arcane sigil",
         "dropCount":1,
-		"imgName" : "Arcane_sigil_detail.png"
-    },{
+		"imgName" : "Arcane_sigil_detail.png",
+    	"dropChance":"1/1365"
+	},{
         "name": "Elysian sigil",
         "dropCount":1,
-		"imgName" : "Elysian_sigil_detail.png"
-    },{
+		"imgName" : "Elysian_sigil_detail.png",
+    	"dropChance":"1/4095"
+	},{
         "name": "Pet dark core",
         "dropCount":1,
-		"imgName" : "Dark_energy_core.png"
+		"imgName" : "Dark_energy_core.png",
+    	"dropChance":"1/5000"
     }
 ]

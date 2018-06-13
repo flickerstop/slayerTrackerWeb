@@ -1,9 +1,9 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.5.2";   // Version Number
+var versionNum = "1.6.0";   // Version Number
 var isOldVersion = false;
-var playerVersion = "1.5.0";
+var playerVersion = "1.6.0";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
 var isAbleToSave = true;
 var timeGePricesUpdated = 0;
@@ -70,7 +70,8 @@ var defaultPlayer = {
         playersToTrack: [],
         monsters:[],
         cookieWarning: false,
-    }
+    },
+    gePrices: {}
 };
 
 var player;
@@ -89,23 +90,34 @@ var prices = {
 
 var gePrices;
 function getGEPrices(){
+    var tempGE;
+    console.log("Attempting to update GE Prices.")
     jQuery.ajaxPrefilter(function(options) {
         if (options.crossDomain && jQuery.support.cors) {
             options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
         }
     });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
-        gePrices = json;
-        setPrices();
+        tempGE = json;
         timeGePricesUpdated = new Date().getTime();
-        console.log("GE Prices grabbed!");
+        console.log("GE Prices updated!");
     }).always(function() {
-        if(gePrices == null){
-            console.error("GE PRICES NOT DOWNLOADED. FALLBACK TO SAVED JSON");
-            $.getJSON("./js/json/ge.json", function(newJson) {
-                gePrices = newJson;
-                setPrices();
-            });
+        if(tempGE == null){
+            console.error("GE PRICES NOT UPDATED. FALLBACK TO LAST CHECK");
+            if(isObjectEmpty(player.gePrices)){
+                console.error("NO LAST UPDATE! RETURNING TO DEV BACKUP!");
+                $.getJSON("./js/json/ge.json", function(newJson) {
+                    gePrices = newJson;
+                    player.gePrices = newJson;
+                    setPrices();
+                    save();
+                });
+            }
+        }else{
+            gePrices = tempGE;
+            player.gePrices = tempGE;
+            setPrices();
+            save();
         }
     }); 
 }
@@ -170,6 +182,10 @@ function load(){
             if(loadFile.versionNum == playerVersion){ // If it's the correct version
                 player = loadFile;
                 console.log("Loaded save file!")
+                if(player.gePrices != null && player.gePrices != {}){
+                    console.log("Loaded previous GE prices.")
+                    gePrices = player.gePrices;
+                }
             }else{ // If it's an old version
                 console.error("You are currently running an older save. Attempted to update save file!")
                 checkLoadFile(loadFile);
@@ -290,6 +306,12 @@ function checkLoadFile(playerLoaded){
                 lastRemind: 0
             }
         };
+    }
+
+    // Check for g.e. prices
+    if(updatedPlayerSave.gePrices == null){
+        console.error("No GE Prices, updated to blank");
+        updatedPlayerSave.gePrices = {};
     }
 
     // change version number
@@ -430,3 +452,18 @@ function setIdValue(id, value){
     $(id).val(value);
 }
 
+function reduce(numerator,denominator){
+    var gcd = function gcd(a,b){
+        return b ? gcd(b, a%b) : a;
+    };
+    gcd = gcd(numerator,denominator);
+    return [numerator/gcd, denominator/gcd];
+}
+
+function isObjectEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
