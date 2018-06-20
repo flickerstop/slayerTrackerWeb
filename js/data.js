@@ -1,7 +1,7 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.6.0";   // Version Number
+var versionNum = "1.6.1";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.6.0";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -14,6 +14,7 @@ var CMLData = {
 };
 
 var homePageCards;
+var GEAttempts = 0;
 
 /***************************************************
 *            Player Object
@@ -92,11 +93,6 @@ var gePrices;
 function getGEPrices(){
     var tempGE;
     console.log("Attempting to update GE Prices.")
-    jQuery.ajaxPrefilter(function(options) {
-        if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-        }
-    });
     $.getJSON("https://rsbuddy.com/exchange/summary.json", function(json) {
         tempGE = json;
         timeGePricesUpdated = new Date().getTime();
@@ -185,6 +181,15 @@ function load(){
                 if(player.gePrices != null && player.gePrices != {}){
                     console.log("Loaded previous GE prices.")
                     gePrices = player.gePrices;
+                    if(isObjectEmpty(gePrices)){
+                        console.error("NO PREVIOUS PRICES! RETURNING TO DEV BACKUP!");
+                        $.getJSON("./js/json/ge.json", function(newJson) {
+                            gePrices = newJson;
+                            player.gePrices = newJson;
+                            setPrices();
+                            save();
+                        });
+                    }
                 }
             }else{ // If it's an old version
                 console.error("You are currently running an older save. Attempted to update save file!")
@@ -466,4 +471,65 @@ function isObjectEmpty(obj) {
             return false;
     }
     return true;
+}
+
+/////////////////////////////
+// Get GE data from different proxies
+/////////////////////////////
+
+// function GEFromYQL(){
+    
+//     $.getJSON("http://query.yahooapis.com/v1/public/yql",
+//         {
+//             q:      "select * from json where url=\"https://rsbuddy.com/exchange/summary.json\"",
+//             format: "json"
+//         },
+//         function (data) {
+//             if (data.query.results) {
+//             console.log(data.query.results.json);
+//             } else {
+//                 alert('no such code: ' + code);
+//             }
+//         }
+//     );
+// }
+
+function getGEPrices(){
+    /*
+        Attempts to grab the Osbuddy GE prices from a CORS proxy
+        if that proxy fails, it attempts to grab from another one.
+    */
+
+    var proxies = [
+        "https://cors-anywhere.herokuapp.com/",
+        "https://cors.io/?",
+        "https://cors.now.sh/",
+        "http://www.corsify.me/",
+        "http://cors.hyoo.ru/"
+    ];
+    // Number of times it's attempted to update the GE
+    if(GEAttempts >= proxies.length){
+        return;
+    }
+
+    var tempGE;
+    console.log("Attempting to update GE Prices.");
+
+
+    $.getJSON(proxies[GEAttempts]+"https://rsbuddy.com/exchange/summary.json", function(json) {
+        tempGE = json;
+        timeGePricesUpdated = new Date().getTime();
+    }).always(function() {
+        if(tempGE == null){
+            console.error(proxies[GEAttempts] + " Failed to grab GE Prices. Trying new website.");
+            GEAttempts++;
+            getGEPrices();
+        }else{
+            console.log("GE Prices updated from "+proxies[GEAttempts]);
+            gePrices = tempGE;
+            player.gePrices = tempGE;
+            setPrices();
+            save();
+        }
+    });
 }

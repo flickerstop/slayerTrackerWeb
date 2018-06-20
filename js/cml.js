@@ -11,6 +11,7 @@ var CMLData = {
         "Flowerpower9"
     ]
 };*/
+var cmlGetLine = "";
 
 function getCMLData(){
     d3.select("#playerTrackerButton").html("Loading Data...");
@@ -24,7 +25,7 @@ function getCMLData(){
             sendString.push({type:"track",player:account});
         }
         sendString = JSON.stringify(sendString);
-
+        cmlGetLine = 'https://crystalmathlabs.com/tracker/api.php?multiquery='+sendString;
         $.get('https://crystalmathlabs.com/tracker/api.php?multiquery='+sendString, function(data) {
             parseCMLText(data);
         }).done(function(d) { 
@@ -34,7 +35,7 @@ function getCMLData(){
             d3.select("#playerTrackerButton").attr("class","homePageButton");
         }).fail(function(d){
             console.error("CML CONNECTION ERROR");
-            d3.select("#playerTrackerButton").html("ERROR!");
+            d3.select("#playerTrackerButton").html("API is down!");
         }); 
     }catch(exception){
         

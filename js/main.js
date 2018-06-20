@@ -1,6 +1,14 @@
 ////////////////
 // set version number
 $( document ).ready(function() {
+
+    // set the CORS proxy
+    // jQuery.ajaxPrefilter(function(options) {
+    //     if (options.crossDomain && jQuery.support.cors) {
+    //         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+    //     }
+    // });
+
     loadHomePageCards();
     getGEPrices();
     loadTypesOfSeeds();
