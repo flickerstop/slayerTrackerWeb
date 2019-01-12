@@ -21,7 +21,7 @@ $( document ).ready(function() {
         d3.select("#testingCard").style('display', null);
         console.error("Local host, not grabbing CML data");
     }else{
-        getCMLData();
+        //getCMLData();
     }
     // check if url is for temp data
     if(window.location.href == "http://localhost:8080/?tempData" || window.location.href == "https://flickerstop.github.io/slayerTrackerWeb/?tempData"){

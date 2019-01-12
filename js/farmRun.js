@@ -108,7 +108,7 @@ function setFarmData(runs){
         "Number of Herbs",
         "Highest Run",
         "Lowest Run",
-        "Average Run",
+        "Average Run (Across All)",
         "Number of Dead Patches",
         "Chance of Death",
         "Number of Successful Resurrections",
@@ -125,6 +125,9 @@ function setFarmData(runs){
 
     var tableValues = [0,0,0,9999,0,0,0,0,0,0,0,0,0,0,0,0,0];
     var totalSuccess = 0; // Total number of successful plants
+
+    let totalWithNumOfPatches = [];
+
     for(i = 0; i < runs.length; i++){
         // Number of runs
         tableValues[0]++;
@@ -138,7 +141,23 @@ function setFarmData(runs){
         if(runs[i].numberOfHerbs < tableValues[3]){
             tableValues[3] = runs[i].numberOfHerbs;
         }
-        // average collected
+        
+        ///////////////////////////
+        // Calculate average with number of patches
+        
+        // see if this number of patches has been used before
+        if(totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches)){
+            totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches).herbCount += runs[i].numberOfHerbs;
+            totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches).runCount++;
+        }else{
+            totalWithNumOfPatches.push({
+                numOfPatch:runs[i].numberOfPatches,
+                herbCount: runs[i].numberOfHerbs,
+                runCount: 1
+            });
+        }
+
+        //
 
         // Number of dead
         tableValues[5] += runs[i].numberOfDead;
@@ -185,12 +204,22 @@ function setFarmData(runs){
     // Herbs per Seed
     tableValues[16] = roundToOneDecimal(tableValues[1]/totalSuccess);
 
+
+
     var table = d3.select("#farmInfoTable");
 
     for(i = 0; i < tableValues.length; i++){
         var row = table.append("tr");
         row.append("td").text(tableInfo[i]+":").style("text-align","right");
         row.append("td").text(tableValues[i].toLocaleString()).attr("class","cyanText");
+    }
+
+    table.append("tr").append("td").text("---").attr("colspan",2).style("text-align","center").style("color","red");
+    // Averages for patch count
+    for(var patchAvg of totalWithNumOfPatches){
+        var row = table.append("tr");
+        row.append("td").text("Avg. with " + patchAvg.numOfPatch + " patches:").style("text-align","right");
+        row.append("td").text(roundToOneDecimal(patchAvg.herbCount/patchAvg.runCount).toLocaleString()).attr("class","cyanText");
     }
     drawFarmDataGraph(runs);
     currentFarmData = runs;
