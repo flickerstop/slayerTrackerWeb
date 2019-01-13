@@ -394,7 +394,7 @@ function drawFarmDataGraph(runs){
     if(n >= 100 && n <= 200){
         svg.selectAll(".dot").attr("r", 2.5);
     }else if(n > 200){
-        svg.selectAll(".dot").attr("r", 0.5);
+        svg.selectAll(".dot").attr("r", 0);
     }
         
 }
