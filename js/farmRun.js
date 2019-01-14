@@ -200,7 +200,7 @@ function setFarmData(runs){
     // Net Avg $ per seed
     tableValues[14] = roundToOneDecimal(tableValues[10]/totalSuccess);
     // $ per seed
-    tableValues[15] = roundToOneDecimal((tableValues[10]/totalSuccess) - getSeedprice(runs[0].herbType));
+    tableValues[15] = "broken atm";//roundToOneDecimal((tableValues[10]/totalSuccess) - getSeedprice(runs[0].herbType));
     // Herbs per Seed
     tableValues[16] = roundToOneDecimal(tableValues[1]/totalSuccess);
 
@@ -518,14 +518,23 @@ function getSeedDetails(){
     var seeds = [];
 
     var avgHerbPerSeed = 0;
+    
+    let count = 0;
     for(var i = 0; i < player.farmRun.runs.length; i++){
         var currentRun = player.farmRun.runs[i];
+
+        if(currentRun.numberOfPatches != player.farmRun.settings.numberOfPatches){
+            continue;
+        }else{
+            count++;
+        }
+
         avgHerbPerSeed += (currentRun.numberOfHerbs/(
             player.farmRun.settings.numberOfPatches - 
             currentRun.numberOfCured -
             currentRun.numberOfDead));
     }
-    avgHerbPerSeed = avgHerbPerSeed/player.farmRun.runs.length;
+    avgHerbPerSeed = avgHerbPerSeed/count;
 
     if(avgHerbPerSeed < 7.5){
         avgHerbPerSeed = 7.5;
