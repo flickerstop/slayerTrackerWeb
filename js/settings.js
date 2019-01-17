@@ -50,7 +50,11 @@ function populateSettings(){
     }else{
         d3.select("#toggleDetailsOff").attr("class","twoToggle on");
     }
-
+    if(player.farmRun.attas){
+        d3.select("#toggleAttasOn").attr("class","twoToggle on");
+    }else{
+        d3.select("#toggleAttasOff").attr("class","twoToggle on");
+    }
 
 }
 
@@ -216,6 +220,17 @@ function toggleSettings(toggleName, value){
                 player.settings.showTaskDetails = false;
                 d3.select("#toggleDetailsOn").attr("class","twoToggle");
                 d3.select("#toggleDetailsOff").attr("class","twoToggle on");
+            }
+            break;
+        case "attas":
+            if(value){
+                player.farmRun.attas = true;
+                d3.select("#toggleAttasOn").attr("class","twoToggle on");
+                d3.select("#toggleAttasOff").attr("class","twoToggle");
+            }else{
+                player.farmRun.attas = false;
+                d3.select("#toggleAttasOn").attr("class","twoToggle");
+                d3.select("#toggleAttasOff").attr("class","twoToggle on");
             }
             break;
     }

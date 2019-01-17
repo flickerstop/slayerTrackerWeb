@@ -31,7 +31,13 @@ function saveFarmRun(){
         numberOfDead = numberOfRes + numberOfFailed;
     }
 
+    // Check if attas is set
+    if(player.farmRun.attas == undefined){
+        player.farmRun.attas = false;
+    }
+
     var farmRun = {
+        attas:player.farmRun.attas,
         herbType: player.farmRun.settings.herbType,
         numberOfPatches:player.farmRun.settings.numberOfPatches,
         numberOfHerbs:numberOfHerbs,
@@ -83,12 +89,21 @@ function resetFarmRunInputs(){
 *            Set text for farm run data
 ****************************************************/
 function setFarmRunFlavourText(){
+
+    let text = "";
     if(player.farmRun.settings.numberOfPatches == 0 || player.farmRun.settings.herbType == ""){
         d3.select("#farmInfo").text("WARNING: FARM RUN SETTINGS NOT SET! PLEASE GO TO SETTINGS!")
             .style("color","red");
         d3.select("#farmRunInputContainer").style('display','none');
     }else{
-        d3.select("#farmInfo").text("Currently running "+player.farmRun.settings.herbType+"s with " + player.farmRun.settings.numberOfPatches +" patches")
+        if(player.farmRun.attas){
+            d3.select("#farmInfo2").text("Attas boost currently active")
+            .style("color","rgb(39, 174, 96)");
+        }else{
+            d3.select("#farmInfo2").text("No Attas boost")
+            .style("color","rgb(192, 57, 43)");
+        }
+        d3.select("#farmInfo").html("Currently running "+player.farmRun.settings.herbType+"s with <span style=\"color: rgb(142, 68, 173);\">" + player.farmRun.settings.numberOfPatches +"</span> patches")
             .style("color",null);
         d3.select("#farmRunInputContainer").style('display',null);
     }
@@ -147,13 +162,11 @@ function setFarmData(runs){
         
         // see if this number of patches has been used before
         if(totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches)){
-            totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches).herbCount += runs[i].numberOfHerbs;
-            totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches).runCount++;
+            totalWithNumOfPatches.find(x => x.numOfPatch == runs[i].numberOfPatches).runs.push(runs[i]);
         }else{
             totalWithNumOfPatches.push({
                 numOfPatch:runs[i].numberOfPatches,
-                herbCount: runs[i].numberOfHerbs,
-                runCount: 1
+                runs:[]
             });
         }
 
@@ -214,13 +227,64 @@ function setFarmData(runs){
         row.append("td").text(tableValues[i].toLocaleString()).attr("class","cyanText");
     }
 
-    table.append("tr").append("td").text("---").attr("colspan",2).style("text-align","center").style("color","red");
-    // Averages for patch count
+    ///////////////////
+    // Show Averages
+
+    // Without Attas
+    table.append("tr").append("td").text("---").attr("colspan",2).style("text-align","center").style("color","rgb(142, 68, 173)");
+    table.append("tr").append("td").text("Without Attas Boost").attr("colspan",2).style("text-align","center").style("color","rgb(192, 57, 43)");
+    // Go through all runs sorted by number of patches
     for(var patchAvg of totalWithNumOfPatches){
+        let numberOfHerbs = 0;
+        let numberOfRuns = 0;
+        // Go through the runs and find the TOTAL number of herbs
+        for(let run of patchAvg.runs){
+            // If not an attas boosted run
+            if(!run.attas){
+                numberOfHerbs += run.numberOfHerbs;
+                numberOfRuns++;
+            }
+        }
+
+        // Check if there's no runs
+        if(numberOfHerbs == 0 || numberOfRuns == 0){
+            continue;
+        }
+        
         var row = table.append("tr");
         row.append("td").text("Avg. with " + patchAvg.numOfPatch + " patches:").style("text-align","right");
-        row.append("td").text(roundToOneDecimal(patchAvg.herbCount/patchAvg.runCount).toLocaleString()).attr("class","cyanText");
+        row.append("td").text(roundToOneDecimal(numberOfHerbs/numberOfRuns).toLocaleString()).attr("class","cyanText");
     }
+
+    // With Attas
+    table.append("tr").append("td").text("---").attr("colspan",2).style("text-align","center").style("color","rgb(142, 68, 173)");
+    table.append("tr").append("td").text("With Attas Boost").attr("colspan",2).style("text-align","center").style("color","rgb(39, 174, 96)");
+    // Go through all runs sorted by number of patches
+    for(var patchAvg of totalWithNumOfPatches){
+        let numberOfHerbs = 0;
+        let numberOfRuns = 0;
+        // Go through the runs and find the TOTAL number of herbs
+        for(let run of patchAvg.runs){
+            // If not an attas boosted run
+            if(run.attas){
+                numberOfHerbs += run.numberOfHerbs;
+                numberOfRuns++;
+            }
+        }
+
+        // Check if there's no runs
+        if(numberOfHerbs == 0 || numberOfRuns == 0){
+            continue;
+        }
+        
+        var row = table.append("tr");
+        row.append("td").text("Avg. with " + patchAvg.numOfPatch + " patches:").style("text-align","right");
+        row.append("td").text(roundToOneDecimal(numberOfHerbs/numberOfRuns).toLocaleString()).attr("class","cyanText");
+    }
+
+
+
+
     drawFarmDataGraph(runs);
     currentFarmData = runs;
 }

@@ -98,6 +98,12 @@
     color: rgb(103, 103, 103);
 }
 
+#farmInfo2{
+    text-align: center;
+    font-size: 10pt;
+    color: rgb(103, 103, 103);
+}
+
 #farmInfoTable{
     width: 60%;
     margin-left: 20%;

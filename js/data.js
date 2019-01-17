@@ -1,7 +1,7 @@
 /***************************************************
 *            Global Variabes
 ****************************************************/
-var versionNum = "1.7.2";   // Version Number
+var versionNum = "1.7.3";   // Version Number
 var isOldVersion = false;
 var playerVersion = "1.6.0";
 var audio = new Audio("./audio/alarm.wav"); // Variable for playing the farm run timer alarm
@@ -40,6 +40,7 @@ var defaultPlayer = {
         lastRunAt: 0,
         remind: true,
         onRun:false,
+        attas:false,
         settings:{
             numberOfPatches:0,
             herbType:"",

@@ -298,6 +298,15 @@
                 </div>
                 <div class="settingsRow">
                     <div class="settingsText">
+                        Attas Plant Boost
+                    </div>
+                    <div class="settingsInput">
+                        <div onclick='toggleSettings("attas", true)' class="twoToggle" id="toggleAttasOn">ON</div>
+                        <div onclick='toggleSettings("attas", false)' class="twoToggle" id="toggleAttasOff">OFF</div>
+                    </div>
+                </div>
+                <div class="settingsRow">
+                    <div class="settingsText">
                         Number of Patches: 
                     </div>
                     <div class="settingsInput">
@@ -380,7 +389,8 @@
             <div id="farmRun" class="scrollBarStyle" style="display:none">
                 <h1 id="farmTimer">00:00:00</h1>
                 <p id="stopFarmTimer" onclick="stopTimer()">Click me to stop the farm timer</p>
-                <p id="farmInfo">Currently doing Torstols with 7 patches</p>
+                <p id="farmInfo">Currently doing Torstols with NA patches</p>
+                <p id="farmInfo2">Currently doing Torstols with NA patches</p>
                 <div id="farmRunInputContainer">
                     <div class="farmRowLeft">Number of Herbs:</div>
                     <div class="farmRowRight">
